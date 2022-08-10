@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.asi.huanan.service.FriTreatyShareOrderService;
 import com.asi.huanan.service.dao.mybatis.model.FriTreatyShareOrder;
-import com.asi.huanan.vo.DeleteTreatyShareOrderVo;
-import com.asi.huanan.vo.InsertTreatyShareOrderVo;
-import com.asi.huanan.vo.QueryTreatyShareOrderListVo;
-import com.asi.huanan.vo.Rin1108Vo;
-import com.asi.huanan.vo.UpdateTreatyShareOrderVo;
+import com.asi.huanan.vo.Rin1108DeleteTreatyShareOrderVOReq;
+import com.asi.huanan.vo.Rin1108InsertTreatyShareOrderVOReq;
+import com.asi.huanan.vo.Rin1108QueryTreatyShareOrderListVOReq;
+import com.asi.huanan.vo.Rin1108VOResp;
+import com.asi.huanan.vo.Rin1108UpdateTreatyShareOrderVOReq;
 import com.asi.json.model.root.JsonBean;
 import com.asi.mechanism.common.SysEnum;
 
@@ -34,7 +33,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @Lazy
-@CrossOrigin(origins = "http://localhost:10127", maxAge = 3600)
 @RequestMapping("rin1108api")
 @RestController
 @Api(tags = { "Rin1108api" })
@@ -60,14 +58,14 @@ public class Rin1108Controller {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(value = "/querytreatyshareorderlist")
 	@ResponseBody
-	public ResponseEntity<?> queryTreatyShareOrderList(@ApiParam(value = "合約分保順序查詢條件") @RequestBody QueryTreatyShareOrderListVo parJson)
+	public ResponseEntity<Object> queryTreatyShareOrderList(@ApiParam(value = "合約分保順序查詢條件") @RequestBody Rin1108QueryTreatyShareOrderListVOReq parJson)
 			throws Exception {
 
 		log.debug(">>> Rin1108Controller.queryTreatyShareOrderList(搜尋「合約分保順序維護」資料)");
 
 		JsonBean jsonBean = new JsonBean();
 
-		List<Rin1108Vo> res = new ArrayList<Rin1108Vo>();
+		List<Rin1108VOResp> res = new ArrayList<>();
 
 		try {
 
@@ -107,27 +105,27 @@ public class Rin1108Controller {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(value = "/inserttreatyshareorder")
 	@ResponseBody
-	public ResponseEntity<?> insertTreatyShareOrder(@ApiParam(value = "合約分保順序維護資料") @RequestBody InsertTreatyShareOrderVo parJson)
+	public ResponseEntity<Object> insertTreatyShareOrder(@ApiParam(value = "合約分保順序維護資料") @RequestBody Rin1108InsertTreatyShareOrderVOReq parJson)
 			throws Exception {
 
 		log.debug(">>> Rin1108Controller.insertTreatyShareOrder(新增「合約分保順序維護」資料)");
 
 		JsonBean jsonBean = new JsonBean();
 
-		List<FriTreatyShareOrder> resModel = new ArrayList<FriTreatyShareOrder>();
+		List<FriTreatyShareOrder> resModel = new ArrayList<>();
 
 		int res = 0;
 		try {
 			FriTreatyShareOrder model = new FriTreatyShareOrder();
-			model.setTreatyYear(parJson.getTxttreaty_year());
-			model.setPolicyType(parJson.getTxtpolicy_type());
-			model.setShareOrder(parJson.getNumshare_order());
+			model.setTreatyYear(parJson.getTxttreaty_year());		//合約年度
+			model.setPolicyType(parJson.getTxtpolicy_type());		//保單種類
+			model.setShareOrder(parJson.getNumshare_order());		//分保順序
 			
-			//檢核是否已存在資料
+			//查詢是否已存在資料
 			resModel = friTreatyShareOrderService.queryByFriTreatyShareOrder(model);
-	System.out.println(resModel);					
-			//若有取得資料則進行檢核，若無資料則直接新增
-			if (resModel.size() > 0) {
+				
+			//若有取得資料則不可新增，若無資料則新增
+			if (!resModel.isEmpty()) {
 
 				jsonBean.setData("");
 				jsonBean.setStatus(SysEnum.statusFinish.code);
@@ -136,9 +134,9 @@ public class Rin1108Controller {
 				return new ResponseEntity<>(jsonBean, HttpStatus.OK);
 
 			}
-System.out.println(parJson.getTxttreaty_no());
+
 			//執行新增
-			model.setTreatyNo(parJson.getTxttreaty_no());
+			model.setTreatyNo(parJson.getTxttreaty_no());			//合約代號
 			res = friTreatyShareOrderService.insert(model);
 
 	
@@ -176,7 +174,7 @@ System.out.println(parJson.getTxttreaty_no());
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(value = "/updatetreatyshareorder")
 	@ResponseBody
-	public ResponseEntity<?> updateTreatyShareOrder(@ApiParam(value = "「合約分保順序維護」資料") @RequestBody UpdateTreatyShareOrderVo parJson)
+	public ResponseEntity<Object> updateTreatyShareOrder(@ApiParam(value = "「合約分保順序維護」資料") @RequestBody Rin1108UpdateTreatyShareOrderVOReq parJson)
 			throws Exception {
 
 		log.debug(">>> Rin1108Controller.updateTreatyShareOrder(修改合約代號)");
@@ -187,10 +185,10 @@ System.out.println(parJson.getTxttreaty_no());
 		int res = 0;
 
 		try {
-			model.setTreatyYear(parJson.getTxttreaty_year());
-			model.setPolicyType(parJson.getTxtpolicy_type());
-			model.setShareOrder(parJson.getNumshare_order());
-			model.setTreatyNo(parJson.getTxttreaty_no());
+			model.setTreatyYear(parJson.getTxttreaty_year());	//合約年度
+			model.setPolicyType(parJson.getTxtpolicy_type());	//保單種類
+			model.setShareOrder(parJson.getNumshare_order());	//分保順序
+			model.setTreatyNo(parJson.getTxttreaty_no());		//合約代號
 
 			//執行修改
 			res = friTreatyShareOrderService.update(model);
@@ -229,7 +227,7 @@ System.out.println(parJson.getTxttreaty_no());
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(value = "/deletetreatyshareorder")
 	@ResponseBody
-	public ResponseEntity<?> deleteTreatyShareOrder(@ApiParam(value = "合約分保順序維護資料主鍵") @RequestBody List<DeleteTreatyShareOrderVo> parJson)
+	public ResponseEntity<Object> deleteTreatyShareOrder(@ApiParam(value = "合約分保順序維護資料主鍵") @RequestBody List<Rin1108DeleteTreatyShareOrderVOReq> parJson)
 			throws Exception {
 
 		log.debug(">>> Rin1108Controller.deleteTreatyShareOrder(刪除合約分保順序維護資料)");
@@ -240,7 +238,7 @@ System.out.println(parJson.getTxttreaty_no());
 
 		try {
 			//有資料才進行刪除
-			if (parJson.size() > 0) {
+			if (!parJson.isEmpty()) {
 				res = friTreatyShareOrderService.deleteTreadyShareOrdersByPkList(parJson);
 			}
 

@@ -40,13 +40,13 @@ public class CreateAccRoleFlowImp implements CreateAccRoleFlow {
 	private MyBatisConnector mybatis;
 
 	@Override
-	public boolean create(String newUserId, String md5) {
+	public boolean create(String newAkaId, String md5) {
 		log.debug("create acc role data - start");
 
 		try {
 			// 檢查帳號、帳號角色表格是否已有該帳號資料
 			SysAccount acc = new SysAccount();
-			acc.setUserId(newUserId);
+			acc.setAkaId(newAkaId);
 			List<SysAccount> accList4Check = this.sysAccountService.queryBySysAccount(acc);
 
 			// 已有帳號資料即回覆正確即可
@@ -69,16 +69,16 @@ public class CreateAccRoleFlowImp implements CreateAccRoleFlow {
 				SysUserPersonalMapper sysUserPerMapper = sqlSession.getMapper(SysUserPersonalMapper.class);
 
 				SysAccount accCond = new SysAccount();
-				accCond.setUserId(newUserId);
+				accCond.setAkaId(newAkaId);
 				List<SysAccount> accList = sysAccountService.queryBySysAccount(accCond, sqlSession);
 
 				// 確認無資料才寫入
 				if (accList != null && accList.size() == 0) {
 					SysAccount newAcc = new SysAccount();
-					newAcc.setUserId(newUserId);
-					newAcc.setUserName(newUserId);
-					newAcc.setMail(newUserId);
-					newAcc.setPassword(md5);
+					newAcc.setAkaId(newAkaId);
+					newAcc.setUserName(newAkaId);
+					newAcc.setMail(newAkaId);
+					newAcc.setCipher(md5);
 					newAcc.setCrtDate(new Date());
 
 					int succVal = this.sysAccountService.insert(newAcc, sysAccMapper);
@@ -87,12 +87,12 @@ public class CreateAccRoleFlowImp implements CreateAccRoleFlow {
 
 				// 這邊僅找帳號是否存在在帳號角色表中即可，即此帳號已有角色的意思
 				SysAccountRole accRoleCond = new SysAccountRole();
-				accRoleCond.setUserId(newUserId);
+				accRoleCond.setAkaId(newAkaId);
 				List<SysAccountRole> accRoleList = sysAccountRoleService.queryBySysAccountRole(accRoleCond);
 
 				if (accRoleList != null && accRoleList.size() == 0) {
 					SysAccountRole newAccRole = new SysAccountRole();
-					newAccRole.setUserId(newUserId);
+					newAccRole.setAkaId(newAkaId);
 					newAccRole.setUserRole(SysEnum.systemDefaultRole.context);
 					int succVal2 = this.sysAccountRoleService.insert(newAccRole, sysAccRoleMapper);
 					log.debug("insert data to succVal2 : " + succVal2);
@@ -100,12 +100,12 @@ public class CreateAccRoleFlowImp implements CreateAccRoleFlow {
 
 				// 這邊僅找帳號是否存在在個人設定表中即可，即此帳號的設定已存在的意思
 				SysUserPersonal userPerCond = new SysUserPersonal();
-				userPerCond.setUserId(newUserId);
+				userPerCond.setAkaId(newAkaId);
 				List<SysUserPersonal> userPerList = this.sysUserPersonalService.queryBySysUserPersonal(userPerCond);
 
 				if (userPerList != null && userPerList.size() == 0) {
 					SysUserPersonal newPer = new SysUserPersonal();
-					newPer.setUserId(newUserId);
+					newPer.setAkaId(newAkaId);
 					newPer.setPageBg("colorful");
 					int succVal3 = this.sysUserPersonalService.insert(newPer, sysUserPerMapper);
 					log.debug("insert data to succVal3 : " + succVal3);

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.asi.huanan.service.dao.mybatis.mapper.LogFriFacPolicyMapper">
+  <resultMap id="BaseResultMap" type="com.asi.huanan.service.dao.mybatis.model.LogFriFacPolicyKey">
+    <id column="slip_no" jdbcType="VARCHAR" property="slipNo" />
+    <id column="LOG_seq" jdbcType="VARCHAR" property="logSeq" />
+    <id column="policy_no" jdbcType="VARCHAR" property="policyNo" />
+    <id column="endorse_no" jdbcType="VARCHAR" property="endorseNo" />
+    <id column="addr_no" jdbcType="VARCHAR" property="addrNo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    slip_no, LOG_seq, policy_no, endorse_no, addr_no
+  </sql>
+  <select id="selectByExample" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacPolicyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from LOG_fri_fac_policy
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacPolicyKey">
+    delete from LOG_fri_fac_policy
+    where slip_no = #{slipNo,jdbcType=VARCHAR}
+      and LOG_seq = #{logSeq,jdbcType=VARCHAR}
+      and policy_no = #{policyNo,jdbcType=VARCHAR}
+      and endorse_no = #{endorseNo,jdbcType=VARCHAR}
+      and addr_no = #{addrNo,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacPolicyExample">
+    delete from LOG_fri_fac_policy
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacPolicyKey">
+    insert into LOG_fri_fac_policy (slip_no, LOG_seq, policy_no, 
+      endorse_no, addr_no)
+    values (#{slipNo,jdbcType=VARCHAR}, #{logSeq,jdbcType=VARCHAR}, #{policyNo,jdbcType=VARCHAR}, 
+      #{endorseNo,jdbcType=VARCHAR}, #{addrNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacPolicyKey">
+    insert into LOG_fri_fac_policy
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="slipNo != null">
+        slip_no,
+      </if>
+      <if test="logSeq != null">
+        LOG_seq,
+      </if>
+      <if test="policyNo != null">
+        policy_no,
+      </if>
+      <if test="endorseNo != null">
+        endorse_no,
+      </if>
+      <if test="addrNo != null">
+        addr_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="slipNo != null">
+        #{slipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="logSeq != null">
+        #{logSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="policyNo != null">
+        #{policyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="endorseNo != null">
+        #{endorseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="addrNo != null">
+        #{addrNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacPolicyExample" resultType="java.lang.Long">
+    select count(*) from LOG_fri_fac_policy
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update LOG_fri_fac_policy
+    <set>
+      <if test="record.slipNo != null">
+        slip_no = #{record.slipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logSeq != null">
+        LOG_seq = #{record.logSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.policyNo != null">
+        policy_no = #{record.policyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endorseNo != null">
+        endorse_no = #{record.endorseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addrNo != null">
+        addr_no = #{record.addrNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update LOG_fri_fac_policy
+    set slip_no = #{record.slipNo,jdbcType=VARCHAR},
+      LOG_seq = #{record.logSeq,jdbcType=VARCHAR},
+      policy_no = #{record.policyNo,jdbcType=VARCHAR},
+      endorse_no = #{record.endorseNo,jdbcType=VARCHAR},
+      addr_no = #{record.addrNo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

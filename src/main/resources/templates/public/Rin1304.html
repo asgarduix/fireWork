@@ -4,21 +4,27 @@
 <head>
 <meta charset="utf-8" lang="zh-Hant-TW">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<link rel="icon" type="image/png" href="../../shigen/images/general/favicon.ico">
+<link rel="icon" type="image/png"
+	href="../../shigen/images/general/favicon.ico">
 <title>華南產物保險-火險再保系統</title>
 <!-- jQuery -->
 <script src="../../shigen/plugin/jquery.min.js"></script>
 <!-- jQuery UI -->
-<link href="../../shigen/plugin/jquery_ui/jquery-ui.min.css" rel="stylesheet">
+<link href="../../shigen/plugin/jquery_ui/jquery-ui.min.css"
+	rel="stylesheet">
 <script src="../../shigen/plugin/jquery_ui/jquery-ui.min.js"></script>
 <!-- 日期選擇器_民國年或西元年：支援 jQuery UI -->
 <script src="../../shigen/plugin/datepicker_globe_tw.js"></script>
 <!-- bootstrap -->
 <script src="../../shigen/plugin/bootstrap/bootstrap.min.js"></script>
-<link rel="stylesheet" href="../../shigen/plugin/bootstrap/bootstrap.css">
-<link rel="stylesheet" href="../../shigen/plugin/bootstrap/bootstrap-grid-customizing.css">
+<link rel="stylesheet"
+	href="../../shigen/plugin/bootstrap/bootstrap.css">
+<link rel="stylesheet"
+	href="../../shigen/plugin/bootstrap/bootstrap-grid-customizing.css">
 <!-- table tabulator -->
-<script type="text/javascript" src="../../shigen/plugin/tabulator.min.js"></script>
+<script type="text/javascript"
+	src="../../shigen/plugin/tabulator.min.js"></script>
+<script src="../../shigen/js/loadingoverlay.min.js"></script>
 <!-- fontawsome -->
 <script defer src="../../shigen/fonts/js/all.min.js"></script>
 <link href="../../shigen/fonts/css/all.css" rel="stylesheet">
@@ -34,7 +40,40 @@
 <script src="../../shigen/js/common.js"></script>
 <script src="../../shigen/js/appglobal.js"></script>
 <script src="../../shigen/js/sys/glob4UiAuth.js"></script>
-<!-- <script type="text/javascript" src="../../shigen/js/app/policyChangeAppl.js"></script> -->
+<script type="text/javascript" src="../../shigen/js/uiapis4app/ddls.js"></script>
+
+<script src="../../shigen/js/yf/fireTableColumns.js"></script>
+<script src="../../shigen/js/yf/fireTable.js"></script>
+<link rel="stylesheet" href="../../shigen/css/fireTableCustom.css">
+<link rel="stylesheet" href="../../shigen/css/fireTablePaginator.css">
+<script src="../../shigen/plugin/numeral.js"></script>
+<!-- material_icon -->
+<link rel="stylesheet" href="../../shigen/css/material-icons.css">
+<link rel="stylesheet" href="../../shigen/css/material-icons-ie.css">
+<!-- 1304css -->
+<link rel="stylesheet" href="../../shigen/css/layout.css">
+<style>
+/* END: menu */
+/* START: tab */
+.tab-content {
+	display: none;
+}
+
+.tab-content:nth-child(1) {
+	display: block;
+}
+
+.btn[disabled] {
+	cursor: default;
+}
+
+input[disabled], input[disabled]+label {
+	cursor: default !important;
+}
+
+/* END: tab */
+</style>
+
 </head>
 
 <body>
@@ -43,75 +82,971 @@
 		<div class="ajax-section-main"></div>
 		<div class="container-fluid">
 			<div class="content">
-				<div class="bread-crumbs">
-					<a href="">火險作業</a>
-				</div>
 				<div class="big_title title s1">Rin1304臨分分入(保批單資料維護)</div>
 				<div class="row-group">
 					<div class="row">
 						<div class="col-12 content_function_bar">
-							<button class="btn btn-titBlue" data-toggle="modal" data-target="#myModal">確認</button>
+							<button class="btn btn-titBlue" data-toggle="modal"
+								id="btnQueryData" onclick="btnQueryData();">確認</button>
 						</div>
 					</div>
 				</div>
-				<table class="tblDataArea tblInquireArea" cellspacing="0" cellpadding="0" width="100%">
-					<tbody>
-						<tr>
-							<td class="tdDataCaption">條件篩選</td>
-							<td class="tdDataField">
-								<span class="checkbox_box ml-2">
-									<input id="check1" type="radio" name="radio2">
-									<label for="check1">保批單查詢</label>
-								</span>
-								<span class="checkbox_box ml-2">
-									<input id="check1" type="radio" name="radio2">
-									<label for="check1">保批單資料維護</label>
-								</span>
-								<span class="checkbox_box ml-2">
-									<input id="check1" type="radio" name="radio2">
-									<label for="check1">帳單入帳維護</label>
-								</span>
-								<span class="checkbox_box ml-2">
-									<input id="check1" type="radio" name="radio2">
-									<label for="check1">自動產生調整批單(ADJ)</label>
-								</span>
-							</td>
-						</tr>
-						<tr>
-							<td class="tdDataCaption">條件篩選</td>
-							<td class="tdDataField">
-								<input type="text" value="0009FA0000141" id="">
-							</td>
-						</tr>
-						<tr>
-							<td class="tdDataCaption">批單號碼</td>
-							<td class="tdDataField">
-								<input type="text" value="" id="">
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				<!-- Modal -->
+				<div class="modal fade" id="rimComPage" data-backdrop="static"
+					tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
+					aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="myModalTitle"></h5>
+								<button id="_close_dialog" type="button" class="close"
+									data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body" id="foo">
+								<div class="Greybg">
+									<div class="YelloClu">
+										<div class="divspace"></div>
+										<table class="tblCssDataGrid setBorder">
 
+											<div id="rinserTable"></div>
+
+										</table>
+									</div>
+								</div>
+
+								<div id="example-table"></div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-dismiss="modal">取消</button>
+								<button type="button" class="btn btn-primary"
+									onclick="genRinserInfo()">確定</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<input type="hidden" name="reinserType" value="">
+				<div class="Greybg" id="queryPage">
+					<div class="redClu">
+						<table class="tblDataArea" cellspacing="0"
+							cellpadding="0" width="100%">
+							<tbody>
+								<tr>
+									<td class="tdDataCaption">條件篩選</td>
+									<td class="tdDataField"><span class="checkbox_box ml-2">
+											<input id="rdoOnlyQuery" type="radio" name="radio2" value="1">
+											<label for="check1">保批單查詢</label>
+									</span> <span class="checkbox_box ml-2"> <input id="rdoUpdate"
+											type="radio" name="radio2" value="2"> <label
+											for="check1">保批單資料維護</label>
+									</span> <span class="checkbox_box ml-2"> <input id="rdoConvert"
+											type="radio" name="radio2" value="3"> <label
+											for="check1">帳單入帳維護</label>
+									</span> <span class="checkbox_box ml-2"> <input
+											id="rdoNegative" type="radio" name="radio2" value="4">
+											<label for="check1">自動產生調整批單(ADJ)</label>
+									</span></td>
+								</tr>
+								<tr>
+									<td class="tdDataCaption">保單號碼</td>
+									<td class="tdDataField"><input type="text" value=""
+										id="txtpolicy_no_query"></td>
+								</tr>
+								<tr>
+									<td class="tdDataCaption">批單號碼</td>
+									<td class="tdDataField"><input type="text" value=""
+										id="txtendorse_no_query"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- 下方兩區塊 -->
+				<div class="clugery" id="allPage" style="display: none">
+
+					<div class="leftbox">
+						<div class="item_inside" id="treeDiagram"></div>
+						<div class="leftboxDown" id="leftboxDownBtn">
+							<table class="tblDataArea tblInquireArea" cellspacing="0"
+								cellpadding="0" width="100%" id="CUDBtn">
+								<tbody>
+									<tr>
+										<td class="tdDataAnther">保單</td>
+										<td id="policyLeftBtn">
+											<button type="button" class="btn btn-oneD" name="lefBtnA"
+												id="btnAddA" style="visibility: hidden">新增</button>
+											<button type="button" class="btn btn-oneF" name="lefBtnA"
+												id="btnUpdA" onclick="tabToggle(event, 'tab01');query1();">修改</button>
+											<button type="button" class="btn btn-oneG" name="lefBtnA"
+												id="btnDelA" onclick="btnDeleteA();">刪除</button>
+										</td>
+									</tr>
+									<tr>
+										<td class="tdDataAnther">保單明細</td>
+										<td>
+											<button type="button" class="btn btn-oneD" name="lefBtnB"
+												id="btnAddB"
+												onclick="tabToggle(event, 'tab02');insertDataRin1304B(parJson);">新增</button>
+											<button type="button" class="btn btn-oneF" name="lefBtnB"
+												id="btnUpdB"
+												onclick="tabToggle(event, 'tab02');query2(parJson);">修改</button>
+											<button type="button" class="btn btn-oneG" name="lefBtnB"
+												id="btnDelB"
+												onclick="btnDeleteB();tabToggle(event, 'tab02');clearDataRin1304B();">刪除</button>
+										</td>
+									</tr>
+									<tr>
+										<td class="tdDataAnther">標的物</td>
+										<td>
+											<button type="button" class="btn btn-oneD" name="lefBtnC"
+												id="btnAddC"
+												onclick="tabToggle(event, 'tab03');insertDataRin1304C(parJson);">新增</button>
+											<button type="button" class="btn btn-oneF" name="lefBtnC"
+												id="btnUpdC"
+												onclick="tabToggle(event, 'tab03');query3(parJson)">修改</button>
+											<button type="button" class="btn btn-oneG" name="lefBtnC"
+												id="btnDelC"
+												onclick="btnDeleteC();tabToggle(event, 'tab03');insertDataRin1304C(parJson);">刪除</button>
+										</td>
+									</tr>
+									<tr>
+										<td class="tdDataAnther">附加險</td>
+										<td>
+											<button type="button" class="btn btn-oneD" name="lefBtnD"
+												id="btnAddD"
+												onclick="tabToggle(event, 'tab04');insertDataRin1304D(parJson);">新增</button>
+											<button type="button" class="btn btn-oneF" name="lefBtnD"
+												id="btnUpdD"
+												onclick="tabToggle(event, 'tab04');query4(parJson)">修改</button>
+											<button type="button" class="btn btn-oneG" name="lefBtnD"
+												id="btnDelD"
+												onclick="btnDeleteD();tabToggle(event, 'tab04');insertDataRin1304D(parJson);">刪除</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<!-- chickbox3 -->
+							<table class="tblDataArea tblInquireArea" cellspacing="0"
+								cellpadding="0" width="100%" style="display: none"
+								id="createADJ">
+								<tbody>
+									<tr>
+										<td colspan="2" class="tdDataAnther  text-center">調整整批單號設定</td>
+									</tr>
+									<tr>
+										<td class="tdDataAnther">保單號</td>
+										<td><input type="text" class="GRinput"
+											id="txtADJPolicyNo" readonly="readonly" /></td>
+									</tr>
+									<tr>
+										<td class="tdDataAnther">新增整批單號</td>
+										<td><input type="text" id="txtADJEndorseNo"></td>
+									</tr>
+									<tr>
+										<td colspan="2" text-center class="tdDataAnther"
+											style="text-align: center;">
+											<button type="button" class="btn btn-oneF" id="createADJBtn"
+												onclick="createADJPolicyBtn();">自動產生整批單號</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div id="content">
+						<div id="tab01" class="tab-content">
+							<div class="rightbox" id="policyPage">
+								<table id="policyPage2" class="tblDataArea tblInquireArea"
+									cellspacing="0" cellpadding="0" width="100%">
+									<tbody>
+										<tr>
+											<td class="tdDataAnther" colspan="2">保單號碼</td>
+											<td class="tdDataTrip" colspan="4"><input type="text" value=""
+												class="GRinput" id="txtpolicy_no"></td>
+											<td class="tdDataAnther" colspan="2">批單號碼</td>
+											<td class="tdDataTrip" colspan="4"><input type="text" value=""
+												class="GRinput" id="txtendorse_no"></td>
+										</tr>
+										<tr>
+											<td class="tdDataTrip" style="background-color: #F2F1D5;"
+												colspan="12">
+												<h5
+													style="font-size: 15px; padding: 5px; font-weight: 100px; color: dimgrey; float: left;">保批單資料</h5>
+											</td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther" colspan="2">續保單號</td>
+											<td class="tdDataTrip" colspan="4"><input type="text"
+												maxlength="13" value="" class="GRinput" id="txtold_policy">
+											</td>
+											<td class="tdDataAnther" colspan="2">批加減異動天然災害旗標</td>
+											<td class="tdDataTrip" colspan="4"><input type="text" value=""
+												class="GRinput" id="txtnature_flag" /></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther"  >被保險人</td>
+											<td class="tdDataTrip" colspan="4"><input type="text"
+												value="" class="GRinput" id="txtcinsurant" /></td>
+											<td class="tdDataAnther"  >被保險人英文名</td>
+											<td class="tdDataTrip" colspan="4"><input type="text"
+												value="" class="GRinput" id="txteinsurant" /></td>
+											<td class="tdDataAnther" >流動標記</td>
+											<td class="tdDataTrip" ><input type="text" value=""
+												class="GRinput" id="txtifloat" /></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther" colspan="2">保單起迄日期</td>
+											<td class="tdDataTrip" colspan="6"><input type="text"
+												style="width: 35%;" value="" id="txtpolicy_dbgn"
+												class="GRinput" autocomplete="off"> ~ <input
+												type="text" style="width: 35%;" value="" id="txtpolicy_dend"
+												class="GRinput" autocomplete="off"> <span
+												id="diffDays"></span>天</td>
+											<td class="tdDataAnther">保單列印日</td>
+											<td class="tdDataTrip" colspan="4"><input type="text"
+												value="" id="txtpolicy_dprt" class="GRinput"
+												autocomplete="off"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther" >保單類別</td>
+											<td class="tdDataTrip" ><input type="text" value=""
+												id="txtpolicy_type"></td>
+											<td class="tdDataAnther" >年期</td>
+											<td class="tdDataTrip" ><input type="text" value=""
+												id="txtpolicy_year"></td>
+											<td class="tdDataAnther" >險種</td>
+											<td class="tdDataTrip" ><input type="text" value=""
+												id="txtfire_type"></td>
+											<td class="tdDataAnther" >費率性質代號</td>
+											<td class="tdDataTrip" ><input type="text" value=""
+												id="txtirate_type"></td>
+											<td class="tdDataAnther" >共保註記</td>
+											<td class="tdDataTrip" ><input type="text" value=""
+												id="txtcoins_flag"></td>
+											<td class="tdDataAnther" >共保比率</td>
+											<td class="tdDataTrip" ><input type="text" value=""
+												id="txtcoins_rate"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther" colspan="2">共保累計保額</td>
+											<td colspan="4"> 
+											<span style="float:right; font-size: 15px;  padding: 5px;" id="totalAmt" ></span>
+											</td>
+											<td class="tdDataAnther" colspan="2">共保累計保費</td>
+											<td colspan="4">
+											<span style="float:right; font-size: 15px;  padding: 5px;"  id="totalPrem" ></span>
+											</td>
+										</tr>
+										<tr>
+											<td class="tdDataTrip" style="vertical-align: top;width:50%;"
+												colspan="6">
+												<!-- 內頁table1 -->
+												<div class="redClu">
+													<table class="tblCssDataGrid">
+														<tbody>
+															<tr class="cssDataGridHeader" >
+																<th><a href=""></a></th>
+																<th colspan="3">共保保額</th>
+																<th colspan="3">華南保額</th>
+															</tr>
+															<tr>
+																<td>總保額</td>
+																<td class="tdDataTrip" colspan="3"><input type="text"
+																	style="border: 1px solid #7F7F7F; text-align: right;" value=""
+																	id="numall_amt" ></td>
+																<td class="tdDataTrip" colspan="3"><input type="text"
+																	style="border: 1px solid #7F7F7F; text-align: right;" value=""
+																	id="num_amt_hn" ></td>
+															</tr>
+															<tr>
+																<td>地震險</td>
+																<td class="tdDataTrip" colspan="3"><input type="text"
+																	style="border: 1px solid #7F7F7F; text-align: right;" value=""
+																	id="numamt_1_eq"></td>
+																<td class="tdDataTrip" colspan="3"><input type="text"
+																	style="border: 1px solid #7F7F7F; text-align: right;" value=""
+																	id="numamt_1_eq_hn"></td>
+															</tr>
+															<tr>
+																<td>颱洪險</td>
+																<td class="tdDataTrip" colspan="3"><input type="text"
+																	style="border: 1px solid #7F7F7F; text-align: right;" value=""
+																	id="numamt_2_ty"></td>
+																<td class="tdDataTrip" colspan="3"><input type="text"
+																	style="border: 1px solid #7F7F7F; text-align: right;" value=""
+																	id="numamt_2_ty_hn"></td>
+															</tr>
+															<tr>
+																<td>營業中斷險</td>
+																<td class="tdDataTrip" colspan="3"><input type="text"
+																	style="border: 1px solid #7F7F7F; text-align: right;" value=""
+																	id="numamt_3_bi"></td>
+																<td class="tdDataTrip" colspan="3"><input type="text"
+																	style="border: 1px solid #7F7F7F; text-align: right;" value=""
+																	id="numamt_3_bi_hn"></td>
+															</tr>
+															<tr>
+																<td>異動保額</td>
+																<td colspan="2"><input
+																	style="border: 1px solid #7F7F7F; text-align: right;" type="text"
+																	id="numcom_amt"></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</td>
+											<td class="tdDataTrip" colspan="6" style="vertical-align: top;width:50%;">
+												<!-- 內頁table2 -->
+												<div class="redClu">
+													<table class="tblCssDataGrid">
+														<tbody>
+															<tr class="cssDataGridHeader">
+																<th><a href=""></a></th>
+																<th colspan="3">共保保費</th>
+																<th colspan="3">華南保費</th>
+															</tr>
+															<tr>
+																<td>總保費</td>
+																<td class="tdDataTrip" colspan="3"><input type="text"
+																	style="border: 1px solid #7F7F7F;text-align: right;"  value=""
+																	id="numall_prem"></td>
+																<td class="tdDataTrip" colspan="3"><input type="text"
+																	style="border: 1px solid #7F7F7F;text-align: right;" value=""
+																	id="num_prem_hn"></td>
+															</tr>
+															<tr>
+																<td>火險及其他附加險</td>
+																<td class="tdDataTrip" colspan="3"><input type="text"
+																	style="border: 1px solid #7F7F7F;text-align: right;" value=""
+																	id="numprem_1_reins"></td>
+																<td class="tdDataTrip" colspan="3"><input type="text"
+																	style="border: 1px solid #7F7F7F;text-align: right;" value=""
+																	id=numprem_1_reins_hn></td>
+															</tr>
+															<tr>
+																<td>地震險</td>
+																<td class="tdDataTrip" colspan="3"><input type="text"
+																	style="border: 1px solid #7F7F7F;text-align: right;" value=""
+																	id="numprem_2_eq"></td>
+																<td class="tdDataTrip" colspan="3"><input type="text"
+																	style="border: 1px solid #7F7F7F;text-align: right;" value=""
+																	id="numprem_2_eq_hn"></td>
+															</tr>
+															<tr>
+																<td>颱洪險</td>
+																<td class="tdDataTrip" colspan="3"><input type="text"
+																	style="border: 1px solid #7F7F7F;text-align: right;" value=""
+																	id="numprem_3_ty"></td>
+																<td class="tdDataTrip" colspan="3"><input type="text"
+																	style="border: 1px solid #7F7F7F;text-align: right;" value=""
+																	id="numprem_3_ty_hn"></td>
+															</tr>
+															<tr>
+																<td>營業中斷險</td>
+																<td class="tdDataTrip" colspan="3"><input type="text"
+																	style="border: 1px solid #7F7F7F;text-align: right;" value=""
+																	id="numprem_4_bi"></td>
+																<td class="tdDataTrip" colspan="3"><input type="text"
+																	style="border: 1px solid #7F7F7F;text-align: right;" value=""
+																	id="numprem_4_bi_hn"></td>
+															</tr>
+															<tr>
+																<td>異動保費</td>
+																<td colspan="2"><input
+																	style="border: 1px solid #7F7F7F;text-align: right;" type="text"
+																	id="numcom_prem"></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">佣金率</td>
+											<td class="tdDataTrip" ><input type="text" value=""
+												id="numcomm_rate"></td>
+											<td class="tdDataAnther">批加減佣金</td>
+											<td class="tdDataTrip" ><input type="text" value=""
+												id="numcomm"></td>
+											<td class="tdDataAnther">預收比率</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numprepay_rate"></td>
+											<td class="tdDataAnther">批改事由</td>
+											<td class="tdDataTrip" colspan="3"><input type="text"
+												value="" id="txtend_reason"></td>
+											<td class="tdDataAnther" >是否分保(Y/N)</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="txtcalc_flag"></td>
+										</tr>
+										<tr>
+										    <td class="tdDataAnther">關聯單號</td>
+											<td class="tdDataTrip" colspan="3"><input type="text" value=""
+												id="txtref_no"></td>
+											<td class="tdDataAnther">分入保單號</td>
+											<td class="tdDataTrip" colspan="3"><input type="text" value=""
+												id="txtRi_policyno"></td>
+											<td class="tdDataAnther">調整註記(Y/N/X)</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="txtchange_flag"></td>
+											<td class="tdDataAnther">臨分註記(Y/N)</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="txtFac_flag"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther" >保單來源類別</td>
+											<td class="tdDataTrip" colspan="2" style="align:center; valign:middle;">
+											<input style="width: 15%; margin-top:2em;" type="text" value="" id="txtpolicy_mode"  >
+												<div style="float:right;">
+												<p >
+												   1.一般<br />
+												   2.再保預先出單<br />
+												   3.分入-同業互助A<br />
+												   4.分入-同業互助B<br />
+												   5.再保批單<br />
+												   6.商業動產(意外)</p>
+												   </div>
+											</td>
+											<td class="tdDataAnther" colspan="2">
+												<button class="btn btn-titBlue" id="btnRinComId"
+													onclick="queryRinser()" >經紀人</button>
+											</td>
+											<td class="tdDataTrip" colspan="3">
+												<input type="text" value="" name="txtRin_com_id"
+												id="txtRin_com_id" onchange="genRinserName()"> <input
+												type="text" value="" name="txtcname" id="txtcname"
+												onchange="genRinserName()">
+											</td>
+											<td class="tdDataAnther">經手人代號</td>
+											<td class="tdDataTrip" colspan="4"><input type="text"
+												style="width: 40%;" value="" id="txttxtOfficer1"> <input
+												type="text" style="width: 40%;" value="" id="txttxtOfficer2">
+											<button type="button" class="btn btn-oneD"
+													onclick="otherInfo();" id="otherInfo" style="">其他資訊</button>
+											
+											<button class="btn btn-titBlue" data-toggle="modal" style="float:right"
+											        onclick="btnLeave();" id="btnLeave">離開</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="redClu" id="downRowA"
+									style="padding: 7px 0; margin-top: 3em;">
+
+									<span class="checkbox_box ml-2" style="display: none"
+										id="insertRadioSpanA"> <input id="insertRadioA"
+										type="radio" name="radio3" value="1"> <label
+										for="check3">新增</label>
+									</span> <span class="checkbox_box ml-2" id="updateRadioSpanA"
+										style="display: none"> <input id="updateRadioA"
+										type="radio" name="radio3" value="2"> <label
+										for="check3">修改</label>
+									</span> <span class="checkbox_box ml-2" style="display: none"
+										id="enterAccountRadioA"> <input type="radio"
+										name="radio3" value='3'> <label for="check3">入帳</label>
+									</span>
+									<!-- 新增radio -->
+									<div class="addcheckList" id="transferStateDiv"
+										style="display: none">
+										<p style="font-size: 14px;">轉檔：</p>
+										<span class="checkbox_box ml-2"> <input
+											id="transferStateRaidoY" type="radio" name="radio4" value='Y'>
+											<label for="check4">是</label>
+										</span> <span class="checkbox_box ml-2"> <input
+											id="transferStateRaidoN" type="radio" name="radio4" value='N'>
+											<label for="check4">否</label>
+										</span> <span class="checkbox_box ml-2"> <input
+											id="transferStateRaidoH" type="radio" name="radio4" value='H'>
+											<label for="check4">暫緩</label>
+										</span>
+									</div>
+									<button type="button" class="btn btn-oneE"
+										onclick="backTo1304();">取消輸入</button>
+									<button type="button" class="btn btn-oneD" onclick="dataGoA();">執行</button>
+								</div>
+							</div>
+						</div>
+						<div id="tab02" class="tab-content">
+							<div class="rightbox" id="policyPageB">
+								<table class="tblDataArea tblInquireArea" cellspacing="0"
+									cellpadding="0" width="100%">
+									<tbody>
+										<tr>
+											<td class="tdDataAnther">保單號碼</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												class="GRinput" id="txtpolicy_noB"></td>
+											<td class="tdDataAnther">批單號碼</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												class="GRinput" id="txtendorse_noB"></td>
+										</tr>
+										<tr>
+											<td class="tdDataTrip" style="background-color: #F2F1D5;"
+												colspan="4">
+												<h5 class="titleFive">保批單明細資料</h5>
+											</td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">保單地址序號</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												class="GRinput" id="numaddr_no_ori" /></td>
+											<td class="tdDataAnther">地址序號</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												class="GRinput" id="numaddr_noB" /></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">同險編號</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												class="GRinput" id="txtrisk_no" /></td>
+											<td class="tdDataAnther">是否完成同險</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												class="GRinput" id="txtrisk_flag" /></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">同險名稱</td>
+											<td class="tdDataTrip" colspan="3"><input type="text"
+												value="" class="GRinput" id="txtrisk_name" /></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">標的物地址</td>
+											<td class="tdDataTrip" colspan="3"><input type="text"
+												value="" class="GRinput" id="txtprop_addr" /></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">起保日</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												class="GRinput" id="txtpolicy_dbgnB"></td>
+											<td class="tdDataAnther">迄止日</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												class="GRinput" id="txtpolicy_dendB"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">郵遞區號</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="txtzip_code"></td>
+											<td class="tdDataAnther">地段代碼</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="txtarea_code"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">使用性質代號</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="txtuseprop_codeB"></td>
+											<td class="tdDataAnther">使用性質名稱</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="txtuseprop_nameB"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">樓層數</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numFlor_no"></td>
+											<td class="tdDataAnther">建築等級英文代號</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="txtconst_class"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">限額代號</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="limit_no"></td>
+											<td class="tdDataAnther">限額</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="limit"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">限額比率</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="txtlimit_rate"></td>
+											<td class="tdDataAnther">保單限額</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numlimit_ori"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">異動總保額</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numamt"></td>
+											<td class="tdDataAnther">異動總保費</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numprem"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">流動貨物保額</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numamt_flt"></td>
+											<td class="tdDataAnther">流動貨物保費</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numprem_flt"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">非流動貨物保額</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numamt_fix"></td>
+											<td class="tdDataAnther">非流動貨物保費</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numprem_fix"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">颱洪本單總保額</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numamt_typ"></td>
+											<td class="tdDataAnther">颱洪本單年保費</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numprem_typ"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">地震本單總保額</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numamt_ear"></td>
+											<td class="tdDataAnther">地震本單年保費</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numprem_ear"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">該明細累積保額</td>
+											<td >
+											<span style="float:right;"id="sumamt" ></span></td>
+											<td class="tdDataAnther">30險種代碼</td>
+											<td class="tdDataTrip"><input
+												style="border: 1px solid #7F7F7F;" type="text" value=""
+												id="txtmercno"></td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="redClu" id="downRowB"
+									style="padding: 7px 0; margin-top: 3em;">
+									<span class="checkbox_box ml-2" style="display: none"
+										id="insertRadioSpanB"> <input id="insertRadioB"
+										type="radio" name="radio3" value='1'> <label
+										for="check3">新增</label>
+									</span> <span class="checkbox_box ml-2" id="updateRadioSpanB"
+										style="display: none"> <input id="updateRadioB"
+										type="radio" name="radio3" value='2'> <label
+										for="check3">修改</label>
+									</span>
+									<button type="button" class="btn btn-oneE"
+										onclick="backTo1304();">取消輸入</button>
+									<button type="button" class="btn btn-oneD" onclick="dataGoB();">執行</button>
+								</div>
+							</div>
+						</div>
+						<div id="tab03" class="tab-content">
+							<div class="rightbox" id="policyPageC">
+								<table class="tblDataArea tblInquireArea" cellspacing="0"
+									cellpadding="0" width="100%">
+									<tbody>
+										<tr>
+											<td class="tdDataAnther">保單號碼</td>
+											<td class="tdDataTrip" colspan="2"><input type="text"
+												value="" class="GRinput" id="txtpolicy_noC"></td>
+											<td class="tdDataAnther">批單號碼</td>
+											<td class="tdDataTrip" colspan="2"><input type="text"
+												value="" class="GRinput" id="txtendorse_noC"></td>
+										</tr>
+										<tr>
+											<td class="tdDataTrip" style="background-color: F2F1D5;"
+												colspan="6">
+												<h5 class="titleFive">保批單標的物明細</h5>
+
+											</td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">地址序號</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												class="GRinput" id="numaddr_noC"></td>
+											<td class="tdDataAnther">標的物序號</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												class="GRinput" id="numprop_noC"></td>
+											<td class="tdDataAnther">流動註記</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												class="GRinput" id="txtfloatFlag"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">標的物代號</td>
+											<td class="tdDataTrip"><span name="" id="ddlpropertyNo"></span>
+											</td>
+											<td class="tdDataAnther">標地物保品名稱</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												class="GRinput" id="txtproperty_name" /></td>
+											<td class="tdDataAnther">標的物保品名稱簡碼</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												class="GRinput" id="txtproperty_code" /></td>
+										</tr>
+										<tr>
+
+											<td class="tdDataAnther">保額</td>
+											<td class="tdDataTrip" colspan="2"><input type="text"
+												class="GRinput" id="numamtC" disabled="disabled"/></td>
+											<td class="tdDataAnther">保費</td>
+											<td class="tdDataTrip" colspan="2"><input type="text"
+												class="GRinput" id="numpremC" disabled="disabled"/></td>
+										</tr>
+										<tr>
+
+											<td class="tdDataAnther">使用性質代號</td>
+											<td class="tdDataTrip" colspan="2"><input type="text"
+												value="" class="GRinput" id="txtuseprop_codeC" /></td>
+											<td class="tdDataAnther">使用性質名稱</td>
+											<td class="tdDataTrip" colspan="2"><input type="text"
+												value="" class="GRinput" id="txtuseprop_nameC" /></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">建築等級英文代號</td>
+											<td class="tdDataTrip" colspan="2"><input type="text"
+												value="" class="GRinput" id="txtconst_classC"></td>
+											<td class="tdDataAnther">限額代號</td>
+											<td class="tdDataTrip" colspan="2"><input type="text"
+												value="" class="GRinput" id="txtlimit_no"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">適用特別條款</td>
+											<td class="tdDataTrip" colspan="5"><input type="text"
+												value="" id="txtspec_term"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">適用附加條款</td>
+											<td class="tdDataTrip" colspan="5"><input type="text"
+												value="" id="txtext_term"></td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="redClu" id="downRowC"
+									style="padding: 7px 0; margin-top: 3em;">
+									<span class="checkbox_box ml-2" style="display: none"
+										id="insertRadioSpanC"> <input id="insertRadioC"
+										type="radio" name="radio3" value='1'> <label
+										for="check1">新增</label>
+									</span> <span class="checkbox_box ml-2" id="updateRadioSpanC"
+										style="display: none"> <input id="updateRadioC"
+										type="radio" name="radio3" value='2'> <label
+										for="check1">修改</label>
+									</span>
+									<button type="button" class="btn btn-oneE"
+										onclick="backTo1304();">取消輸入</button>
+									<button type="button" class="btn btn-oneD" onclick="dataGoC();">執行</button>
+								</div>
+							</div>
+						</div>
+						<div id="tab04" class="tab-content">
+							<div class="rightbox" id="policyPageD">
+								<table class="tblDataArea tblInquireArea" cellspacing="0"
+									cellpadding="0" width="100%">
+									<tbody>
+										<tr>
+											<td class="tdDataAnther">保單號碼</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												class="GRinput" id="txtpolicy_noD"></td>
+											<td class="tdDataAnther">批單號碼</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												class="GRinput" id="txtendorse_noD"></td>
+										</tr>
+										<tr>
+											<td class="tdDataTrip" style="background-color: #F2F1D5;"
+												colspan="4">
+												<h5 class="titleFive">保批單附加險明細</h5>
+
+											</td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">地址序號</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												class="GRinput" id="txtaddr_noD"></td>
+											<td class="tdDataAnther">標的物序號</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												class="GRinput" id="txtprop_noD"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">附加險序號</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="txtaddition_seq" class="GRinput" /></td>
+											<td class="tdDataAnther">附加險代號</td>
+											<td class="tdDataTrip"><span id="additionNoList"></span>
+											</td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">附加險名稱</td>
+											<td class="tdDataTrip" colspan="3"><input type="text"
+												value="" id="txtaddition_name" class="GRinput" /></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">預收比例</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numprercv_rate" class="GRinput" /></td>
+											<td class="tdDataAnther">費率%</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numrate" class="GRinput"></td>
+										</tr>
+										<tr>
+
+											<td class="tdDataAnther">100%保額</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numcoinamt" class="GRinput"></td>
+											<td class="tdDataAnther">100%保費</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numcoinprem" class="GRinput"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">保額</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numamtD"></td>
+											<td class="tdDataAnther">保費</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numpremD"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">限額比例</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numlimit_rate"></td>
+											<td class="tdDataAnther">單次賠款限額</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numlimit"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">全年累計賠款限額</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="numlimit_year"></td>
+											<td class="tdDataAnther">30險種代碼</td>
+											<td class="tdDataTrip"><input type="text" value=""
+												id="txtmercnoD"></td>
+										</tr>
+										<tr>
+											<td class="tdDataAnther">自負額說明</td>
+											<td class="tdDataTrip" colspan="3"><textarea
+													class="textEX" id="numdeduct_rem" name="" rows="2"
+													cols="50"></textarea></td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="redClu" id="downRowD"
+									style="padding: 7px 0; margin-top: 3em;">
+									<span class="checkbox_box ml-2" style="display: none"
+										id="insertRadioSpanD"> <input id="insertRadioD"
+										type="radio" name="radio3" value='1'> <label
+										for="check1">新增</label>
+									</span> <span class="checkbox_box ml-2" id="updateRadioSpanD"
+										style="display: none"> <input id="updateRadioD"
+										type="radio" name="radio3" value='2'> <label
+										for="check1">修改</label>
+									</span>
+									<button type="button" class="btn btn-oneE"
+										onclick="backTo1304();">取消輸入</button>
+									<button type="button" class="btn btn-oneD" onclick="dataGoD();">執行</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="divSpace" style="clear: both;"></div>
+				</div>
+				<!-- content end  -->
 			</div>
-			<!-- content end  -->
-		</div>
 	</section>
 	<!-- dialog -->
 	<!-- Modal -->
-	<div class="modal fade" id="myModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<!-- madalone -->
+	<div class="modal fade" id="myModal" data-backdrop="static"
+		tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
+		aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="staticBackdropLabel">提醒</h5>
-					<button id="_close_dialog" type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<button id="_close_dialog" type="button" class="close"
+						data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body" id="foo">查無資料，是否新增</div>
 				<div class="modal-footer">
 					<div class="row justify-content-center">
-						<button type="button" class="btn btn-titBlue" onclick="doModify(this);return false;">確認</button>
-						<button type="button" class="btn btn-oneC" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-titBlue"
+							onclick="doModifyInsertData();">確認</button>
+						<button type="button" class="btn btn-oneC"
+							onclick="closeInsertPage();">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- madaltwo -->
+	<div class="modal fade" id="myModalTwo" data-backdrop="static"
+		tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">其他資訊</h5>
+					<button id="_close_dialog" type="button" class="close"
+						data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="otherInfoPage">
+					<div class="Greybg">
+						<div class="YelloClu">
+							<table class="tblDataArea tblInquireArea" cellspacing="0"
+								cellpadding="0" width="100%">
+								<tbody>
+									<tr id="firstRow">
+										<td class="tdDataAnther">入帳日期</td>
+										<td class="tdDataTrip"><input type="text" value=""
+											class="GRinput" id="dtaAccEnterDate"></td>
+										<td class="tdDataAnther">轉檔狀態</td>
+										<td class="tdDataTrip"><input type="text" value=""
+											id="txtAccTransferState"></td>
+									</tr>
+									<tr id="secondRow">
+										<td class="tdDataAnther">銷帳日期</td>
+										<td class="tdDataTrip" colspan="3"><input type="text"
+											value="" class="GRinput" id="dtaAccCloseDate"></td>
+									</tr>
+									<tr>
+										<td class="tdDataAnther">再保人</td>
+										<td class="tdDataTrip" colspan="3"><input type="text"
+											value="" id="txtBroker_id" class="GRinput"></td>
+
+									</tr>
+									<tr>
+										<td class="tdDataAnther">帳單日</td>
+										<td class="tdDataTrip"><input type="text" value=""
+											id="dtaReceive_date" class="GRinput"></td>
+										<td class="tdDataAnther">辦事處</td>
+										<td class="tdDataTrip"><input type="text" value=""
+											id="txtOffice" class="GRinput"></td>
+									</tr>
+									<tr>
+										<td class="tdDataAnther">帳單幣別</td>
+										<td class="tdDataTrip"><span id="ddlCurncyList"></span></td>
+										<td class="tdDataAnther">國名代號</td>
+										<td class="tdDataTrip"><input type="text" value=""
+											id="txtCountryID"></td>
+									</tr>
+									<tr>
+										<td class="tdDataAnther">兌換率</td>
+										<td class="tdDataTrip" colspan="3"><input type="text"
+											value="" id="txtCurrencyExchangeRate"></td>
+									</tr>
+									<tr>
+										<td class="tdDataAnther">再保費(原幣)</td>
+										<td class="tdDataTrip"><input type="text" value=""
+											id="numorg_prem"></td>
+										<td class="tdDataAnther">佣金(原幣)</td>
+										<td class="tdDataTrip"><input type="text" value=""
+											id="numorg_comm"></td>
+									</tr>
+									<tr>
+										<td class="tdDataAnther">境外分入註記</td>
+										<td class="tdDataTrip" colspan="3"><input type="text"
+											value="" id="txtMkovse"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div class="row justify-content-center">
+						<!--TODO之後要換成檢核 -->
+						<button type="button" class="btn btn-titBlue"
+							onclick="closeOtherInfo();">確認</button>
+						<button type="button" class="btn btn-oneC" data-dismiss="modal">關閉</button>
 					</div>
 				</div>
 			</div>
@@ -119,5 +1054,13 @@
 	</div>
 </body>
 <!-- 功能使用的js，建議放置在html最尾 -->
-<script type="text/javascript"></script>
+<script type="text/javascript" src="../../shigen/js/app/Rin1304.js"></script>
+<script type="text/javascript" src="../../shigen/js/app/Rin1304A.js"></script>
+<script type="text/javascript" src="../../shigen/js/app/Rin1304B.js"></script>
+<script type="text/javascript" src="../../shigen/js/app/Rin1304C.js"></script>
+<script type="text/javascript" src="../../shigen/js/app/Rin1304D.js"></script>
+<script type="text/javascript">
+
+
+</script>
 </html>

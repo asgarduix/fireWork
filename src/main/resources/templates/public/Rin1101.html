@@ -20,7 +20,8 @@
 <link rel="stylesheet" href="../../shigen/plugin/bootstrap/bootstrap-grid-customizing.css">
 <!-- table tabulator -->
 <script type="text/javascript" src="../../shigen/plugin/tabulator.min.js"></script>
-<!-- fontawsome -->
+<script src="../../shigen/js/loadingoverlay.min.js"></script>
+<!--font awesome -->
 <script defer src="../../shigen/fonts/js/all.min.js"></script>
 <link href="../../shigen/fonts/css/all.css" rel="stylesheet">
 <!--load all styles -->
@@ -35,7 +36,6 @@
 <script src="../../shigen/js/common.js"></script>
 <script src="../../shigen/js/appglobal.js"></script>
 <script src="../../shigen/js/sys/glob4UiAuth.js"></script>
-<!-- <script type="text/javascript" src="../../shigen/js/app/policyChangeAppl.js"></script> -->
 <script src="../../shigen/js/yf/fireTableColumns.js"></script>
 <script src="../../shigen/js/yf/fireTable.js"></script>
 <link rel="stylesheet" href="../../shigen/css/fireTableCustom.css">
@@ -49,10 +49,7 @@
 		<div class="ajax-section-main"></div>
 		<div class="container-fluid">
 			<div class="content">
-				<div class="bread-crumbs">
-					<a href="">火險作業</a>
-				</div>
-				<div class="big_title title s1">Rin1101-再保人基本資料維護</div>
+				<div class="big_title title s1">Rin1101再保人基本資料</div>
 				<div class="row-group">
 					<div class="row">
 						<div class="col-12 content_function_bar">
@@ -63,12 +60,12 @@
 				</div>
 				<div class="Greybg">
 					<div class="redClu">
-				<table class="tblDataArea tblInquireArea" cellspacing="0" cellpadding="0" width="100%">
+				<table class="tblDataArea" cellspacing="0" cellpadding="0" width="100%">
 					<tbody>
 						<tr>
 							<td class="tdDataCaption">再保人代號</td>
 							<td class="tdDataField">
-								<input type="text" value="" id="txtrin_com_id">
+								<input type="text" value="" id="txtrin_com_id" aria-label="txtrin_com_id">
 							</td>
 						</tr>
 					</tbody>

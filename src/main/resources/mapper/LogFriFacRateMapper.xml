@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.asi.huanan.service.dao.mybatis.mapper.LogFriFacRateMapper">
+  <resultMap id="BaseResultMap" type="com.asi.huanan.service.dao.mybatis.model.LogFriFacRate">
+    <id column="slip_no" jdbcType="VARCHAR" property="slipNo" />
+    <id column="LOG_seq" jdbcType="VARCHAR" property="logSeq" />
+    <id column="content" jdbcType="VARCHAR" property="content" />
+    <result column="amt" jdbcType="NUMERIC" property="amt" />
+    <result column="prem" jdbcType="NUMERIC" property="prem" />
+    <result column="fac_prem" jdbcType="NUMERIC" property="facPrem" />
+    <result column="prem_rate" jdbcType="NUMERIC" property="premRate" />
+    <result column="fac_prem_rate" jdbcType="NUMERIC" property="facPremRate" />
+    <result column="comm_rate" jdbcType="NUMERIC" property="commRate" />
+    <result column="limit_rate" jdbcType="DECIMAL" property="limitRate" />
+    <result column="limit" jdbcType="DECIMAL" property="limit" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    slip_no, LOG_seq, content, amt, prem, fac_prem, prem_rate, fac_prem_rate, comm_rate, 
+    limit_rate, limit
+  </sql>
+  <select id="selectByExample" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacRateExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from LOG_fri_fac_rate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacRateKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LOG_fri_fac_rate
+    where slip_no = #{slipNo,jdbcType=VARCHAR}
+      and LOG_seq = #{logSeq,jdbcType=VARCHAR}
+      and content = #{content,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacRateKey">
+    delete from LOG_fri_fac_rate
+    where slip_no = #{slipNo,jdbcType=VARCHAR}
+      and LOG_seq = #{logSeq,jdbcType=VARCHAR}
+      and content = #{content,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacRateExample">
+    delete from LOG_fri_fac_rate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacRate">
+    insert into LOG_fri_fac_rate (slip_no, LOG_seq, content, 
+      amt, prem, fac_prem, 
+      prem_rate, fac_prem_rate, comm_rate, 
+      limit_rate, limit)
+    values (#{slipNo,jdbcType=VARCHAR}, #{logSeq,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{amt,jdbcType=NUMERIC}, #{prem,jdbcType=NUMERIC}, #{facPrem,jdbcType=NUMERIC}, 
+      #{premRate,jdbcType=NUMERIC}, #{facPremRate,jdbcType=NUMERIC}, #{commRate,jdbcType=NUMERIC}, 
+      #{limitRate,jdbcType=DECIMAL}, #{limit,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacRate">
+    insert into LOG_fri_fac_rate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="slipNo != null">
+        slip_no,
+      </if>
+      <if test="logSeq != null">
+        LOG_seq,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="amt != null">
+        amt,
+      </if>
+      <if test="prem != null">
+        prem,
+      </if>
+      <if test="facPrem != null">
+        fac_prem,
+      </if>
+      <if test="premRate != null">
+        prem_rate,
+      </if>
+      <if test="facPremRate != null">
+        fac_prem_rate,
+      </if>
+      <if test="commRate != null">
+        comm_rate,
+      </if>
+      <if test="limitRate != null">
+        limit_rate,
+      </if>
+      <if test="limit != null">
+        limit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="slipNo != null">
+        #{slipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="logSeq != null">
+        #{logSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="amt != null">
+        #{amt,jdbcType=NUMERIC},
+      </if>
+      <if test="prem != null">
+        #{prem,jdbcType=NUMERIC},
+      </if>
+      <if test="facPrem != null">
+        #{facPrem,jdbcType=NUMERIC},
+      </if>
+      <if test="premRate != null">
+        #{premRate,jdbcType=NUMERIC},
+      </if>
+      <if test="facPremRate != null">
+        #{facPremRate,jdbcType=NUMERIC},
+      </if>
+      <if test="commRate != null">
+        #{commRate,jdbcType=NUMERIC},
+      </if>
+      <if test="limitRate != null">
+        #{limitRate,jdbcType=DECIMAL},
+      </if>
+      <if test="limit != null">
+        #{limit,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacRateExample" resultType="java.lang.Long">
+    select count(*) from LOG_fri_fac_rate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update LOG_fri_fac_rate
+    <set>
+      <if test="record.slipNo != null">
+        slip_no = #{record.slipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logSeq != null">
+        LOG_seq = #{record.logSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amt != null">
+        amt = #{record.amt,jdbcType=NUMERIC},
+      </if>
+      <if test="record.prem != null">
+        prem = #{record.prem,jdbcType=NUMERIC},
+      </if>
+      <if test="record.facPrem != null">
+        fac_prem = #{record.facPrem,jdbcType=NUMERIC},
+      </if>
+      <if test="record.premRate != null">
+        prem_rate = #{record.premRate,jdbcType=NUMERIC},
+      </if>
+      <if test="record.facPremRate != null">
+        fac_prem_rate = #{record.facPremRate,jdbcType=NUMERIC},
+      </if>
+      <if test="record.commRate != null">
+        comm_rate = #{record.commRate,jdbcType=NUMERIC},
+      </if>
+      <if test="record.limitRate != null">
+        limit_rate = #{record.limitRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.limit != null">
+        limit = #{record.limit,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update LOG_fri_fac_rate
+    set slip_no = #{record.slipNo,jdbcType=VARCHAR},
+      LOG_seq = #{record.logSeq,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      amt = #{record.amt,jdbcType=NUMERIC},
+      prem = #{record.prem,jdbcType=NUMERIC},
+      fac_prem = #{record.facPrem,jdbcType=NUMERIC},
+      prem_rate = #{record.premRate,jdbcType=NUMERIC},
+      fac_prem_rate = #{record.facPremRate,jdbcType=NUMERIC},
+      comm_rate = #{record.commRate,jdbcType=NUMERIC},
+      limit_rate = #{record.limitRate,jdbcType=DECIMAL},
+      limit = #{record.limit,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacRate">
+    update LOG_fri_fac_rate
+    <set>
+      <if test="amt != null">
+        amt = #{amt,jdbcType=NUMERIC},
+      </if>
+      <if test="prem != null">
+        prem = #{prem,jdbcType=NUMERIC},
+      </if>
+      <if test="facPrem != null">
+        fac_prem = #{facPrem,jdbcType=NUMERIC},
+      </if>
+      <if test="premRate != null">
+        prem_rate = #{premRate,jdbcType=NUMERIC},
+      </if>
+      <if test="facPremRate != null">
+        fac_prem_rate = #{facPremRate,jdbcType=NUMERIC},
+      </if>
+      <if test="commRate != null">
+        comm_rate = #{commRate,jdbcType=NUMERIC},
+      </if>
+      <if test="limitRate != null">
+        limit_rate = #{limitRate,jdbcType=DECIMAL},
+      </if>
+      <if test="limit != null">
+        limit = #{limit,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where slip_no = #{slipNo,jdbcType=VARCHAR}
+      and LOG_seq = #{logSeq,jdbcType=VARCHAR}
+      and content = #{content,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacRate">
+    update LOG_fri_fac_rate
+    set amt = #{amt,jdbcType=NUMERIC},
+      prem = #{prem,jdbcType=NUMERIC},
+      fac_prem = #{facPrem,jdbcType=NUMERIC},
+      prem_rate = #{premRate,jdbcType=NUMERIC},
+      fac_prem_rate = #{facPremRate,jdbcType=NUMERIC},
+      comm_rate = #{commRate,jdbcType=NUMERIC},
+      limit_rate = #{limitRate,jdbcType=DECIMAL},
+      limit = #{limit,jdbcType=DECIMAL}
+    where slip_no = #{slipNo,jdbcType=VARCHAR}
+      and LOG_seq = #{logSeq,jdbcType=VARCHAR}
+      and content = #{content,jdbcType=VARCHAR}
+  </update>
+</mapper>

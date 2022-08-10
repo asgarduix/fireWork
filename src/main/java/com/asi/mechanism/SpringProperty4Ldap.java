@@ -46,7 +46,7 @@ public class SpringProperty4Ldap {
 		return ldapfactory;
 	}
 
-	@Value("${ldap.factory}")
+	@Value("${ldap.fac}")
 	public void setLdapfactory(String ldapfactory) {
 		SpringProperty4Ldap.ldapfactory = ldapfactory;
 	}

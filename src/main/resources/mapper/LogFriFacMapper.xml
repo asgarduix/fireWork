@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.asi.huanan.service.dao.mybatis.mapper.LogFriFacMapper">
+  <resultMap id="BaseResultMap" type="com.asi.huanan.service.dao.mybatis.model.LogFriFac">
+    <id column="slip_no" jdbcType="VARCHAR" property="slipNo" />
+    <id column="LOG_seq" jdbcType="VARCHAR" property="logSeq" />
+    <result column="slip_type" jdbcType="VARCHAR" property="slipType" />
+    <result column="cession_no" jdbcType="VARCHAR" property="cessionNo" />
+    <result column="pre_slip_no" jdbcType="VARCHAR" property="preSlipNo" />
+    <result column="pre_cession_no" jdbcType="VARCHAR" property="preCessionNo" />
+    <result column="treaty_year" jdbcType="VARCHAR" property="treatyYear" />
+    <result column="treaty_date" jdbcType="TIMESTAMP" property="treatyDate" />
+    <result column="cession_name" jdbcType="VARCHAR" property="cessionName" />
+    <result column="risk_no" jdbcType="VARCHAR" property="riskNo" />
+    <result column="treaty_dbgn" jdbcType="TIMESTAMP" property="treatyDbgn" />
+    <result column="treaty_dend" jdbcType="TIMESTAMP" property="treatyDend" />
+    <result column="days" jdbcType="SMALLINT" property="days" />
+    <result column="risk_type" jdbcType="VARCHAR" property="riskType" />
+    <result column="deduct_desc" jdbcType="VARCHAR" property="deductDesc" />
+    <result column="policy_no" jdbcType="VARCHAR" property="policyNo" />
+    <result column="insurant" jdbcType="VARCHAR" property="insurant" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="use_prop" jdbcType="VARCHAR" property="useProp" />
+    <result column="construct" jdbcType="VARCHAR" property="construct" />
+    <result column="coverage" jdbcType="VARCHAR" property="coverage" />
+    <result column="treaty_dprt" jdbcType="TIMESTAMP" property="treatyDprt" />
+    <result column="acct_flag" jdbcType="VARCHAR" property="acctFlag" />
+    <result column="acct_dprt" jdbcType="TIMESTAMP" property="acctDprt" />
+    <result column="limit_rate" jdbcType="NUMERIC" property="limitRate" />
+    <result column="limit" jdbcType="NUMERIC" property="limit" />
+    <result column="fac_type" jdbcType="VARCHAR" property="facType" />
+    <result column="excess_bgn" jdbcType="NUMERIC" property="excessBgn" />
+    <result column="excess_limit" jdbcType="NUMERIC" property="excessLimit" />
+    <result column="TreatySet" jdbcType="VARCHAR" property="treatyset" />
+    <result column="currency" jdbcType="VARCHAR" property="currency" />
+    <result column="currencyExchangeRate" jdbcType="NUMERIC" property="currencyexchangerate" />
+    <result column="policy_no_seq" jdbcType="VARCHAR" property="policyNoSeq" />
+    <result column="LastUpdateDateTime" jdbcType="TIMESTAMP" property="lastupdatedatetime" />
+    <result column="LastUpdateAccount" jdbcType="VARCHAR" property="lastupdateaccount" />
+    <result column="mkovse" jdbcType="CHAR" property="mkovse" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    slip_no, LOG_seq, slip_type, cession_no, pre_slip_no, pre_cession_no, treaty_year, 
+    treaty_date, cession_name, risk_no, treaty_dbgn, treaty_dend, days, risk_type, deduct_desc, 
+    policy_no, insurant, address, use_prop, construct, coverage, treaty_dprt, acct_flag, 
+    acct_dprt, limit_rate, limit, fac_type, excess_bgn, excess_limit, TreatySet, currency, 
+    currencyExchangeRate, policy_no_seq, LastUpdateDateTime, LastUpdateAccount, mkovse
+  </sql>
+  <select id="selectByExample" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from LOG_fri_fac
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LOG_fri_fac
+    where slip_no = #{slipNo,jdbcType=VARCHAR}
+      and LOG_seq = #{logSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacKey">
+    delete from LOG_fri_fac
+    where slip_no = #{slipNo,jdbcType=VARCHAR}
+      and LOG_seq = #{logSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacExample">
+    delete from LOG_fri_fac
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFac">
+    insert into LOG_fri_fac (slip_no, LOG_seq, slip_type, 
+      cession_no, pre_slip_no, pre_cession_no, 
+      treaty_year, treaty_date, cession_name, 
+      risk_no, treaty_dbgn, treaty_dend, 
+      days, risk_type, deduct_desc, 
+      policy_no, insurant, address, 
+      use_prop, construct, coverage, 
+      treaty_dprt, acct_flag, acct_dprt, 
+      limit_rate, limit, fac_type, 
+      excess_bgn, excess_limit, TreatySet, 
+      currency, currencyExchangeRate, policy_no_seq, 
+      LastUpdateDateTime, LastUpdateAccount, 
+      mkovse)
+    values (#{slipNo,jdbcType=VARCHAR}, #{logSeq,jdbcType=VARCHAR}, #{slipType,jdbcType=VARCHAR}, 
+      #{cessionNo,jdbcType=VARCHAR}, #{preSlipNo,jdbcType=VARCHAR}, #{preCessionNo,jdbcType=VARCHAR}, 
+      #{treatyYear,jdbcType=VARCHAR}, #{treatyDate,jdbcType=TIMESTAMP}, #{cessionName,jdbcType=VARCHAR}, 
+      #{riskNo,jdbcType=VARCHAR}, #{treatyDbgn,jdbcType=TIMESTAMP}, #{treatyDend,jdbcType=TIMESTAMP}, 
+      #{days,jdbcType=SMALLINT}, #{riskType,jdbcType=VARCHAR}, #{deductDesc,jdbcType=VARCHAR}, 
+      #{policyNo,jdbcType=VARCHAR}, #{insurant,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{useProp,jdbcType=VARCHAR}, #{construct,jdbcType=VARCHAR}, #{coverage,jdbcType=VARCHAR}, 
+      #{treatyDprt,jdbcType=TIMESTAMP}, #{acctFlag,jdbcType=VARCHAR}, #{acctDprt,jdbcType=TIMESTAMP}, 
+      #{limitRate,jdbcType=NUMERIC}, #{limit,jdbcType=NUMERIC}, #{facType,jdbcType=VARCHAR}, 
+      #{excessBgn,jdbcType=NUMERIC}, #{excessLimit,jdbcType=NUMERIC}, #{treatyset,jdbcType=VARCHAR}, 
+      #{currency,jdbcType=VARCHAR}, #{currencyexchangerate,jdbcType=NUMERIC}, #{policyNoSeq,jdbcType=VARCHAR}, 
+      #{lastupdatedatetime,jdbcType=TIMESTAMP}, #{lastupdateaccount,jdbcType=VARCHAR}, 
+      #{mkovse,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFac">
+    insert into LOG_fri_fac
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="slipNo != null">
+        slip_no,
+      </if>
+      <if test="logSeq != null">
+        LOG_seq,
+      </if>
+      <if test="slipType != null">
+        slip_type,
+      </if>
+      <if test="cessionNo != null">
+        cession_no,
+      </if>
+      <if test="preSlipNo != null">
+        pre_slip_no,
+      </if>
+      <if test="preCessionNo != null">
+        pre_cession_no,
+      </if>
+      <if test="treatyYear != null">
+        treaty_year,
+      </if>
+      <if test="treatyDate != null">
+        treaty_date,
+      </if>
+      <if test="cessionName != null">
+        cession_name,
+      </if>
+      <if test="riskNo != null">
+        risk_no,
+      </if>
+      <if test="treatyDbgn != null">
+        treaty_dbgn,
+      </if>
+      <if test="treatyDend != null">
+        treaty_dend,
+      </if>
+      <if test="days != null">
+        days,
+      </if>
+      <if test="riskType != null">
+        risk_type,
+      </if>
+      <if test="deductDesc != null">
+        deduct_desc,
+      </if>
+      <if test="policyNo != null">
+        policy_no,
+      </if>
+      <if test="insurant != null">
+        insurant,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="useProp != null">
+        use_prop,
+      </if>
+      <if test="construct != null">
+        construct,
+      </if>
+      <if test="coverage != null">
+        coverage,
+      </if>
+      <if test="treatyDprt != null">
+        treaty_dprt,
+      </if>
+      <if test="acctFlag != null">
+        acct_flag,
+      </if>
+      <if test="acctDprt != null">
+        acct_dprt,
+      </if>
+      <if test="limitRate != null">
+        limit_rate,
+      </if>
+      <if test="limit != null">
+        limit,
+      </if>
+      <if test="facType != null">
+        fac_type,
+      </if>
+      <if test="excessBgn != null">
+        excess_bgn,
+      </if>
+      <if test="excessLimit != null">
+        excess_limit,
+      </if>
+      <if test="treatyset != null">
+        TreatySet,
+      </if>
+      <if test="currency != null">
+        currency,
+      </if>
+      <if test="currencyexchangerate != null">
+        currencyExchangeRate,
+      </if>
+      <if test="policyNoSeq != null">
+        policy_no_seq,
+      </if>
+      <if test="lastupdatedatetime != null">
+        LastUpdateDateTime,
+      </if>
+      <if test="lastupdateaccount != null">
+        LastUpdateAccount,
+      </if>
+      <if test="mkovse != null">
+        mkovse,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="slipNo != null">
+        #{slipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="logSeq != null">
+        #{logSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="slipType != null">
+        #{slipType,jdbcType=VARCHAR},
+      </if>
+      <if test="cessionNo != null">
+        #{cessionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="preSlipNo != null">
+        #{preSlipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="preCessionNo != null">
+        #{preCessionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="treatyYear != null">
+        #{treatyYear,jdbcType=VARCHAR},
+      </if>
+      <if test="treatyDate != null">
+        #{treatyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cessionName != null">
+        #{cessionName,jdbcType=VARCHAR},
+      </if>
+      <if test="riskNo != null">
+        #{riskNo,jdbcType=VARCHAR},
+      </if>
+      <if test="treatyDbgn != null">
+        #{treatyDbgn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="treatyDend != null">
+        #{treatyDend,jdbcType=TIMESTAMP},
+      </if>
+      <if test="days != null">
+        #{days,jdbcType=SMALLINT},
+      </if>
+      <if test="riskType != null">
+        #{riskType,jdbcType=VARCHAR},
+      </if>
+      <if test="deductDesc != null">
+        #{deductDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="policyNo != null">
+        #{policyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="insurant != null">
+        #{insurant,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="useProp != null">
+        #{useProp,jdbcType=VARCHAR},
+      </if>
+      <if test="construct != null">
+        #{construct,jdbcType=VARCHAR},
+      </if>
+      <if test="coverage != null">
+        #{coverage,jdbcType=VARCHAR},
+      </if>
+      <if test="treatyDprt != null">
+        #{treatyDprt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="acctFlag != null">
+        #{acctFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="acctDprt != null">
+        #{acctDprt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="limitRate != null">
+        #{limitRate,jdbcType=NUMERIC},
+      </if>
+      <if test="limit != null">
+        #{limit,jdbcType=NUMERIC},
+      </if>
+      <if test="facType != null">
+        #{facType,jdbcType=VARCHAR},
+      </if>
+      <if test="excessBgn != null">
+        #{excessBgn,jdbcType=NUMERIC},
+      </if>
+      <if test="excessLimit != null">
+        #{excessLimit,jdbcType=NUMERIC},
+      </if>
+      <if test="treatyset != null">
+        #{treatyset,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null">
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyexchangerate != null">
+        #{currencyexchangerate,jdbcType=NUMERIC},
+      </if>
+      <if test="policyNoSeq != null">
+        #{policyNoSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="lastupdatedatetime != null">
+        #{lastupdatedatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastupdateaccount != null">
+        #{lastupdateaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="mkovse != null">
+        #{mkovse,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacExample" resultType="java.lang.Long">
+    select count(*) from LOG_fri_fac
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update LOG_fri_fac
+    <set>
+      <if test="record.slipNo != null">
+        slip_no = #{record.slipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logSeq != null">
+        LOG_seq = #{record.logSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.slipType != null">
+        slip_type = #{record.slipType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cessionNo != null">
+        cession_no = #{record.cessionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.preSlipNo != null">
+        pre_slip_no = #{record.preSlipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.preCessionNo != null">
+        pre_cession_no = #{record.preCessionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.treatyYear != null">
+        treaty_year = #{record.treatyYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.treatyDate != null">
+        treaty_date = #{record.treatyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cessionName != null">
+        cession_name = #{record.cessionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskNo != null">
+        risk_no = #{record.riskNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.treatyDbgn != null">
+        treaty_dbgn = #{record.treatyDbgn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.treatyDend != null">
+        treaty_dend = #{record.treatyDend,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.days != null">
+        days = #{record.days,jdbcType=SMALLINT},
+      </if>
+      <if test="record.riskType != null">
+        risk_type = #{record.riskType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deductDesc != null">
+        deduct_desc = #{record.deductDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.policyNo != null">
+        policy_no = #{record.policyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.insurant != null">
+        insurant = #{record.insurant,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useProp != null">
+        use_prop = #{record.useProp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.construct != null">
+        construct = #{record.construct,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coverage != null">
+        coverage = #{record.coverage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.treatyDprt != null">
+        treaty_dprt = #{record.treatyDprt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.acctFlag != null">
+        acct_flag = #{record.acctFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acctDprt != null">
+        acct_dprt = #{record.acctDprt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.limitRate != null">
+        limit_rate = #{record.limitRate,jdbcType=NUMERIC},
+      </if>
+      <if test="record.limit != null">
+        limit = #{record.limit,jdbcType=NUMERIC},
+      </if>
+      <if test="record.facType != null">
+        fac_type = #{record.facType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.excessBgn != null">
+        excess_bgn = #{record.excessBgn,jdbcType=NUMERIC},
+      </if>
+      <if test="record.excessLimit != null">
+        excess_limit = #{record.excessLimit,jdbcType=NUMERIC},
+      </if>
+      <if test="record.treatyset != null">
+        TreatySet = #{record.treatyset,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currency != null">
+        currency = #{record.currency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currencyexchangerate != null">
+        currencyExchangeRate = #{record.currencyexchangerate,jdbcType=NUMERIC},
+      </if>
+      <if test="record.policyNoSeq != null">
+        policy_no_seq = #{record.policyNoSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastupdatedatetime != null">
+        LastUpdateDateTime = #{record.lastupdatedatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastupdateaccount != null">
+        LastUpdateAccount = #{record.lastupdateaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mkovse != null">
+        mkovse = #{record.mkovse,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update LOG_fri_fac
+    set slip_no = #{record.slipNo,jdbcType=VARCHAR},
+      LOG_seq = #{record.logSeq,jdbcType=VARCHAR},
+      slip_type = #{record.slipType,jdbcType=VARCHAR},
+      cession_no = #{record.cessionNo,jdbcType=VARCHAR},
+      pre_slip_no = #{record.preSlipNo,jdbcType=VARCHAR},
+      pre_cession_no = #{record.preCessionNo,jdbcType=VARCHAR},
+      treaty_year = #{record.treatyYear,jdbcType=VARCHAR},
+      treaty_date = #{record.treatyDate,jdbcType=TIMESTAMP},
+      cession_name = #{record.cessionName,jdbcType=VARCHAR},
+      risk_no = #{record.riskNo,jdbcType=VARCHAR},
+      treaty_dbgn = #{record.treatyDbgn,jdbcType=TIMESTAMP},
+      treaty_dend = #{record.treatyDend,jdbcType=TIMESTAMP},
+      days = #{record.days,jdbcType=SMALLINT},
+      risk_type = #{record.riskType,jdbcType=VARCHAR},
+      deduct_desc = #{record.deductDesc,jdbcType=VARCHAR},
+      policy_no = #{record.policyNo,jdbcType=VARCHAR},
+      insurant = #{record.insurant,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      use_prop = #{record.useProp,jdbcType=VARCHAR},
+      construct = #{record.construct,jdbcType=VARCHAR},
+      coverage = #{record.coverage,jdbcType=VARCHAR},
+      treaty_dprt = #{record.treatyDprt,jdbcType=TIMESTAMP},
+      acct_flag = #{record.acctFlag,jdbcType=VARCHAR},
+      acct_dprt = #{record.acctDprt,jdbcType=TIMESTAMP},
+      limit_rate = #{record.limitRate,jdbcType=NUMERIC},
+      limit = #{record.limit,jdbcType=NUMERIC},
+      fac_type = #{record.facType,jdbcType=VARCHAR},
+      excess_bgn = #{record.excessBgn,jdbcType=NUMERIC},
+      excess_limit = #{record.excessLimit,jdbcType=NUMERIC},
+      TreatySet = #{record.treatyset,jdbcType=VARCHAR},
+      currency = #{record.currency,jdbcType=VARCHAR},
+      currencyExchangeRate = #{record.currencyexchangerate,jdbcType=NUMERIC},
+      policy_no_seq = #{record.policyNoSeq,jdbcType=VARCHAR},
+      LastUpdateDateTime = #{record.lastupdatedatetime,jdbcType=TIMESTAMP},
+      LastUpdateAccount = #{record.lastupdateaccount,jdbcType=VARCHAR},
+      mkovse = #{record.mkovse,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFac">
+    update LOG_fri_fac
+    <set>
+      <if test="slipType != null">
+        slip_type = #{slipType,jdbcType=VARCHAR},
+      </if>
+      <if test="cessionNo != null">
+        cession_no = #{cessionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="preSlipNo != null">
+        pre_slip_no = #{preSlipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="preCessionNo != null">
+        pre_cession_no = #{preCessionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="treatyYear != null">
+        treaty_year = #{treatyYear,jdbcType=VARCHAR},
+      </if>
+      <if test="treatyDate != null">
+        treaty_date = #{treatyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cessionName != null">
+        cession_name = #{cessionName,jdbcType=VARCHAR},
+      </if>
+      <if test="riskNo != null">
+        risk_no = #{riskNo,jdbcType=VARCHAR},
+      </if>
+      <if test="treatyDbgn != null">
+        treaty_dbgn = #{treatyDbgn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="treatyDend != null">
+        treaty_dend = #{treatyDend,jdbcType=TIMESTAMP},
+      </if>
+      <if test="days != null">
+        days = #{days,jdbcType=SMALLINT},
+      </if>
+      <if test="riskType != null">
+        risk_type = #{riskType,jdbcType=VARCHAR},
+      </if>
+      <if test="deductDesc != null">
+        deduct_desc = #{deductDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="policyNo != null">
+        policy_no = #{policyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="insurant != null">
+        insurant = #{insurant,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="useProp != null">
+        use_prop = #{useProp,jdbcType=VARCHAR},
+      </if>
+      <if test="construct != null">
+        construct = #{construct,jdbcType=VARCHAR},
+      </if>
+      <if test="coverage != null">
+        coverage = #{coverage,jdbcType=VARCHAR},
+      </if>
+      <if test="treatyDprt != null">
+        treaty_dprt = #{treatyDprt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="acctFlag != null">
+        acct_flag = #{acctFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="acctDprt != null">
+        acct_dprt = #{acctDprt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="limitRate != null">
+        limit_rate = #{limitRate,jdbcType=NUMERIC},
+      </if>
+      <if test="limit != null">
+        limit = #{limit,jdbcType=NUMERIC},
+      </if>
+      <if test="facType != null">
+        fac_type = #{facType,jdbcType=VARCHAR},
+      </if>
+      <if test="excessBgn != null">
+        excess_bgn = #{excessBgn,jdbcType=NUMERIC},
+      </if>
+      <if test="excessLimit != null">
+        excess_limit = #{excessLimit,jdbcType=NUMERIC},
+      </if>
+      <if test="treatyset != null">
+        TreatySet = #{treatyset,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null">
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyexchangerate != null">
+        currencyExchangeRate = #{currencyexchangerate,jdbcType=NUMERIC},
+      </if>
+      <if test="policyNoSeq != null">
+        policy_no_seq = #{policyNoSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="lastupdatedatetime != null">
+        LastUpdateDateTime = #{lastupdatedatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastupdateaccount != null">
+        LastUpdateAccount = #{lastupdateaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="mkovse != null">
+        mkovse = #{mkovse,jdbcType=CHAR},
+      </if>
+    </set>
+    where slip_no = #{slipNo,jdbcType=VARCHAR}
+      and LOG_seq = #{logSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFac">
+    update LOG_fri_fac
+    set slip_type = #{slipType,jdbcType=VARCHAR},
+      cession_no = #{cessionNo,jdbcType=VARCHAR},
+      pre_slip_no = #{preSlipNo,jdbcType=VARCHAR},
+      pre_cession_no = #{preCessionNo,jdbcType=VARCHAR},
+      treaty_year = #{treatyYear,jdbcType=VARCHAR},
+      treaty_date = #{treatyDate,jdbcType=TIMESTAMP},
+      cession_name = #{cessionName,jdbcType=VARCHAR},
+      risk_no = #{riskNo,jdbcType=VARCHAR},
+      treaty_dbgn = #{treatyDbgn,jdbcType=TIMESTAMP},
+      treaty_dend = #{treatyDend,jdbcType=TIMESTAMP},
+      days = #{days,jdbcType=SMALLINT},
+      risk_type = #{riskType,jdbcType=VARCHAR},
+      deduct_desc = #{deductDesc,jdbcType=VARCHAR},
+      policy_no = #{policyNo,jdbcType=VARCHAR},
+      insurant = #{insurant,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      use_prop = #{useProp,jdbcType=VARCHAR},
+      construct = #{construct,jdbcType=VARCHAR},
+      coverage = #{coverage,jdbcType=VARCHAR},
+      treaty_dprt = #{treatyDprt,jdbcType=TIMESTAMP},
+      acct_flag = #{acctFlag,jdbcType=VARCHAR},
+      acct_dprt = #{acctDprt,jdbcType=TIMESTAMP},
+      limit_rate = #{limitRate,jdbcType=NUMERIC},
+      limit = #{limit,jdbcType=NUMERIC},
+      fac_type = #{facType,jdbcType=VARCHAR},
+      excess_bgn = #{excessBgn,jdbcType=NUMERIC},
+      excess_limit = #{excessLimit,jdbcType=NUMERIC},
+      TreatySet = #{treatyset,jdbcType=VARCHAR},
+      currency = #{currency,jdbcType=VARCHAR},
+      currencyExchangeRate = #{currencyexchangerate,jdbcType=NUMERIC},
+      policy_no_seq = #{policyNoSeq,jdbcType=VARCHAR},
+      LastUpdateDateTime = #{lastupdatedatetime,jdbcType=TIMESTAMP},
+      LastUpdateAccount = #{lastupdateaccount,jdbcType=VARCHAR},
+      mkovse = #{mkovse,jdbcType=CHAR}
+    where slip_no = #{slipNo,jdbcType=VARCHAR}
+      and LOG_seq = #{logSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

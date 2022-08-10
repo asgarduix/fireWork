@@ -1,10 +1,10 @@
 //tabulator欄位設置
 let columns1108 = [
 	["checkbox", { showBtn: true }],
-	["txttreaty_year", "合約年度", "input", { width: "25%" }],
-    ["txtpolicy_type", "保單種類", "input", { width: "25%" }],
-    ["numshare_order", "分保順序", "input", { width: "25%" }],
-    ["txttreaty_no", "合約代號", "input",{ width: "25%"}]
+	["txttreaty_year", "合約年度", "input"],
+    ["txtpolicy_type", "保單種類", "input"],
+    ["numshare_order", "分保順序", "input"],
+    ["txttreaty_no", "合約代號", "input"]
 ];
 
 //tabulator欄位格式製作
@@ -17,9 +17,9 @@ let tableConfigs = {}
 let tableRelatedBtns = [
     {
         type: "add",
-        name: "新增",
-        class: "class-name",
-        position: "#table1108-btn",
+        name: "",
+        class: "add-btn-custom",
+        position: "#table1108addBtn",
         getDefaultData: function () {
 
             return {
@@ -38,19 +38,19 @@ let tableRelatedBtns = [
     {
         type: "edit",
         name: "修改",
-        class: "class-name",
+        class: "btn btn-oneE",
         position: "#table1108-btn",
     },
     {
         type: "copy",
         name: "複製",
-        class: "class-name",
+        class: "btn btn-oneA",
         position: "#table1108-btn",
     },
     {
         type: "del",
         name: "刪除",
-        class: "class-name",
+        class: "btn btn-oneG",
         position: "#table1108-btn",
         delApi: function (rowsDataArry) {
         	
@@ -73,7 +73,7 @@ let tableRelatedBtns = [
     {
         type: "save",
         name: "儲存",
-        class: "class-name",
+        class: "btn btn-oneD",
         position: "#table1108-btn",
         nullSpaceCheck: true,rules:{},
         addSaveApi: function (rowData) {
@@ -96,7 +96,7 @@ let tableRelatedBtns = [
         },
         editSaveApi: function (oldData, newData, newDataJson) {
 
-        	//比對新舊資料，若一樣則不做任何事情   	
+        	//比對新舊資料，若資料沒有變更則不做任何事情 	
         	if(isSameArray(oldData, newData)){        		
         		return { isSuccess: true }
         		
@@ -133,7 +133,7 @@ let table1108 = createTable("table1108", colsFormat, tableConfigs, tableRelatedB
 
 
 
-//查詢
+//查詢鈕
 function btnQueryRin1108(){
 	
 	//搜尋時，結束目前tabulator的編輯狀態
@@ -152,7 +152,7 @@ function btnQueryRin1108(){
 	
 	if('000' === res.status){
 		
-		loadData("table1108", res.data, {type:"dataCount", value:15})
+		loadData("table1108", res.data, {type:"dataCount", value:6})
 
 	}else{
 		alert("「限額資料查詢」失敗!!!請聯絡管理人員!!!");

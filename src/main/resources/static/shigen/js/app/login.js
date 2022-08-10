@@ -19,19 +19,27 @@ function doLogin(issubmit) {
 	var k = null;
 	var r = null;
 
-	var domain = document.URL.split("/")[2];
+	//  var domain = document.URL.split("/")[2];
 	// var domain = "localhost";
 	// alert(domain);
 
+	var domain = domain4Springboot(true);
+
+	console.log(domain);
+
 	$.ajax({
-		url: "http://" + domain + "/authorization/authen?" + jQuery.param({
-			username: varUsr,
-			password: varPasswd
-		}),
-		contentType: "application/x-www-form-urlencoded",
+		url: domain + "/authorization/authen/v3",
+		contentType: "application/json; charset=UTF-8",
 		async: false,
+		dataType: "json",
+		data: JSON.stringify({
+			username: varUsr,
+			password: varPasswd,
+		}),
 		method: "POST",
 		complete: function(jqXHR, data) {
+			console.log(jqXHR.responseJSON);
+
 			//alert(jqXHR.status);
 			switch (jqXHR.status) {
 				case 200:
@@ -53,6 +61,7 @@ function doLogin(issubmit) {
 					localStorage.setItem("account", varUsr);
 
 					if (issubmit == true) {
+						$(window).unbind('beforeunload');
 						$("#token").val(k);
 						$("#action_form").submit();
 					} else {
@@ -64,12 +73,24 @@ function doLogin(issubmit) {
 					console.log("status code:" + jqXHR.status);
 					break;
 				case 401:
-					alert("請輸入正確的帳號密碼");
-					console.log("status code:" + jqXHR.status);
+					var s = "";
+
+					if (checkIsNullSpace(jqXHR.responseJSON.message) == false) {
+						s = " msg:" + jqXHR.responseJSON.message;
+					}
+
+					alert("請輸入正確的帳號密碼" + s);
+					console.log("status code:" + jqXHR.status + " msg:" + jqXHR.responseJSON.message);
 					break;
 				case 403:
-					alert("請輸入正確的帳號密碼");
-					console.log("status code:" + jqXHR.status);
+					var s = "";
+
+					if (checkIsNullSpace(jqXHR.responseJSON.message) == false) {
+						s = " msg:" + jqXHR.responseJSON.message;
+					}
+
+					alert("請輸入正確的帳號密碼" + s);
+					console.log("status code:" + jqXHR.status + " msg:" + jqXHR.responseJSON.message);
 					break;
 				case 500:
 					console.log("status code:" + jqXHR.status);
@@ -79,7 +100,6 @@ function doLogin(issubmit) {
 					console.log("status code:" + jqXHR.status);
 					alert("登入時發生嚴重錯誤");
 			}
-
-		}
+		},
 	});
 }

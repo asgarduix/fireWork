@@ -73,8 +73,8 @@ public class DBConnectionSqlite {
 			try {
 				resultSet.close();
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				log.debug(e.toString());
+				Arrays.asList(e.getStackTrace()).stream().forEach(sub -> log.debug(sub.toString()));
 			}
 			// throw e;
 		} finally {

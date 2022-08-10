@@ -70,7 +70,7 @@ $(document).ready(
 
 		if ((tmp == null || tmp == undefined || tmp == "undefined" || tmp == "") == false) {
 			// alert("1");
-			// result = JSON.parse(tmp);
+			result = JSON.parse(tmp);
 		} else {
 			// alert("2");
 			// 沒有找到使用者操作過的menu紀錄
@@ -90,7 +90,7 @@ $(document).ready(
 			}
 
 			//不需要暫存
-			// sessionStorage.setItem(menuActNm, JSON.stringify(result));
+			sessionStorage.setItem(menuActNm, JSON.stringify(result));
 		}
 
 		//		alert(JSON.stringify(result));
@@ -125,13 +125,10 @@ $(document).ready(
 				// 沒有下層的upper層menu
 				var fu = menuJson[id][0].menuFuncUrl;
 				fu = fu.replace(".html", "") + token;
-				// menuData += '<li class="nav_box" onclick=\"saveStatus();locationHrefWithPost(\'' + menuJson[id][0].menuFuncUrl + '\');\" id=\"menu_id_' + id + '">' +
+
 				menuData += '<li onClick="saveCurrentPageStatus(id)" class="nav_box" id=\"menu_id_' + id + '">' +
 					'<a href="' + fu + '" class="nav_first">' +
-					// '<a href="#" class="nav_first">' +
-					// '<a class="nav_first" onclick="locationHrefWithPost(\'' + menuJson[id][0].menuFuncUrl + '\');return false;">' +
-					'<svg class="svg-inline--fa fa-plus-square fa-w-14" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus-square" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">' +
-					//					'<path fill="currentColor" d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-32 252c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92H92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"></path>' +
+					'<svg class="svg-inline--fa fa-plus-square fa-w-14" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus-square" role="img"  viewBox="0 0 448 512" data-fa-i2svg="">' +
 					'<path fill="currentColor" d="' + menuJson[id][0].menuIconUrl + '"></path>' +
 					'</svg>' +
 					'<!-- <i class="fas fa-plus-square"></i> --><span>' + menuJson[id][0].menuFuncUrl + '<br>' + menuJson[id][0].menuName + '</span></a></li>';
@@ -143,8 +140,9 @@ $(document).ready(
 						fu = fu.replace(".html", "") + token;
 
 						menuData += ('<ul><li><div class="item_title" onclick=\"saveStatus();\" id=\"' + "menu_id_"
-							+ id + '\"><img src="' + menuJson[id][i].menuIconUrl + '"><span>'
-							+ menuJson[id][i].menuName + '</span></div></li>');
+							+ id + '\"><svg class="svg-inline--fa fa-plus-square fa-w-14" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus-square" role="img"  viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-32 252c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92H92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"></path></svg><!-- <i class="fas fa-plus-square"></i> --><span>'
+							//+ id + '\"><img src="' + menuJson[id][i].menuIconUrl + '"><span>'
+							+ menuJson[id][i].menuName + "" + '</span></div></li>');
 					} else if (i == 1) { // 下層第一個menu
 						var fu = menuJson[id][i].menuFuncUrl;
 						fu = fu.replace(".html", "") + token;

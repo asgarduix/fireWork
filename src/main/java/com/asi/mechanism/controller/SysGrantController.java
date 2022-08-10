@@ -105,7 +105,7 @@ import io.swagger.annotations.ApiResponses;
 @Lazy
 @RequestMapping("sysgrant")
 @RestController
-@Api(value = "fixed test")
+@Api(value = "fixed test", tags = { "sysgrant" })
 public class SysGrantController {
 
 	private static Logger log = LogManager.getLogger(SysGrantController.class);
@@ -302,7 +302,7 @@ public class SysGrantController {
 
 				// 查詢原有資料
 				SysAccount sysAccCond = new SysAccount();
-				sysAccCond.setUserId(userId);
+				sysAccCond.setAkaId(userId);
 				List<SysAccount> accList = sysAccountService.queryBySysAccount(sysAccCond, sqlSession);
 
 				if (accList == null || accList.size() != 1) {
@@ -313,10 +313,10 @@ public class SysGrantController {
 				}
 
 				List<SysAccount> newAccList = accList.stream().map(acc -> {
-					acc.setUserId(userId);
+					acc.setAkaId(userId);
 					acc.setMail(mail);
 					acc.setUserName(userName);
-					acc.setPassword(password);
+					acc.setCipher(password);
 					return acc;
 				}).collect(Collectors.toList());
 
@@ -535,10 +535,10 @@ public class SysGrantController {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping("/createAccount")
 	@ResponseBody
-	public ResponseEntity<?> createAccount(@RequestParam(name = "userId", required = true) String userId,
+	public ResponseEntity<?> createAccount(@RequestParam(name = "userId", required = true) String akaId,
 			@RequestParam(name = "userName", required = true) String userName,
 			@RequestParam(name = "mail", required = false) String mail,
-			@ApiParam(value = "(We will encode to MD5)") @RequestParam(name = "password") String password) {
+			@ApiParam(value = "(We will encode to MD5)") @RequestParam(name = "password") String cipher) {
 		JsonBean jsonBean = new JsonBean();
 
 		try {
@@ -550,7 +550,7 @@ public class SysGrantController {
 
 				// 檢查該輸入帳號ID是否已存在
 				SysAccount acc = new SysAccount();
-				acc.setUserId(userId);
+				acc.setAkaId(akaId);
 				List<SysAccount> accList = sysAccountService.queryBySysAccount(acc, sqlSession);
 
 				if (accList.size() > 0) {
@@ -561,13 +561,13 @@ public class SysGrantController {
 
 				// 新增輸入帳號資料
 				Asiutil util = new Asiutil();
-				String passwdEncode = util.encrypt(password, "MD5");
+				String cipherEncode = util.encrypt(cipher, util.genalgstr());
 
 				SysAccount newAcc = new SysAccount();
-				newAcc.setUserId(userId);
+				newAcc.setAkaId(akaId);
 				newAcc.setUserName(userName);
-				newAcc.setPassword(passwdEncode);
-				newAcc.setCrtUserid(userId);
+				newAcc.setCipher(cipherEncode);
+				newAcc.setCrtAkaId(akaId);
 				newAcc.setMail(mail);
 				newAcc.setCrtDate(new Date());
 
@@ -575,21 +575,21 @@ public class SysGrantController {
 
 				// 先賦予預設角色(TODO 須再討論看看)
 				SysAccountRole newAccRole = new SysAccountRole();
-				newAccRole.setUserId(userId);
-				newAccRole.setUserRole(userId);
+				newAccRole.setAkaId(akaId);
+				newAccRole.setUserRole(akaId);
 				newAccRole.setUserRole(SysEnum.systemDefaultRole.context);
 				int insVal2 = sysAccountRoleService.insert(newAccRole, sysAccountRoleMapper);
 
 				if (insVal != 1 & insVal2 != 1) {
 					jsonBean.setStatus(SysEnum.statusSuccess.code);
-					jsonBean.setMessage("added user id:" + userId + " have serious error, insert val:" + insVal);
+					jsonBean.setMessage("added user id:" + akaId + " have serious error, insert val:" + insVal);
 					return new ResponseEntity<>(jsonBean, HttpStatus.OK);
 				}
 
 				sqlSession.commit();
 
 				jsonBean.setStatus(SysEnum.statusSuccess.code);
-				jsonBean.setMessage("added user id:" + userId);
+				jsonBean.setMessage("added user id:" + akaId);
 				return new ResponseEntity<>(jsonBean, HttpStatus.OK);
 			} catch (Exception e) {
 				sqlSession.rollback();
@@ -634,7 +634,7 @@ public class SysGrantController {
 
 				// 查詢帳號
 				SysAccount sysAcc = new SysAccount();
-				sysAcc.setUserId(userId);
+				sysAcc.setAkaId(userId);
 				List<SysAccount> sysAccList = sysAccountService.queryBySysAccount(sysAcc, sqlSession);
 
 				// 將查詢後的資料修改enable_mark欄位資料為N
@@ -705,7 +705,7 @@ public class SysGrantController {
 				SysAccount accCond = new SysAccount();
 				List<SysAccount> sysAccList = sysAccountService.queryBySysAccount(accCond, sqlSession);
 
-				if (sysAccList == null || sysAccList.size() < 0) {
+				if (sysAccList == null || sysAccList.isEmpty()) {
 					jsonBean.setStatus(SysEnum.statusSuccess.code);
 					jsonBean.setMessage("user id:" + userId + " is not existing");
 					return new ResponseEntity<>(jsonBean, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -1429,7 +1429,7 @@ public class SysGrantController {
 				// 檢查輸入的userId是否有資料
 				// 檢查輸入的sysRole是否有資料
 				SysAccount acc = new SysAccount();
-				acc.setUserId(userId);
+				acc.setAkaId(userId);
 				List<SysAccount> accList = sysAccountService.queryBySysAccount(acc, sqlSession);
 
 				SysRole role = new SysRole();
@@ -1446,7 +1446,7 @@ public class SysGrantController {
 
 				if (linkSwitch == true) {// 設定帳號角色連結
 					SysAccountRole accRole = new SysAccountRole();
-					accRole.setUserId(userId);
+					accRole.setAkaId(userId);
 					accRole.setUserRole(roleId);
 					List<SysAccountRole> accRoleList = sysAccountRoleService.queryBySysAccountRole(accRole, sqlSession);
 
@@ -1460,12 +1460,12 @@ public class SysGrantController {
 
 					// 新增sys_account_role中資料
 					SysAccountRole insData = new SysAccountRole();
-					insData.setUserId(userId);
+					insData.setAkaId(userId);
 					insData.setUserRole(roleId);
 					doVal = sysAccountRoleService.insert(insData, sysAccountRoleMapper);
 				} else {// 解除帳號角色連結
 					SysAccountRole accRole = new SysAccountRole();
-					accRole.setUserId(userId);
+					accRole.setAkaId(userId);
 					accRole.setUserRole(roleId);
 					List<SysAccountRole> accRoleList = sysAccountRoleService.queryBySysAccountRole(accRole, sqlSession);
 
@@ -1480,7 +1480,7 @@ public class SysGrantController {
 					// TODO 改為修改sys_account_role使用的角色改為「sys_default_role」資料?
 					// 刪除sys_account_role中資料
 					SysAccountRole delData = new SysAccountRole();
-					delData.setUserId(userId);
+					delData.setAkaId(userId);
 					delData.setUserRole(roleId);
 					doVal = sysAccountRoleService.deleteByKey(delData, sysAccountRoleMapper);
 				}
@@ -1610,25 +1610,25 @@ public class SysGrantController {
 
 						// 如果account中找不到帳號可直接刪除accountRole中資料
 						SysAccount sysAccount = new SysAccount();
-						sysAccount.setUserId(accRole.getUserId());
+						sysAccount.setAkaId(accRole.getAkaId());
 						List<SysAccount> sysAccList = null;
 
 						try {
 							sysAccList = sysAccountService.queryBySysAccount(sysAccount, sqlSession);
 						} catch (Exception e1) {
-							log.debug("query sys_account data have serious error:" + accRole.getUserId());
+							log.debug("query sys_account data have serious error:" + accRole.getAkaId());
 							return null;
 						}
 
 						if (sysAccList == null) {
-							log.debug("query sys_account data have serious error:" + accRole.getUserId());
+							log.debug("query sys_account data have serious error:" + accRole.getAkaId());
 							return null;
 						}
 
 						// 如果關聯帳號已不存在可刪除此角色
 						if (sysAccList.size() == 0) {
 							SysAccountRoleKey pk = new SysAccountRoleKey();
-							pk.setUserId(accRole.getUserId());
+							pk.setAkaId(accRole.getAkaId());
 							pk.setUserRole(roleId);
 							int delAccRoleVal = 0;
 							int delRoleVal = 0;
@@ -1638,13 +1638,13 @@ public class SysGrantController {
 								delRoleVal = sysRoleService.deleteByKey(roleId, sysRoleMapper);
 
 								RemoveRoleBean res = new RemoveRoleBean();
-								res.setUserId(accRole.getUserId());
+								res.setAkaId(accRole.getAkaId());
 								res.setUserRole(accRole.getUserRole());
 								res.setDelSysAccRoleVal(Long.valueOf(delAccRoleVal));
 								res.setDelSysRoleVal(Long.valueOf(delRoleVal));
 								return List.of(res);
 							} catch (Exception e) {
-								log.debug("delete sys_account_role data have serious error:" + accRole.getUserId());
+								log.debug("delete sys_account_role data have serious error:" + accRole.getAkaId());
 								return null;
 							}
 
@@ -1654,7 +1654,7 @@ public class SysGrantController {
 						if (sysAccList.size() > 0) {
 							List<RemoveRoleBean> resList2 = sysAccList.stream().map(acc -> {
 								RemoveRoleBean res = new RemoveRoleBean();
-								res.setUserId(acc.getUserId());
+								res.setAkaId(acc.getAkaId());
 								res.setUserRole(roleId);
 								return res;
 							}).collect(Collectors.toList());
@@ -1672,9 +1672,9 @@ public class SysGrantController {
 					// 整理資料
 					String resMsg = resList.stream().map(res -> {
 						if (res.getDelSysAccRoleVal() == null && res.getDelSysRoleVal() == null) {
-							return "尚有帳號" + res.getUserId() + "引用" + "角色" + res.getUserRole() + "，未移除該角色";
+							return "尚有帳號" + res.getAkaId() + "引用" + "角色" + res.getUserRole() + "，未移除該角色";
 						} else {
-							return "帳號:" + res.getUserId() + "-角色:" + res.getUserRole() + "均無使用，已移除該角色";
+							return "帳號:" + res.getAkaId() + "-角色:" + res.getUserRole() + "均無使用，已移除該角色";
 						}
 					}).collect(Collectors.joining("\r\n"));
 
@@ -1717,7 +1717,7 @@ public class SysGrantController {
 		private Long delSysAccRoleVal;
 		private Long delSysRoleVal;
 
-		public String getUserId() {
+		public String getAkaId() {
 			return userId;
 		}
 
@@ -1725,7 +1725,7 @@ public class SysGrantController {
 			return userRole;
 		}
 
-		public void setUserId(String userId) {
+		public void setAkaId(String userId) {
 			this.userId = userId;
 		}
 
@@ -1909,7 +1909,7 @@ public class SysGrantController {
 					for (SysAccountRole data : sysAccountRoleList) {
 						SysAccountRole pk = new SysAccountRole();
 						pk.setUserRole(data.getUserRole());
-						pk.setUserId(data.getUserId());
+						pk.setAkaId(data.getAkaId());
 						data.setUserRole(newRoleId);
 						succValSysAccountRole += sysAccountRoleService.updateModifyPk(pk, data, sysAccountRoleMapper);
 					}
@@ -2034,12 +2034,12 @@ public class SysGrantController {
 
 			try {
 				SysAccount sysAcc = new SysAccount();
-				sysAcc.setUserId(userId);
+				sysAcc.setAkaId(userId);
 				List<SysAccount> sysAcclist = sysAccountService.queryBySysAccount(sysAcc, sqlSession);
 
 				// TODO 後續再開發其他的資料
 				Map<String, String> map = sysAcclist.stream().map(acc -> {
-					return List.of(List.of("userId", acc.getUserId()));
+					return List.of(List.of("userId", acc.getAkaId()));
 				}).flatMap(list -> list.stream())
 						.collect(Collectors.toMap(r -> String.valueOf(r.get(0)), r -> String.valueOf(r.get(1))));
 
@@ -2092,7 +2092,7 @@ public class SysGrantController {
 
 				// 找使用者基本資料
 				SysAccount sysAccount = new SysAccount();
-				sysAccount.setUserId(userId.trim());
+				sysAccount.setAkaId(userId.trim());
 				List<SysAccount> account = sysAccountService.queryBySysAccount(sysAccount, sqlSession);
 
 				if (account.size() == 0) {
@@ -2105,10 +2105,10 @@ public class SysGrantController {
 					log.debug("accont:" + userId + " size is bigger 1, something is warning");
 				}
 
-				String resUserId = account.get(0).getUserId();
+				String resAkaId = account.get(0).getAkaId();
 
 				SysAccountRole accRole = new SysAccountRole();
-				accRole.setUserId(resUserId);
+				accRole.setAkaId(resAkaId);
 				List<SysAccountRole> accRoleList = sysAccountRoleService.queryBySysAccountRole(accRole, sqlSession);
 
 				if (accRoleList.size() != 1) {
@@ -2325,7 +2325,7 @@ public class SysGrantController {
 
 				// 找使用者基本資料
 				SysAccount sysAccount = new SysAccount();
-				sysAccount.setUserId(userId.trim());
+				sysAccount.setAkaId(userId.trim());
 				List<SysAccount> account = sysAccountService.queryBySysAccount(sysAccount, sqlSession);
 
 				if (account.size() == 0) {
@@ -2339,10 +2339,10 @@ public class SysGrantController {
 				}
 
 				// 由user_id找sys_account_role的資料
-				String userIdCond = account.get(0).getUserId();
+				String userIdCond = account.get(0).getAkaId();
 
 				SysAccountRole accRole = new SysAccountRole();
-				accRole.setUserId(userIdCond);
+				accRole.setAkaId(userIdCond);
 				List<SysAccountRole> accRoleList = sysAccountRoleService.queryBySysAccountRole(accRole, sqlSession);
 
 				List<SysRole> roleList = accRoleList.stream().map(ar -> {
@@ -2457,7 +2457,7 @@ public class SysGrantController {
 			SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
 
 			try {
-				List<SysRole> sysRoleList = this.findRoleWithUserId(userId, sqlSession);
+				List<SysRole> sysRoleList = this.findRoleWithAkaId(userId, sqlSession);
 
 				// 查詢menu和index基本資料
 				List<SysMenuRole> sysMenuRoleList = sysRoleList.stream().map(role -> {
@@ -2554,7 +2554,7 @@ public class SysGrantController {
 					log.debug("have some error - indexId:" + indexId);
 				}
 
-				List<SysRole> sysRoleList = this.findRoleWithUserId(userId, sqlSession);
+				List<SysRole> sysRoleList = this.findRoleWithAkaId(userId, sqlSession);
 
 				// 查詢menu和index基本資料
 				List<SysMenuRole> sysMenuRoleList = sysRoleList.stream().map(role -> {
@@ -2648,7 +2648,7 @@ public class SysGrantController {
 			SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
 
 			try {
-				List<SysRole> sysRoleList = this.findRoleWithUserId(userId, sqlSession);
+				List<SysRole> sysRoleList = this.findRoleWithAkaId(userId, sqlSession);
 
 				// 因應其他無模組的設計的系統，很容易不會輸入indexId，故造成null的現象，
 				// 利用sys表格設計上預設使用「0」模組的特性，故將indexId的null轉為0即可解決此問題
@@ -2872,7 +2872,7 @@ public class SysGrantController {
 			SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
 
 			try {
-				List<SysRole> sysRoleList = this.findRoleWithUserId(userId, sqlSession);
+				List<SysRole> sysRoleList = this.findRoleWithAkaId(userId, sqlSession);
 
 				// 因應其他無模組的設計的系統，很容易不會輸入indexId，故造成null的現象，
 				// 利用sys表格設計上預設使用「0」模組的特性，故將indexId的null轉為0即可解決此問題
@@ -2998,9 +2998,9 @@ public class SysGrantController {
 	 * @throws Exception
 	 * 
 	 */
-	public List<SysRole> findRoleWithUserId(String userId, SqlSession sqlSession) throws Exception {
+	public List<SysRole> findRoleWithAkaId(String userId, SqlSession sqlSession) throws Exception {
 		SysAccount sysAccount = new SysAccount();
-		sysAccount.setUserId(userId);
+		sysAccount.setAkaId(userId);
 
 		// 找到帳號的角色
 		List<SysAccount> accList = sysAccountService.queryBySysAccount(sysAccount, sqlSession);
@@ -3010,10 +3010,10 @@ public class SysGrantController {
 		}
 
 		// 由user_id找sys_account_role的資料
-		String userIdCond = accList.get(0).getUserId();
+		String userIdCond = accList.get(0).getAkaId();
 
 		SysAccountRole accRole = new SysAccountRole();
-		accRole.setUserId(userIdCond);
+		accRole.setAkaId(userIdCond);
 		List<SysAccountRole> accRoleList = sysAccountRoleService.queryBySysAccountRole(accRole, sqlSession);
 
 		List<SysRole> roleList = accRoleList.stream().map(ar -> {

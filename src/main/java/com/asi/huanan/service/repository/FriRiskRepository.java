@@ -14,6 +14,7 @@ import com.asi.huanan.service.dao.mybatis.mapper.FriRiskMapper;
 import com.asi.huanan.service.dao.mybatis.model.FriRisk;
 import com.asi.huanan.service.dao.mybatis.model.FriRiskExample;
 import com.asi.huanan.service.dao.mybatis.model.FriRiskExample.Criteria;
+import com.asi.huanan.vo.QueryRiskListVo;
 import com.asi.huanan.vo.Rin1107Vo;
 import com.asi.mechanism.service.connector.MyBatisConnector;
 
@@ -111,35 +112,6 @@ public class FriRiskRepository {
         return count;
     }
 	
-	
-	/**
-	 * 
-	 */
-	public List<FriRisk> queryByModelBetweenSize(final FriRisk model, String orderByColNm1, String ascOrDesc, int pageSize, int pageNum)
-			throws Exception {
-		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
-		List<FriRisk> returnList = null;
-
-		try {
-			//Integer[] a = CalculatorUtil.caculatorPageStartEndNum(pageSize, pageNum);
-
-			FriRiskMapper mapper = sqlSession.getMapper(FriRiskMapper.class);
-
-			//if (model.{GET} != null & !"".equals(model.{GET})) {
-			//	model.{SET}(model.{GET} + "%");
-			//}
-
-			//returnList = mapper.selectByParamBetweenSize(model.{GET}..., "CRT_TIME", "DESC", a[0], a[1]);
-
-			log.debug(returnList == null ? "returnList is null" : "筆數:" + returnList.size());
-		} catch(Exception e){
-			sqlSession.rollback();
-			throw e;
-		} finally {
-			sqlSession.close();
-		}
-		return returnList;
-	}
 	
 			/**
 	 * @param model
@@ -244,8 +216,16 @@ public class FriRiskRepository {
 	 * @throws Exception
 	 */
 	public int deleteByKey(final String primaryKey, FriRiskMapper mapper) throws Exception {
-		//return mapper.deleteByPrimaryKey(primaryKey);
-		return 0;
+
+	        int count = 0;
+	       
+	            if(StringUtils.isNotBlank(primaryKey)) {            	
+	            	 count = mapper.deleteByPrimaryKey(primaryKey);//防呆,需要刪除再打開
+	            }
+	            
+	        
+	        
+	        return count;
 	}
 
 	/**
@@ -561,6 +541,78 @@ public class FriRiskRepository {
 		result = mapper.selectByExample(null);
 		return result;
 	}
+
+
+	public List<Rin1107Vo> queryAreaCodeList(String areaCode)throws Exception {
+		 SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
+	        List<Rin1107Vo> results = new ArrayList<>();
+	        try
+	        {
+ 
+	        	FriRiskMapper mapper = sqlSession.getMapper(FriRiskMapper.class);
+	        	results = mapper.queryAreaCodeList(areaCode);
+
+	        } catch(Exception e){
+				sqlSession.rollback();
+				throw e;
+			}
+	        finally
+	        {
+	            sqlSession.close();
+	        }
+	        return results;
+	}
+
+
+	/**
+	 * Rin1203_同險設定，新增同險
+	 * @param txtRiskNo
+	 * @param txtRiskName
+	 * @param txtAreaCode
+	 * @param mapper
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertRiskNoByPk(final String txtRiskNo,final String txtRiskName,final String txtAreaCode,final FriRiskMapper mapper ) throws Exception {
+		
+	        int count = 0;
+			
+	        
+	            count = mapper.insertRiskNoByPk(txtRiskNo,txtRiskName,txtAreaCode);
+	          
+	        
+	       
+	        return count;
+	}
+
+
+	/**
+	 * Rin1203_同險設定，取得同險代號和同險名稱(下拉選單)
+	 * @param txtarea_code
+	 * @return
+	 * @throws Exception
+	 */
+	public List<QueryRiskListVo> queryDdlRiskList(String txtarea_code) throws Exception {
+		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
+        List<QueryRiskListVo> results = new ArrayList<>();
+        try
+        {
+
+        	FriRiskMapper mapper = sqlSession.getMapper(FriRiskMapper.class);
+        	results = mapper.queryDdlRiskList(txtarea_code);
+
+        } catch(Exception e){
+			sqlSession.rollback();
+			throw e;
+		}
+        finally
+        {
+            sqlSession.close();
+        }
+        return results;
+	}
+
+
 	
 	///**
 	// * @param insId

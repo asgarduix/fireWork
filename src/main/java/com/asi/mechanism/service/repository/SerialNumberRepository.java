@@ -24,36 +24,9 @@ public class SerialNumberRepository {
 	
 	//=====針對使用自訂SQL=====
 	
-	/**
-	 * 
-	 */
-	public List<SerialNumber> queryByModelBetweenSize(final SerialNumber model, String orderByColNm1, String ascOrDesc, int pageSize, int pageNum)
-			throws Exception {
-		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
-		List<SerialNumber> returnList = null;
-
-		try {
-			//Integer[] a = CalculatorUtil.caculatorPageStartEndNum(pageSize, pageNum);
-
-			SerialNumberMapper mapper = sqlSession.getMapper(SerialNumberMapper.class);
-
-			//if (model.{GET} != null & !"".equals(model.{GET})) {
-			//	model.{SET}(model.{GET} + "%");
-			//}
-
-			//returnList = mapper.selectByParamBetweenSize(model.{GET}..., "CRT_TIME", "DESC", a[0], a[1]);
-
-			log.debug(returnList == null ? "returnList is null" : "筆數:" + returnList.size());
-		} catch(Exception e){
-			sqlSession.rollback();
-			throw e;
-		} finally {
-			sqlSession.close();
-		}
-		return returnList;
-	}
 	
-			/**
+	
+	/**
 	 * @param model
 	 * @return
 	 * 

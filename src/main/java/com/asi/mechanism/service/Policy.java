@@ -1,11 +1,19 @@
 package com.asi.mechanism.service;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
+
 public class Policy {
+	
+	private static Logger log = LogManager.getLogger(Policy.class);
 
 	/**
 	 * 回傳最近或下次保單週年日
@@ -114,17 +122,18 @@ public class Policy {
 			// DBConnection dbcon = new DBConnection("mis","fool01","hp_tn");
 //			ResultSet rs;
 //			Statement st = DBConnection.createStatement();
-			if (po_sts_code.trim().equals("74")) {
+//			if (po_sts_code.trim().equals("74")) {
 //				rs = DBConnection.executeQuery(st,
 //						"SELECT MAX(crt_date) max FROM psol" + " WHERE policy_no = '" + policy_no + "' AND ol_sw=5");
 //				if (rs.next())
 //					ol_rem_d = rs.getString("max");
-			} else {
+//			} else {
 //				rs = DBConnection.executeQuery(st,
 //						"SELECT MAX(crt_date) max FROM psol" + " WHERE policy_no = '" + policy_no + "' AND ol_sw=0");
 //				if (rs.next())
 //					ol_rem_d = rs.getString("max");
-			}
+//			}
+			
 			if (ol_rem_d == null)
 				ol_rem_d = "";
 
@@ -196,36 +205,35 @@ public class Policy {
 	 * 
 	 * @return int 兩日期間的天數
 	 */
-	public static int period(String bgnDate, String endDate) {
+	public static int period(String bgnDate, String endDate) throws Exception{
 		int[] datebgn = separateYMD(bgnDate);
 		int[] dateend = separateYMD(endDate);
 
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 		Date t1 = null;
 		Date t2 = null;
+		
 		try {
-
 			t1 = formatter.parse((datebgn[0] + 1911) + "/" + datebgn[1] + "/" + datebgn[2]);
 			t2 = formatter.parse((dateend[0] + 1911) + "/" + dateend[1] + "/" + dateend[2]);
-
-		} catch (java.text.ParseException e) {
-
-			System.out.println("unparseable using" + formatter);
-
+			long diff = t2.getTime() - t1.getTime();
+			return (int) (diff / (1000 * 60 * 60 * 24));
+	
+			
+		} catch (Exception e) {
+			log.debug(e.toString());
+			Arrays.asList(e.getStackTrace()).stream().forEach(sube -> log.debug(sube.toString()));
+			throw e;
 		}
-
-		long diff = t2.getTime() - t1.getTime();
-
-		int days = (int) (diff / (1000 * 60 * 60 * 24));
-
-		return days;
+		
+		
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 //		Policy.policyAnniversary("089/02/29", "121/02/28", true);
 //		Policy.getRemDate("110300016787", "66", "D", "", "088/03/07");
-		System.out.println(Policy.period("096/10/11", "096/10/12"));
+//		System.out.println(Policy.period("096/10/11", "096/10/12"));
 	}
 
 }

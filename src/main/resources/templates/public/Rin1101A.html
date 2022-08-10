@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="../../shigen/plugin/bootstrap/bootstrap-grid-customizing.css">
 <!-- table tabulator -->
 <script type="text/javascript" src="../../shigen/plugin/tabulator.min.js"></script>
+<script src="../../shigen/js/loadingoverlay.min.js"></script>
 <!-- fontawsome -->
 <script defer src="../../shigen/fonts/js/all.min.js"></script>
 <link href="../../shigen/fonts/css/all.css" rel="stylesheet">
@@ -34,7 +35,6 @@
 <script src="../../shigen/js/common.js"></script>
 <script src="../../shigen/js/appglobal.js"></script>
 <script src="../../shigen/js/sys/glob4UiAuth.js"></script>
-<!-- <script type="text/javascript" src="../../shigen/js/app/policyChangeAppl.js"></script> -->
 
 </head>
 
@@ -44,9 +44,6 @@
 		<div class="ajax-section-main"></div>
 		<div class="container-fluid">
 			<div class="content">
-				<div class="bread-crumbs">
-					<a href="">火險作業</a>
-				</div>
 				<div class="big_title title s1">Rin1101-再保人基本資料維護</div>
 				<div class="row-group">
 					<div class="row">
@@ -56,62 +53,62 @@
 					</div>
 				</div>
 				<div class="Greybg">
-					<div style="background-color: #ffffff; padding: 10px; border-radius: 10px; border: 1px solid #C5A359;">
+					<div class="YelloClu">
 				<table class="tblDataArea tblInquireArea" cellspacing="0" cellpadding="0" width="100%">
 					<tbody>
 						<tr>
 							<td class="tdDataAnther">保發代號</td>
 							<td class="tdDataTrip" colspan="3">
-								<input type="text" value="" class="GRinput" id="txtOCODE" readonly="readonly">
+								<input type="text" value="" class="GRinput" id="txtOCODE" readonly="readonly" aria-label="txtOCODE">
 							</td>
 						</tr>
 						<tr>
 							<td class="tdDataAnther">*再保人代號</td>
 							<td class="tdDataTrip">
-								<input type="text" value="" class="GRinput" id="txtrin_com_id" readonly="readonly">
+								<input type="text" value="" class="GRinput" id="txtrin_com_id" readonly="readonly" aria-label="txtrin_com_id">
 							</td>
 						</tr>
 						<tr>
 							<td class="tdDataAnther">再保人英文名稱</td>
 							<td class="tdDataTrip" colspan="3">
-								<input type="text" value="" class="GRinput" id="txtename" readonly="readonly">
+								<input type="text" value="" class="GRinput" id="txtename" readonly="readonly" aria-label="txtename">
 							</td>
 
 						</tr>
 						<tr>
 							<td class="tdDataAnther">再保人中文名稱</td>
 							<td class="tdDataTrip" colspan="3">
-								<input type="text" value="" id="txtcname" class="GRinput" readonly="readonly">
+								<input type="text" value="" id="txtcname" class="GRinput" readonly="readonly" aria-label="txtcname">
 							</td>
 
 						</tr>
 						<tr>
 							<td class="tdDataAnther">國別</td>
 							<td class="tdDataTrip" colspan="3">
-								<input type="text" value="" id="txtacct_area" class="GRinput" readonly="readonly">
+								<input type="text" value="" id="txtacct_area" class="GRinput" readonly="readonly" aria-label="txtacct_area">
 							</td>
 
 						</tr>
 						<tr>
 							<td class="tdDataAnther">業務往來型態</td>
 							<td class="tdDataTrip" colspan="3">
-								<input type="text" value="" id="txtfavtyp" class="GRinput" style="width: 45%;" readonly="readonly">
-								<input type="text" value="" id="txtinout" class="GRinput" style="width: 45%;" readonly="readonly">
+								<input type="text" value="" id="txtfavtyp" class="GRinput" style="width: 45%;" readonly="readonly" aria-label="txtfavtyp">
+								<input type="text" value="" id="txtinout" class="GRinput" style="width: 45%;" readonly="readonly" aria-label="txtinout">
 							</td>
 						</tr>
 						<tr>
 							<td class="tdDataAnther">業務往來部門</td>
 							<td class="tdDataTrip" colspan="3">
 								<label for="" style="width: 100%; line-height: 25px; margin-top: 5px;">
-									<input class="raCh" id="ChkCheckbox_carmrk" Type="CheckBox" Name="車險" Value="車險" onclick="return false;">
+									<input class="raCh" id="ChkCheckbox_carmrk" Type="CheckBox" Name="車險" Value="車險" onclick="return false;" onKeyDown="return false;">
 									車險
-									<input class="raCh" id="ChkCheckbox_marmrk" Type="CheckBox" Name="水險" Value="水險" onclick="return false;">
+									<input class="raCh" id="ChkCheckbox_marmrk" Type="CheckBox" Name="水險" Value="水險" onclick="return false;" onKeyDown="return false;">
 									水險
-									<input class="raCh" id="ChkCheckbox_firmrk" Type="CheckBox" Name="火險" Value="火險" onclick="return false;">
+									<input class="raCh" id="ChkCheckbox_firmrk" Type="CheckBox" Name="火險" Value="火險" onclick="return false;" onKeyDown="return false;">
 									火險
-									<input class="raCh" id="ChkCheckbox_accmrk" Type="CheckBox" Name="意外險" Value="意外險" onclick="return false;">
+									<input class="raCh" id="ChkCheckbox_accmrk" Type="CheckBox" Name="意外險" Value="意外險" onclick="return false;" onKeyDown="return false;">
 									意外險
-									<input class="raCh" id="ChkCheckbox_ahmrk" Type="CheckBox" Name="健康險" Value="健康險" onclick="return false;">
+									<input class="raCh" id="ChkCheckbox_ahmrk" Type="CheckBox" Name="健康險" Value="健康險" onclick="return false;" onKeyDown="return false;">
 									健康險
 								</label>
 							</td>
@@ -119,7 +116,7 @@
 						<tr>
 							<td class="tdDataAnther">備註(再保)</td>
 							<td class="tdDataTrip" colspan="3">
-								<textarea name="" id="txtremark1" class="GRinput" cols="30" rows="5" readonly="readonly"></textarea>
+								<textarea name="" id="txtremark1" class="GRinput" cols="30" rows="5" readonly="readonly" aria-label="txtremark1"></textarea>
 							</td>
 
 						</tr>
@@ -136,25 +133,25 @@
 						<tr>
 							<td class="tdDataAnther">適格</td>
 							<td class="tdDataTrip" colspan="3">
-								<input type="text" value="" id="txtshige" class="GRinput" readonly="readonly">
+								<input type="text" value="" id="txtshige" class="GRinput" readonly="readonly" aria-label="txtshige">
 							</td>
 						</tr>
 						<tr>
 							<td class="tdDataAnther">觀察名單</td>
 							<td class="tdDataTrip" colspan="3">
-								<input type="text" value="" id="txtwatchto" class="GRinput" readonly="readonly">
+								<input type="text" value="" id="txtwatchto" class="GRinput" readonly="readonly" aria-label="txtwatchto">
 							</td>
 						</tr>
 						<tr>
 							<td class="tdDataAnther">另案簽報</td>
 							<td class="tdDataTrip" colspan="3">
-								<input type="text" value="" id="txtsignnok" class="GRinput" readonly="readonly">
+								<input type="text" value="" id="txtsignnok" class="GRinput" readonly="readonly" aria-label="txtsignnok">
 							</td>
 						</tr>
 						<tr>
 							<td class="tdDataAnther">封鎖起始日</td>
 							<td class="tdDataTrip" colspan="3">
-								<input type="text" value="" id="dtablocklst" class="GRinput" readonly="readonly">
+								<input type="text" value="" id="dtablocklst" class="GRinput" readonly="readonly" aria-label="dtablocklst">
 							</td>
 						</tr>
 					</tbody>

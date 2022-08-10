@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.asi.huanan.service.dao.mybatis.mapper.FriRiskMapper;
 import com.asi.huanan.service.dao.mybatis.model.FriRisk;
 import com.asi.huanan.service.repository.FriRiskRepository;
+import com.asi.huanan.vo.QueryRiskListVo;
 import com.asi.huanan.vo.Rin1107Vo;
 
 @Service
@@ -22,8 +23,29 @@ public class FriRiskService {
 	private FriRiskRepository repository;
 	
 	//=====針對使用自訂SQL=====
-	
-	//...
+	/**
+	 * Rin1203_同險設定，新增同險
+	 * @param riskNo
+	 * @param riskName
+	 * @param areaCode
+	 * @param mapper
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertRiskNoByPk(String riskNo, String riskName, String areaCode,FriRiskMapper mapper) throws Exception{
+		return repository.insertRiskNoByPk(riskNo,riskName,areaCode,mapper);
+	}
+
+	/**
+	 * Rin1203_同險設定，取得同險代號和同險名稱(下拉選單)
+	 * @param areaCode
+	 * @return
+	 * @throws Exception
+	 */
+	public List<QueryRiskListVo> queryDdlRiskList(String areaCode) throws Exception {
+		return repository.queryDdlRiskList(areaCode);
+	}
+	//=====針對使用自訂SQL結束=====
 	
 	/**
 	 * 
@@ -315,4 +337,10 @@ public class FriRiskService {
 	public long queryCount(FriRisk model, SqlSession sqlSession) throws Exception {
 		return repository.queryCount(model, sqlSession);
 	}
+
+	public List<Rin1107Vo> queryAreaCodeList(String areaCode) throws Exception {
+		return repository.queryAreaCodeList(areaCode);
+	}
+
+	
 }

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,10 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.asi.huanan.service.FriMunichAreaService;
 import com.asi.huanan.service.dao.mybatis.model.FriMunichArea;
-import com.asi.huanan.vo.DeleteMunichVo;
-import com.asi.huanan.vo.InsertMunichVo;
-import com.asi.huanan.vo.Rin1106Vo;
-import com.asi.huanan.vo.UpdateMunichVo;
+import com.asi.huanan.vo.Rin1106DeleteMunichVOReq;
+import com.asi.huanan.vo.Rin1106InsertMunichVOReq;
+import com.asi.huanan.vo.Rin1106VOReq;
+import com.asi.huanan.vo.Rin1106UpdateMunichVOReq;
 import com.asi.json.model.root.JsonBean;
 import com.asi.mechanism.common.SysEnum;
 
@@ -33,7 +32,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @Lazy
-@CrossOrigin(origins = "http://localhost:10127", maxAge = 3600)
+
 @RequestMapping("rin1106api")
 @RestController
 @Api(tags = { "Rin1106api" })
@@ -58,13 +57,13 @@ public class Rin1106Controller {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(value = "/querymunichlist")
 	@ResponseBody
-	public ResponseEntity<?> queryMunichList() throws Exception {
+	public ResponseEntity<Object> queryMunichList() throws Exception {
 
 		log.debug(">>> Rin1106Controller.queryMunichList(搜尋所有「慕尼黑地區設定資料」)");
 
 		JsonBean jsonBean = new JsonBean();
 
-		List<Rin1106Vo> res = new ArrayList<Rin1106Vo>();
+		List<Rin1106VOReq> res = new ArrayList<>();
 
 		try {
 
@@ -104,28 +103,28 @@ public class Rin1106Controller {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(value = "/insertmunich")
 	@ResponseBody
-	public ResponseEntity<?> insertMunich(@ApiParam(value = "慕尼黑地區設定資料") @RequestBody InsertMunichVo parJson)
+	public ResponseEntity<Object> insertMunich(@ApiParam(value = "慕尼黑地區設定資料") @RequestBody Rin1106InsertMunichVOReq parJson)
 			throws Exception {
 
 		log.debug(">>> Rin1106Controller.insertMunich(新增「慕尼黑地區設定資料」」)");
 
 		JsonBean jsonBean = new JsonBean();
 		
-		List<FriMunichArea> results = new ArrayList<FriMunichArea>();
+		List<FriMunichArea> results = new ArrayList<>();
 		
 		int res = 0;
 
 		try {
 			FriMunichArea model = new FriMunichArea();
 			
-			model.setNaturalId(parJson.getTxtnatural_id());
+			model.setNaturalId(parJson.getTxtnatural_id());		//天災區域代號
 			
-			//檢核是否已存在資料		
+			//查詢是否已存在資料		
 			results = friMunichAreaService.queryByFriMunichArea(model);
 			
 			
 			// 若已有，則不可新增
-			if (results.size() > 0) {
+			if (!results.isEmpty()) {
 
 				jsonBean.setData("");
 				jsonBean.setStatus(SysEnum.statusFinish.code);
@@ -135,12 +134,10 @@ public class Rin1106Controller {
 
 			}
 
-
-
 			
-			model.setCityName(parJson.getTxtcity_name());
-			model.setMunichId(parJson.getTxtmunich_id());
-			model.setMunichDesc(parJson.getTxtmunich_desc());
+			model.setCityName(parJson.getTxtcity_name());		//縣市名稱
+			model.setMunichId(parJson.getTxtmunich_id());		//慕尼黑地區代號
+			model.setMunichDesc(parJson.getTxtmunich_desc());	//慕尼黑地區說明
 			//執行新增
 			res = friMunichAreaService.insert(model);
 	
@@ -180,7 +177,7 @@ public class Rin1106Controller {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(value = "/updatemunich")
 	@ResponseBody
-	public ResponseEntity<?> updateMunich(@ApiParam(value = "修改「慕尼黑地區設定資料」") @RequestBody UpdateMunichVo parJson)
+	public ResponseEntity<Object> updateMunich(@ApiParam(value = "修改「慕尼黑地區設定資料」") @RequestBody Rin1106UpdateMunichVOReq parJson)
 			throws Exception {
 
 		log.debug(">>> Rin1106Controller.updateMunich(修改「慕尼黑地區設定資料」)");
@@ -192,10 +189,10 @@ public class Rin1106Controller {
 
 		try {
 			
-			model.setNaturalId(parJson.getTxtnatural_id());
-			model.setCityName(parJson.getTxtcity_name());
-			model.setMunichId(parJson.getTxtmunich_id());
-			model.setMunichDesc(parJson.getTxtmunich_desc());
+			model.setNaturalId(parJson.getTxtnatural_id());		//天災區域代號
+			model.setCityName(parJson.getTxtcity_name());		//縣市名稱
+			model.setMunichId(parJson.getTxtmunich_id());		//慕尼黑地區代號
+			model.setMunichDesc(parJson.getTxtmunich_desc());	//慕尼黑地區說明
 
 			//執行修改
 			res = friMunichAreaService.update(model);
@@ -231,7 +228,7 @@ public class Rin1106Controller {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(value = "/deleteretain")
 	@ResponseBody
-	public ResponseEntity<?> deleteRetain(@ApiParam(value = "刪除「慕尼黑地區設定資料」") @RequestBody List<DeleteMunichVo> parJson)
+	public ResponseEntity<Object> deleteRetain(@ApiParam(value = "刪除「慕尼黑地區設定資料」") @RequestBody List<Rin1106DeleteMunichVOReq> parJson)
 			throws Exception {
 
 		log.debug(">>> Rin1106Controller.deleteRetain(刪除「慕尼黑地區設定資料」)");
@@ -242,7 +239,7 @@ public class Rin1106Controller {
 
 		try {
 			//有資料才進行刪除
-			if (parJson.size() > 0) {
+			if (!parJson.isEmpty()) {
 				res = friMunichAreaService.deleteMunichsByPkList(parJson);
 			}
 

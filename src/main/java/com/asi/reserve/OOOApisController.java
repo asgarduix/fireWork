@@ -31,7 +31,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @Lazy
-@CrossOrigin(origins = "http://localhost:{server.port}", maxAge = 3600)
+
 @RequestMapping("{template_controller}")
 @RestController
 @Api(value = "{content_from_sa_doc}")
@@ -63,15 +63,25 @@ public class OOOApisController {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping("/updateAppHoliday")
 	@ResponseBody
-	public ResponseEntity<?> updateAppHoliday(@RequestParam(name = "uuid", required = true) String uuid) {
+	public ResponseEntity<Object> updateAppHoliday(@RequestParam(name = "uuid", required = true) String uuid) {
 		JsonBean jsonBean = new JsonBean();
 		int succVal = 0;
 		Asiutil util = new Asiutil();
 
 		try {
+			boolean boo = false;
+
 			// ...do template
+
+			if (boo == false) {
+				log.debug("something error");
+				jsonBean.setStatus(SysEnum.status100.code);
+				jsonBean.setMessage(SysEnum.status100.context);
+				return new ResponseEntity<>(jsonBean, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
 		} catch (Exception e) {
-			jsonBean.setStatus(SysEnum.statusError.context);
+			jsonBean.setStatus(SysEnum.status999.code);
+			jsonBean.setMessage(SysEnum.status999.context);
 			jsonBean.setData(0);
 
 			log.debug(e.toString());

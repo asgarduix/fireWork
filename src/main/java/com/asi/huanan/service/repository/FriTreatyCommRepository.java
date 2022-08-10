@@ -10,10 +10,10 @@ import org.springframework.stereotype.Repository;
 
 import com.asi.huanan.service.dao.mybatis.mapper.FriTreatyCommMapper;
 import com.asi.huanan.service.dao.mybatis.model.FriTreatyComm;
-import com.asi.huanan.vo.DeleteTreatyVo;
-import com.asi.huanan.vo.InsertTreatyCommVo;
-import com.asi.huanan.vo.Rin1103Vo;
-import com.asi.huanan.vo.UpdateTreatyCommVo;
+import com.asi.huanan.vo.Rin1103DeleteTreatyVOReq;
+import com.asi.huanan.vo.Rin1103InsertTreatyCommVOReq;
+import com.asi.huanan.vo.Rin1103VOResp;
+import com.asi.huanan.vo.Rin1103UpdateTreatyCommVOReq;
 import com.asi.mechanism.service.connector.MyBatisConnector;
 
 @Repository
@@ -32,7 +32,7 @@ public class FriTreatyCommRepository {
      * @return int
      * @throws Exception
      */
-    public short insertTreadyReturnSerial(final InsertTreatyCommVo model) throws Exception
+    public short insertTreadyReturnSerial(final Rin1103InsertTreatyCommVOReq model) throws Exception
     {
         SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
         int res = 0;
@@ -60,7 +60,7 @@ public class FriTreatyCommRepository {
      * @return int
      * @throws Exception
      */
-    public int deleteTreadysByPkList(final List<DeleteTreatyVo> model) throws Exception
+    public int deleteTreadysByPkList(final List<Rin1103DeleteTreatyVOReq> model) throws Exception
     {
         SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
         int count = 0;
@@ -86,7 +86,7 @@ public class FriTreatyCommRepository {
      * @return int
      * @throws Exception
      */
-    public int updateByOldPk(final UpdateTreatyCommVo model) throws Exception
+    public int updateByOldPk(final Rin1103UpdateTreatyCommVOReq model) throws Exception
     {
         SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
         int count = 0;
@@ -112,11 +112,11 @@ public class FriTreatyCommRepository {
 	 * @return
 	 * @throws Exception
 	 */
-    public List<Rin1103Vo> queryTreatyList(final String treatyYear, final String treatyNo)
+    public List<Rin1103VOResp> queryTreatyList(final String treatyYear, final String treatyNo)
             throws Exception
     {
         SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
-        List<Rin1103Vo> returnList = null;
+        List<Rin1103VOResp> returnList = null;
         try
         {
             FriTreatyCommMapper mapper = sqlSession.getMapper(FriTreatyCommMapper.class);
@@ -200,34 +200,7 @@ public class FriTreatyCommRepository {
         return returnList;
     }
 	
-	/**
-	 * 
-	 */
-	public List<FriTreatyComm> queryByModelBetweenSize(final FriTreatyComm model, String orderByColNm1, String ascOrDesc, int pageSize, int pageNum)
-			throws Exception {
-		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
-		List<FriTreatyComm> returnList = null;
-
-		try {
-			//Integer[] a = CalculatorUtil.caculatorPageStartEndNum(pageSize, pageNum);
-
-			FriTreatyCommMapper mapper = sqlSession.getMapper(FriTreatyCommMapper.class);
-
-			//if (model.{GET} != null & !"".equals(model.{GET})) {
-			//	model.{SET}(model.{GET} + "%");
-			//}
-
-			//returnList = mapper.selectByParamBetweenSize(model.{GET}..., "CRT_TIME", "DESC", a[0], a[1]);
-
-			log.debug(returnList == null ? "returnList is null" : "筆數:" + returnList.size());
-		} catch(Exception e){
-			sqlSession.rollback();
-			throw e;
-		} finally {
-			sqlSession.close();
-		}
-		return returnList;
-	}
+	
 	
 			/**
 	 * @param model

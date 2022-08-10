@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import com.asi.huanan.service.dao.mybatis.mapper.FriMunichAreaMapper;
 import com.asi.huanan.service.dao.mybatis.model.FriMunichArea;
 import com.asi.huanan.service.repository.FriMunichAreaRepository;
-import com.asi.huanan.vo.DeleteMunichVo;
-import com.asi.huanan.vo.Rin1106Vo;
+import com.asi.huanan.vo.Rin1106DeleteMunichVOReq;
+import com.asi.huanan.vo.Rin1106VOReq;
 
 @Service
 public class FriMunichAreaService {
@@ -33,7 +33,7 @@ public class FriMunichAreaService {
      * @return
      * @throws Exception
      */
-    public int deleteMunichsByPkList(final List<DeleteMunichVo> model) throws Exception
+    public int deleteMunichsByPkList(final List<Rin1106DeleteMunichVOReq> model) throws Exception
     {
         return repository.deleteMunichsByPkList(model);
     }
@@ -42,7 +42,7 @@ public class FriMunichAreaService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Rin1106Vo> queryAllFor1106() throws Exception {
+	public List<Rin1106VOReq> queryAllFor1106() throws Exception {
 		return repository.queryAllFor1106();
 	}
 

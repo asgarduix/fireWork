@@ -14,8 +14,8 @@ import com.asi.huanan.service.dao.mybatis.mapper.FriTreatyCommMapper;
 import com.asi.huanan.service.dao.mybatis.model.FriMunichArea;
 import com.asi.huanan.service.dao.mybatis.model.FriMunichAreaExample;
 import com.asi.huanan.service.dao.mybatis.model.FriMunichAreaExample.Criteria;
-import com.asi.huanan.vo.DeleteMunichVo;
-import com.asi.huanan.vo.Rin1106Vo;
+import com.asi.huanan.vo.Rin1106DeleteMunichVOReq;
+import com.asi.huanan.vo.Rin1106VOReq;
 import com.asi.mechanism.service.connector.MyBatisConnector;
 
 @Repository
@@ -34,7 +34,7 @@ public class FriMunichAreaRepository {
      * @return int
      * @throws Exception
      */
-    public int deleteMunichsByPkList(final List<DeleteMunichVo> model) throws Exception
+    public int deleteMunichsByPkList(final List<Rin1106DeleteMunichVOReq> model) throws Exception
     {
         SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
         int count = 0;
@@ -57,9 +57,9 @@ public class FriMunichAreaRepository {
 	/**
 	 * 
 	 */
-	public List<Rin1106Vo> queryAllFor1106() throws Exception {
+	public List<Rin1106VOReq> queryAllFor1106() throws Exception {
 		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
-		List<Rin1106Vo> returnList = null;
+		List<Rin1106VOReq> returnList = null;
 
 		try {
 
@@ -76,36 +76,9 @@ public class FriMunichAreaRepository {
 		}
 		return returnList;
 	}
-	/**
-	 * 
-	 */
-	public List<FriMunichArea> queryByModelBetweenSize(final FriMunichArea model, String orderByColNm1, String ascOrDesc, int pageSize, int pageNum)
-			throws Exception {
-		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
-		List<FriMunichArea> returnList = null;
-
-		try {
-			//Integer[] a = CalculatorUtil.caculatorPageStartEndNum(pageSize, pageNum);
-
-			FriMunichAreaMapper mapper = sqlSession.getMapper(FriMunichAreaMapper.class);
-
-			//if (model.{GET} != null & !"".equals(model.{GET})) {
-			//	model.{SET}(model.{GET} + "%");
-			//}
-
-			//returnList = mapper.selectByParamBetweenSize(model.{GET}..., "CRT_TIME", "DESC", a[0], a[1]);
-
-			log.debug(returnList == null ? "returnList is null" : "筆數:" + returnList.size());
-		} catch(Exception e){
-			sqlSession.rollback();
-			throw e;
-		} finally {
-			sqlSession.close();
-		}
-		return returnList;
-	}
 	
-			/**
+	
+	/**
 	 * @param model
 	 * @return
 	 * 

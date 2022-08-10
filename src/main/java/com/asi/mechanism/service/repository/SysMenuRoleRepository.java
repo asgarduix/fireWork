@@ -325,20 +325,20 @@ public class SysMenuRoleRepository {
 		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
 		List<SysMenuRole> returnList = null;
 		try {
-//            SysMenuRoleMapper mapper = sqlSession.getMapper(SysMenuRoleMapper.class);
-//            SysMenuRoleExample xp = new SysMenuRoleExample();
-//            Criteria criteria = xp.createCriteria();
+			SysMenuRoleMapper mapper = sqlSession.getMapper(SysMenuRoleMapper.class);
+			SysMenuRoleExample xp = new SysMenuRoleExample();
+//			Criteria criteria = xp.createCriteria();
 //            if (StringUtils.isNotBlank(model.get{VAR_NAME}()))
 //            {
 //            criteria.and{VAR_NAME}EqualTo(model.get{VAR_NAME}());
 //            }
-//			
-//            // if (StringUtils.isNotBlank(model.getJobName()))
-//            // {
-//            // criteria.andJobNameEqualTo(model.getJobName());
-//            // }
-//            // returnList = mapper.selectByExample(xp);
-//            log.debug(returnList == null ? "returnList is null" : "筆數:" + returnList.size());
+
+			// if (StringUtils.isNotBlank(model.getJobName()))
+			// {
+			// criteria.andJobNameEqualTo(model.getJobName());
+			// }
+			returnList = mapper.selectByExample(xp);
+			log.debug(returnList == null ? "returnList is null" : "筆數:" + returnList.size());
 		} catch (Exception e) {
 			sqlSession.rollback();
 			throw e;

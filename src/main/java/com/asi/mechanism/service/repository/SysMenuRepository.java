@@ -296,20 +296,20 @@ public class SysMenuRepository {
 		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
 		List<SysMenu> returnList = null;
 		try {
-//            SysMenuMapper mapper = sqlSession.getMapper(SysMenuMapper.class);
-//            SysMenuExample xp = new SysMenuExample();
-//            Criteria criteria = xp.createCriteria();
+			SysMenuMapper mapper = sqlSession.getMapper(SysMenuMapper.class);
+			SysMenuExample xp = new SysMenuExample();
+//			Criteria criteria = xp.createCriteria();
 //            if (StringUtils.isNotBlank(model.get{VAR_NAME}()))
 //            {
 //            criteria.and{VAR_NAME}EqualTo(model.get{VAR_NAME}());
 //            }
-//			
-//            // if (StringUtils.isNotBlank(model.getJobName()))
-//            // {
-//            // criteria.andJobNameEqualTo(model.getJobName());
-//            // }
-//            // returnList = mapper.selectByExample(xp);
-//            log.debug(returnList == null ? "returnList is null" : "筆數:" + returnList.size());
+
+			// if (StringUtils.isNotBlank(model.getJobName()))
+			// {
+			// criteria.andJobNameEqualTo(model.getJobName());
+			// }
+			returnList = mapper.selectByExample(xp);
+			log.debug(returnList == null ? "returnList is null" : "筆數:" + returnList.size());
 		} catch (Exception e) {
 			sqlSession.rollback();
 			throw e;

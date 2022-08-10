@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.asi.huanan.service.dao.mybatis.mapper.LogFriFacRincomMapper">
+  <resultMap id="BaseResultMap" type="com.asi.huanan.service.dao.mybatis.model.LogFriFacRincom">
+    <id column="slip_no" jdbcType="VARCHAR" property="slipNo" />
+    <id column="LOG_seq" jdbcType="VARCHAR" property="logSeq" />
+    <id column="rin_com_id" jdbcType="VARCHAR" property="rinComId" />
+    <result column="share_status" jdbcType="VARCHAR" property="shareStatus" />
+    <result column="share_rate" jdbcType="DECIMAL" property="shareRate" />
+    <result column="cede_amt" jdbcType="DECIMAL" property="cedeAmt" />
+    <result column="comm_rate" jdbcType="DECIMAL" property="commRate" />
+    <result column="tax_rate" jdbcType="DECIMAL" property="taxRate" />
+    <result column="handling_rate" jdbcType="DECIMAL" property="handlingRate" />
+    <result column="broker_rate" jdbcType="DECIMAL" property="brokerRate" />
+    <result column="discount_rate" jdbcType="DECIMAL" property="discountRate" />
+    <result column="cede_prem" jdbcType="DECIMAL" property="cedePrem" />
+    <result column="ref_no" jdbcType="VARCHAR" property="refNo" />
+    <result column="answer_date" jdbcType="TIMESTAMP" property="answerDate" />
+    <result column="paid_date" jdbcType="TIMESTAMP" property="paidDate" />
+    <result column="acct_flag" jdbcType="VARCHAR" property="acctFlag" />
+    <result column="bill_no_external" jdbcType="VARCHAR" property="billNoExternal" />
+    <result column="transfer_status" jdbcType="VARCHAR" property="transferStatus" />
+    <result column="transfer_date" jdbcType="TIMESTAMP" property="transferDate" />
+    <result column="print_date" jdbcType="TIMESTAMP" property="printDate" />
+    <result column="paid_date_expect" jdbcType="TIMESTAMP" property="paidDateExpect" />
+    <result column="LastUpdateDate" jdbcType="TIMESTAMP" property="lastupdatedate" />
+    <result column="rin_com_id_OLD" jdbcType="VARCHAR" property="rinComIdOld" />
+    <result column="OrgPrem" jdbcType="DECIMAL" property="orgprem" />
+    <result column="OrgComm" jdbcType="DECIMAL" property="orgcomm" />
+    <result column="OrgTax" jdbcType="DECIMAL" property="orgtax" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    slip_no, LOG_seq, rin_com_id, share_status, share_rate, cede_amt, comm_rate, tax_rate, 
+    handling_rate, broker_rate, discount_rate, cede_prem, ref_no, answer_date, paid_date, 
+    acct_flag, bill_no_external, transfer_status, transfer_date, print_date, paid_date_expect, 
+    LastUpdateDate, rin_com_id_OLD, OrgPrem, OrgComm, OrgTax
+  </sql>
+  <select id="selectByExample" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacRincomExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from LOG_fri_fac_rincom
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacRincomKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LOG_fri_fac_rincom
+    where slip_no = #{slipNo,jdbcType=VARCHAR}
+      and LOG_seq = #{logSeq,jdbcType=VARCHAR}
+      and rin_com_id = #{rinComId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacRincomKey">
+    delete from LOG_fri_fac_rincom
+    where slip_no = #{slipNo,jdbcType=VARCHAR}
+      and LOG_seq = #{logSeq,jdbcType=VARCHAR}
+      and rin_com_id = #{rinComId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacRincomExample">
+    delete from LOG_fri_fac_rincom
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacRincom">
+    insert into LOG_fri_fac_rincom (slip_no, LOG_seq, rin_com_id, 
+      share_status, share_rate, cede_amt, 
+      comm_rate, tax_rate, handling_rate, 
+      broker_rate, discount_rate, cede_prem, 
+      ref_no, answer_date, paid_date, 
+      acct_flag, bill_no_external, transfer_status, 
+      transfer_date, print_date, paid_date_expect, 
+      LastUpdateDate, rin_com_id_OLD, OrgPrem, 
+      OrgComm, OrgTax)
+    values (#{slipNo,jdbcType=VARCHAR}, #{logSeq,jdbcType=VARCHAR}, #{rinComId,jdbcType=VARCHAR}, 
+      #{shareStatus,jdbcType=VARCHAR}, #{shareRate,jdbcType=DECIMAL}, #{cedeAmt,jdbcType=DECIMAL}, 
+      #{commRate,jdbcType=DECIMAL}, #{taxRate,jdbcType=DECIMAL}, #{handlingRate,jdbcType=DECIMAL}, 
+      #{brokerRate,jdbcType=DECIMAL}, #{discountRate,jdbcType=DECIMAL}, #{cedePrem,jdbcType=DECIMAL}, 
+      #{refNo,jdbcType=VARCHAR}, #{answerDate,jdbcType=TIMESTAMP}, #{paidDate,jdbcType=TIMESTAMP}, 
+      #{acctFlag,jdbcType=VARCHAR}, #{billNoExternal,jdbcType=VARCHAR}, #{transferStatus,jdbcType=VARCHAR}, 
+      #{transferDate,jdbcType=TIMESTAMP}, #{printDate,jdbcType=TIMESTAMP}, #{paidDateExpect,jdbcType=TIMESTAMP}, 
+      #{lastupdatedate,jdbcType=TIMESTAMP}, #{rinComIdOld,jdbcType=VARCHAR}, #{orgprem,jdbcType=DECIMAL}, 
+      #{orgcomm,jdbcType=DECIMAL}, #{orgtax,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacRincom">
+    insert into LOG_fri_fac_rincom
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="slipNo != null">
+        slip_no,
+      </if>
+      <if test="logSeq != null">
+        LOG_seq,
+      </if>
+      <if test="rinComId != null">
+        rin_com_id,
+      </if>
+      <if test="shareStatus != null">
+        share_status,
+      </if>
+      <if test="shareRate != null">
+        share_rate,
+      </if>
+      <if test="cedeAmt != null">
+        cede_amt,
+      </if>
+      <if test="commRate != null">
+        comm_rate,
+      </if>
+      <if test="taxRate != null">
+        tax_rate,
+      </if>
+      <if test="handlingRate != null">
+        handling_rate,
+      </if>
+      <if test="brokerRate != null">
+        broker_rate,
+      </if>
+      <if test="discountRate != null">
+        discount_rate,
+      </if>
+      <if test="cedePrem != null">
+        cede_prem,
+      </if>
+      <if test="refNo != null">
+        ref_no,
+      </if>
+      <if test="answerDate != null">
+        answer_date,
+      </if>
+      <if test="paidDate != null">
+        paid_date,
+      </if>
+      <if test="acctFlag != null">
+        acct_flag,
+      </if>
+      <if test="billNoExternal != null">
+        bill_no_external,
+      </if>
+      <if test="transferStatus != null">
+        transfer_status,
+      </if>
+      <if test="transferDate != null">
+        transfer_date,
+      </if>
+      <if test="printDate != null">
+        print_date,
+      </if>
+      <if test="paidDateExpect != null">
+        paid_date_expect,
+      </if>
+      <if test="lastupdatedate != null">
+        LastUpdateDate,
+      </if>
+      <if test="rinComIdOld != null">
+        rin_com_id_OLD,
+      </if>
+      <if test="orgprem != null">
+        OrgPrem,
+      </if>
+      <if test="orgcomm != null">
+        OrgComm,
+      </if>
+      <if test="orgtax != null">
+        OrgTax,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="slipNo != null">
+        #{slipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="logSeq != null">
+        #{logSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="rinComId != null">
+        #{rinComId,jdbcType=VARCHAR},
+      </if>
+      <if test="shareStatus != null">
+        #{shareStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="shareRate != null">
+        #{shareRate,jdbcType=DECIMAL},
+      </if>
+      <if test="cedeAmt != null">
+        #{cedeAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="commRate != null">
+        #{commRate,jdbcType=DECIMAL},
+      </if>
+      <if test="taxRate != null">
+        #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="handlingRate != null">
+        #{handlingRate,jdbcType=DECIMAL},
+      </if>
+      <if test="brokerRate != null">
+        #{brokerRate,jdbcType=DECIMAL},
+      </if>
+      <if test="discountRate != null">
+        #{discountRate,jdbcType=DECIMAL},
+      </if>
+      <if test="cedePrem != null">
+        #{cedePrem,jdbcType=DECIMAL},
+      </if>
+      <if test="refNo != null">
+        #{refNo,jdbcType=VARCHAR},
+      </if>
+      <if test="answerDate != null">
+        #{answerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paidDate != null">
+        #{paidDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="acctFlag != null">
+        #{acctFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="billNoExternal != null">
+        #{billNoExternal,jdbcType=VARCHAR},
+      </if>
+      <if test="transferStatus != null">
+        #{transferStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="transferDate != null">
+        #{transferDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="printDate != null">
+        #{printDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paidDateExpect != null">
+        #{paidDateExpect,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastupdatedate != null">
+        #{lastupdatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rinComIdOld != null">
+        #{rinComIdOld,jdbcType=VARCHAR},
+      </if>
+      <if test="orgprem != null">
+        #{orgprem,jdbcType=DECIMAL},
+      </if>
+      <if test="orgcomm != null">
+        #{orgcomm,jdbcType=DECIMAL},
+      </if>
+      <if test="orgtax != null">
+        #{orgtax,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacRincomExample" resultType="java.lang.Long">
+    select count(*) from LOG_fri_fac_rincom
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update LOG_fri_fac_rincom
+    <set>
+      <if test="record.slipNo != null">
+        slip_no = #{record.slipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logSeq != null">
+        LOG_seq = #{record.logSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rinComId != null">
+        rin_com_id = #{record.rinComId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shareStatus != null">
+        share_status = #{record.shareStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shareRate != null">
+        share_rate = #{record.shareRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cedeAmt != null">
+        cede_amt = #{record.cedeAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.commRate != null">
+        comm_rate = #{record.commRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.taxRate != null">
+        tax_rate = #{record.taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.handlingRate != null">
+        handling_rate = #{record.handlingRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.brokerRate != null">
+        broker_rate = #{record.brokerRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.discountRate != null">
+        discount_rate = #{record.discountRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cedePrem != null">
+        cede_prem = #{record.cedePrem,jdbcType=DECIMAL},
+      </if>
+      <if test="record.refNo != null">
+        ref_no = #{record.refNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.answerDate != null">
+        answer_date = #{record.answerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.paidDate != null">
+        paid_date = #{record.paidDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.acctFlag != null">
+        acct_flag = #{record.acctFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billNoExternal != null">
+        bill_no_external = #{record.billNoExternal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transferStatus != null">
+        transfer_status = #{record.transferStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transferDate != null">
+        transfer_date = #{record.transferDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.printDate != null">
+        print_date = #{record.printDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.paidDateExpect != null">
+        paid_date_expect = #{record.paidDateExpect,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastupdatedate != null">
+        LastUpdateDate = #{record.lastupdatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rinComIdOld != null">
+        rin_com_id_OLD = #{record.rinComIdOld,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgprem != null">
+        OrgPrem = #{record.orgprem,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orgcomm != null">
+        OrgComm = #{record.orgcomm,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orgtax != null">
+        OrgTax = #{record.orgtax,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update LOG_fri_fac_rincom
+    set slip_no = #{record.slipNo,jdbcType=VARCHAR},
+      LOG_seq = #{record.logSeq,jdbcType=VARCHAR},
+      rin_com_id = #{record.rinComId,jdbcType=VARCHAR},
+      share_status = #{record.shareStatus,jdbcType=VARCHAR},
+      share_rate = #{record.shareRate,jdbcType=DECIMAL},
+      cede_amt = #{record.cedeAmt,jdbcType=DECIMAL},
+      comm_rate = #{record.commRate,jdbcType=DECIMAL},
+      tax_rate = #{record.taxRate,jdbcType=DECIMAL},
+      handling_rate = #{record.handlingRate,jdbcType=DECIMAL},
+      broker_rate = #{record.brokerRate,jdbcType=DECIMAL},
+      discount_rate = #{record.discountRate,jdbcType=DECIMAL},
+      cede_prem = #{record.cedePrem,jdbcType=DECIMAL},
+      ref_no = #{record.refNo,jdbcType=VARCHAR},
+      answer_date = #{record.answerDate,jdbcType=TIMESTAMP},
+      paid_date = #{record.paidDate,jdbcType=TIMESTAMP},
+      acct_flag = #{record.acctFlag,jdbcType=VARCHAR},
+      bill_no_external = #{record.billNoExternal,jdbcType=VARCHAR},
+      transfer_status = #{record.transferStatus,jdbcType=VARCHAR},
+      transfer_date = #{record.transferDate,jdbcType=TIMESTAMP},
+      print_date = #{record.printDate,jdbcType=TIMESTAMP},
+      paid_date_expect = #{record.paidDateExpect,jdbcType=TIMESTAMP},
+      LastUpdateDate = #{record.lastupdatedate,jdbcType=TIMESTAMP},
+      rin_com_id_OLD = #{record.rinComIdOld,jdbcType=VARCHAR},
+      OrgPrem = #{record.orgprem,jdbcType=DECIMAL},
+      OrgComm = #{record.orgcomm,jdbcType=DECIMAL},
+      OrgTax = #{record.orgtax,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacRincom">
+    update LOG_fri_fac_rincom
+    <set>
+      <if test="shareStatus != null">
+        share_status = #{shareStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="shareRate != null">
+        share_rate = #{shareRate,jdbcType=DECIMAL},
+      </if>
+      <if test="cedeAmt != null">
+        cede_amt = #{cedeAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="commRate != null">
+        comm_rate = #{commRate,jdbcType=DECIMAL},
+      </if>
+      <if test="taxRate != null">
+        tax_rate = #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="handlingRate != null">
+        handling_rate = #{handlingRate,jdbcType=DECIMAL},
+      </if>
+      <if test="brokerRate != null">
+        broker_rate = #{brokerRate,jdbcType=DECIMAL},
+      </if>
+      <if test="discountRate != null">
+        discount_rate = #{discountRate,jdbcType=DECIMAL},
+      </if>
+      <if test="cedePrem != null">
+        cede_prem = #{cedePrem,jdbcType=DECIMAL},
+      </if>
+      <if test="refNo != null">
+        ref_no = #{refNo,jdbcType=VARCHAR},
+      </if>
+      <if test="answerDate != null">
+        answer_date = #{answerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paidDate != null">
+        paid_date = #{paidDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="acctFlag != null">
+        acct_flag = #{acctFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="billNoExternal != null">
+        bill_no_external = #{billNoExternal,jdbcType=VARCHAR},
+      </if>
+      <if test="transferStatus != null">
+        transfer_status = #{transferStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="transferDate != null">
+        transfer_date = #{transferDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="printDate != null">
+        print_date = #{printDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paidDateExpect != null">
+        paid_date_expect = #{paidDateExpect,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastupdatedate != null">
+        LastUpdateDate = #{lastupdatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rinComIdOld != null">
+        rin_com_id_OLD = #{rinComIdOld,jdbcType=VARCHAR},
+      </if>
+      <if test="orgprem != null">
+        OrgPrem = #{orgprem,jdbcType=DECIMAL},
+      </if>
+      <if test="orgcomm != null">
+        OrgComm = #{orgcomm,jdbcType=DECIMAL},
+      </if>
+      <if test="orgtax != null">
+        OrgTax = #{orgtax,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where slip_no = #{slipNo,jdbcType=VARCHAR}
+      and LOG_seq = #{logSeq,jdbcType=VARCHAR}
+      and rin_com_id = #{rinComId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacRincom">
+    update LOG_fri_fac_rincom
+    set share_status = #{shareStatus,jdbcType=VARCHAR},
+      share_rate = #{shareRate,jdbcType=DECIMAL},
+      cede_amt = #{cedeAmt,jdbcType=DECIMAL},
+      comm_rate = #{commRate,jdbcType=DECIMAL},
+      tax_rate = #{taxRate,jdbcType=DECIMAL},
+      handling_rate = #{handlingRate,jdbcType=DECIMAL},
+      broker_rate = #{brokerRate,jdbcType=DECIMAL},
+      discount_rate = #{discountRate,jdbcType=DECIMAL},
+      cede_prem = #{cedePrem,jdbcType=DECIMAL},
+      ref_no = #{refNo,jdbcType=VARCHAR},
+      answer_date = #{answerDate,jdbcType=TIMESTAMP},
+      paid_date = #{paidDate,jdbcType=TIMESTAMP},
+      acct_flag = #{acctFlag,jdbcType=VARCHAR},
+      bill_no_external = #{billNoExternal,jdbcType=VARCHAR},
+      transfer_status = #{transferStatus,jdbcType=VARCHAR},
+      transfer_date = #{transferDate,jdbcType=TIMESTAMP},
+      print_date = #{printDate,jdbcType=TIMESTAMP},
+      paid_date_expect = #{paidDateExpect,jdbcType=TIMESTAMP},
+      LastUpdateDate = #{lastupdatedate,jdbcType=TIMESTAMP},
+      rin_com_id_OLD = #{rinComIdOld,jdbcType=VARCHAR},
+      OrgPrem = #{orgprem,jdbcType=DECIMAL},
+      OrgComm = #{orgcomm,jdbcType=DECIMAL},
+      OrgTax = #{orgtax,jdbcType=DECIMAL}
+    where slip_no = #{slipNo,jdbcType=VARCHAR}
+      and LOG_seq = #{logSeq,jdbcType=VARCHAR}
+      and rin_com_id = #{rinComId,jdbcType=VARCHAR}
+  </update>
+</mapper>

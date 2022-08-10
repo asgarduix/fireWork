@@ -1,14 +1,13 @@
 //tabulator欄位設置
 let columns1104 = [
 	["checkbox", { showBtn: true }],
-	["usePropId", "使用性質代碼", "input", { width: "25%" } ],
-    ["special1Limit", "特一", "input", { width: "25%" } ],
-    ["special2Limit", "特二", "input", { width: "25%" } ],
-    ["firstLimit", "頭等", "input", { width: "25%" } ],
-    ["secondLimit", "二等", "input", { width: "25%" } ],
-    ["thirdLimit", "三等", "input", { width: "25%" } ],
-    ["outsideLimit", "露天", "input", { width: "25%" } ],
-    ["usePropName", "使用性質名稱", "input", { width: "25%" } ]
+	["usePropId", "使用性質代碼", "input"],
+    ["special1Limit", "特一限額代號", "input" ],
+    ["special2Limit", "特二限額代號", "input" ],
+    ["firstLimit", "頭等限額代號", "input"],
+    ["secondLimit", "二等限額代號", "input"],
+    ["thirdLimit", "三等限額代號", "input"],
+    ["outsideLimit", "露天限額代號", "input"],
 ];
 
 //tabulator欄位格式製作
@@ -21,15 +20,14 @@ let tableConfigs = {}
 let tableRelatedBtns = [
     {
         type: "add",
-        name: "新增",
-        class: "class-name",
-        position: "#table1104-btn",
+        name: "",
+        class: "add-btn-custom",
+        position: "#table1104addBtn",
         getDefaultData: function () {
 
             return {
                 isSuccess: true,
-                //梯次佣金類別預設為1
-//                data: { txtcomm_type: "1" }
+                data: {}
             }
 
         },
@@ -43,13 +41,13 @@ let tableRelatedBtns = [
     {
         type: "edit",
         name: "修改",
-        class: "class-name",
+        class: "btn btn-oneE",
         position: "#table1104-btn",
     },
     {
         type: "del",
         name: "刪除",
-        class: "class-name",
+        class: "btn btn-oneG",
         position: "#table1104-btn",
         delApi: function (rowsDataArry) {        	       	
         	 
@@ -71,7 +69,7 @@ let tableRelatedBtns = [
     {
         type: "save",
         name: "儲存",
-        class: "class-name",
+        class: "btn btn-oneD",
         position: "#table1104-btn",
         nullSpaceCheck: true,rules:{},
         addSaveApi: function (rowData) {
@@ -79,17 +77,13 @@ let tableRelatedBtns = [
             // 回傳值：Object格式資料 { isSuccess: true} or { isSuccess: false, fields: ["a","b"], errMsg: "欄位驗證失敗" }
             //rowData為所選資料{...}
             //call api here
-        	//檢核下限是否大於上限
-//        	if(rowData.numlower_limit > rowData.numupper_limit){
-//        		return{ isSuccess: false, fields: ["numlower_limit","numupper_limit"], errMsg: "損失率百分比下限應小於上限" }
-//        	}
-//        	let parJson = JSON.stringify(rowData);
-//        	let res = ajaxPostByJsonParam("../../rin1104api/inserttreaty", parJson, false);
-//        	console.log(res.status)
-        	let res = ajaxPostTokenReady("../../rin1104api/insertFriUseLimit", rowData, false);
+        	
+        	let parJson = JSON.stringify(rowData);
+        	let res = ajaxPostByJsonParam("../../rin1104api/insertFriUseLimit", parJson, false);
          	
-        	if("000" === res.status){        		
-        		table1104.getSelectedRows()[0].getData().serial = res.data;        		
+        	if("finish" === res.status){	
+        		return{ isSuccess: false, fields: ["usePropId"], errMsg: res.message }
+        	}else if("000" === res.status){        		
         		return { isSuccess: true }
         	}else{
         		return{ isSuccess: false, fields: [], errMsg: res.message }
@@ -105,28 +99,14 @@ let tableRelatedBtns = [
         		
         	//不同才執行更新	
         	}else{
-        		//檢核下限是否大於上限
-//        		if(newDataJson.numlower_limit > newDataJson.numupper_limit){
-//            		return{ isSuccess: false, fields: ["numlower_limit","numupper_limit"], errMsg: "損失率百分比下限應小於上限" }
-//            	}
-        		//將更新需要的條件加入參數物件中
-        		newDataJson.usePropId = newData[0];
-//        		newDataJson.special1Limit = oldData[1];
-//        		newDataJson.special2Limit = oldData[2];
-//        		newDataJson.firstLimit = oldData[3];
-//        		newDataJson.secondLimit = oldData[4];
-//        		newDataJson.thirdLimit = oldData[5];
-//        		newDataJson.outsideLimit = oldData[6];
-//        		newDataJson.usePropName = oldData[7];
         		        		
-//        		let parJson = JSON.stringify(newDataJson);        		
-//        		let res = ajaxPostByJsonParam("../../rin1103api/updatetreaty", parJson, false);
-        		let res = ajaxPostTokenReady("../../rin1104api/updateFriUseLimit", newDataJson, false);
+        		let parJson = JSON.stringify(newDataJson);        		
+        		let res = ajaxPostByJsonParam("../../rin1104api/updateFriUseLimit", parJson, false);
         		        		
         		if("000" === res.status){            		
             		return { isSuccess: true }
             	}else{
-            		return{ isSuccess: false, fields: [], errMsg: res.message }
+            		return{ isSuccess: false, fields: [], errMsg: "資料修改失敗！" }
             	}        		
         	}
         }
@@ -155,11 +135,15 @@ function btnQueryRin1104(){
 			"usePropId":$('#txtuse_prop_id').val().trim()
 	}
 	
-	let res = ajaxPostTokenReady("../../rin1104api/queryByUsePropId", param, false);
+	let parJson = JSON.stringify(param);
+	
+//	let res = ajaxPostTokenReady("../../rin1104api/queryByUsePropId", param, false);
+	
+	let res = ajaxPostByJsonParam("../../rin1104api/queryByUsePropId", parJson, false);
 	
 	if('000' === res.status){
 		
-		loadData("table1104", res.data, {type:"dataCount", value:15})
+		loadData("table1104", res.data, {type:"dataCount", value:6})
 
 	}else{
 		alert("「使用性質代號查詢」失敗!!!請聯絡管理人員!!!");

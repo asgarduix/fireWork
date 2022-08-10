@@ -7,17 +7,15 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.mapping.StatementType;
 
 import com.asi.huanan.service.dao.mybatis.model.FriTreatyComm;
 import com.asi.huanan.service.dao.mybatis.model.FriTreatyCommExample;
 import com.asi.huanan.service.dao.mybatis.model.FriTreatyCommKey;
-import com.asi.huanan.vo.DeleteTreatyVo;
-import com.asi.huanan.vo.InsertTreatyCommVo;
-import com.asi.huanan.vo.Rin1103Vo;
-import com.asi.huanan.vo.UpdateTreatyCommVo;
+import com.asi.huanan.vo.Rin1103DeleteTreatyVOReq;
+import com.asi.huanan.vo.Rin1103InsertTreatyCommVOReq;
+import com.asi.huanan.vo.Rin1103VOResp;
+import com.asi.huanan.vo.Rin1103UpdateTreatyCommVOReq;
 
 
 public interface FriTreatyCommMapper {
@@ -120,7 +118,7 @@ public interface FriTreatyCommMapper {
     		+ "and treaty_no like concat(#{treatyNo,jdbcType=VARCHAR},'%')"
     		+ "</script>")
     
-    List<Rin1103Vo> queryTreatyList(@Param("treatyYear") String treatyYear, @Param("treatyNo") String treatyNo);
+    List<Rin1103VOResp> queryTreatyList(@Param("treatyYear") String treatyYear, @Param("treatyNo") String treatyNo);
     
     
     @Select("<script> select serial, treaty_year as treatyYear, treaty_no as treatyNo, "
@@ -155,7 +153,7 @@ public interface FriTreatyCommMapper {
     		+ "and comm_type = #{record.conditionType,jdbcType=VARCHAR} and serial = #{record.serial,jdbcType=SMALLINT} "
     		+ "</script>")
     
-    int updateByOldPk(@Param("record") UpdateTreatyCommVo record);
+    int updateByOldPk(@Param("record") Rin1103UpdateTreatyCommVOReq record);
     
     @Delete("<script> delete from fri_treaty_comm where "
     		+ "<foreach collection =\"record\" item = \"item\" index=\"index\" separator=\"or\">"
@@ -164,7 +162,7 @@ public interface FriTreatyCommMapper {
     		+ "</foreach>"  
     		+ "</script>")
     
-    int deleteTreadysByPkList(@Param("record") List<DeleteTreatyVo> record);
+    int deleteTreadysByPkList(@Param("record") List<Rin1103DeleteTreatyVOReq> record);
     
     @Options(useGeneratedKeys = true, keyProperty = "serial")
     @Insert("<script>insert into fri_treaty_comm (treaty_year, treaty_no, comm_type, upper_limit, lower_limit, comm_rate) "
@@ -172,7 +170,7 @@ public interface FriTreatyCommMapper {
     		+ " #{record.numupper_limit,jdbcType=DECIMAL}, #{record.numlower_limit,jdbcType=DECIMAL},  #{record.numcomm_rate,jdbcType=DECIMAL}) "
     		+ "</script>")
     
-    int insertTreadyReturnSerial(@Param("record") InsertTreatyCommVo record);
+    int insertTreadyReturnSerial(@Param("record") Rin1103InsertTreatyCommVOReq record);
     
     
     

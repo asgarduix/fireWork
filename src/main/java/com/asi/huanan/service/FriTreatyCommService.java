@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 import com.asi.huanan.service.dao.mybatis.mapper.FriTreatyCommMapper;
 import com.asi.huanan.service.dao.mybatis.model.FriTreatyComm;
 import com.asi.huanan.service.repository.FriTreatyCommRepository;
-import com.asi.huanan.vo.DeleteTreatyVo;
-import com.asi.huanan.vo.InsertTreatyCommVo;
-import com.asi.huanan.vo.Rin1103Vo;
-import com.asi.huanan.vo.UpdateTreatyCommVo;
+import com.asi.huanan.vo.Rin1103DeleteTreatyVOReq;
+import com.asi.huanan.vo.Rin1103InsertTreatyCommVOReq;
+import com.asi.huanan.vo.Rin1103VOResp;
+import com.asi.huanan.vo.Rin1103UpdateTreatyCommVOReq;
 
 @Service
 public class FriTreatyCommService {
@@ -34,7 +34,7 @@ public class FriTreatyCommService {
 	 * @return
 	 * @throws Exception
 	 */
-	public short insertTreadyReturnSerial(final InsertTreatyCommVo model) throws Exception {
+	public short insertTreadyReturnSerial(final Rin1103InsertTreatyCommVOReq model) throws Exception {
 		return repository.insertTreadyReturnSerial(model);
 	}
 	
@@ -45,7 +45,7 @@ public class FriTreatyCommService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteTreadysByPkList(final List<DeleteTreatyVo> model) throws Exception {
+	public int deleteTreadysByPkList(final List<Rin1103DeleteTreatyVOReq> model) throws Exception {
 		return repository.deleteTreadysByPkList(model);
 	}
 	
@@ -56,7 +56,7 @@ public class FriTreatyCommService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateByOldPk(final UpdateTreatyCommVo model) throws Exception {
+	public int updateByOldPk(final Rin1103UpdateTreatyCommVOReq model) throws Exception {
 		return repository.updateByOldPk(model);
 	}
 	   /**
@@ -66,7 +66,7 @@ public class FriTreatyCommService {
      * @return
      * @throws Exception
      */
-    public List<Rin1103Vo> queryTreatyList(final String treatyYear, final String treatyNo)
+    public List<Rin1103VOResp> queryTreatyList(final String treatyYear, final String treatyNo)
             throws Exception
     {
         return repository.queryTreatyList(treatyYear, treatyNo);

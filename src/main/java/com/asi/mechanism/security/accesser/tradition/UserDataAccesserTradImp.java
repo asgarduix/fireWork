@@ -49,7 +49,7 @@ public class UserDataAccesserTradImp implements UserDataAccesserTrad {
 	public boolean checkIsAccExist(String username) {
 		try {
 			SysAccount sysAccount = new SysAccount();
-			sysAccount.setUserId(username);
+			sysAccount.setAkaId(username);
 			List<SysAccount> accList = sysAccountService.queryBySysAccount(sysAccount);
 
 			if (accList != null && accList.size() > 0) {
@@ -78,7 +78,7 @@ public class UserDataAccesserTradImp implements UserDataAccesserTrad {
 	 * 
 	 */
 	@Override
-	public UserDataOpposite permissionType2(String username, String password) {
+	public UserDataOpposite permissionType2(String username, String cipher) {
 		UserDataOpposite userDataJwt = new UserDataOpposite();
 
 		try {
@@ -89,15 +89,21 @@ public class UserDataAccesserTradImp implements UserDataAccesserTrad {
 			// 傳統用資料庫驗證
 			if ("db_access".equals(this.authenticationTraditionVerifyType)) {
 				Asiutil util = new Asiutil();
-				String encodePasswd = util.encrypt(password, "MD5");
+				String encodePasswd = util.encrypt(cipher, util.genalgstr());
 
 				SysAccount sysAccount = new SysAccount();
-				sysAccount.setUserId(username);
-				sysAccount.setPassword(encodePasswd);
+				sysAccount.setAkaId(username);
+				sysAccount.setCipher(encodePasswd);
 
 				List<SysAccount> accountList = sysAccountService.queryBySysAccount(sysAccount);
 
-				if (accountList == null || accountList.size() != 1) {
+				if (accountList == null) {
+					log.debug("access user:" + username + " " + "have serious error! data size: 0");
+					userDataJwt.setBooAuthen(false);
+					return userDataJwt;
+				}
+
+				if (accountList != null && accountList.size() != 1) {
 					log.debug("access user:" + username + " " + "have serious error! data size:" + accountList.size());
 					userDataJwt.setBooAuthen(false);
 					return userDataJwt;
@@ -118,61 +124,8 @@ public class UserDataAccesserTradImp implements UserDataAccesserTrad {
 				// isok = ldapAuthen.permission(username, password);
 				break;
 			case "webservice":
+				// 專案無使用webservice，不實作相關程式碼
 				log.debug("permission with tradition - webservice");
-				Asiutil util = new Asiutil();
-				String jsonContext = null;
-				CloseableHttpClient httpclient = HttpClients.createDefault();
-				HttpResponse response = null;
-				int statusCode = 0;
-
-				try {
-					// TODO 待改為使用property帶入
-					String bodyStr = "client_id=cp_client_id&username=" + username + "&password=" + password
-							+ "&grant_type=password";
-					HttpPost httpPost = new HttpPost(
-							"http://localhost:8080/auth/realms/cp_realm/protocol/openid-connect/token");
-//					String bodyStr = "client_id=test_client_id&username=" + username + "&password=" + password
-//							+ "&grant_type=password";
-//					HttpPost httpPost = new HttpPost(
-//							"http://localhost:8080/auth/realms/test_realm/protocol/openid-connect/token");
-
-					// 準備header和參數
-					// 使用body的關係，故這邊寫死即可
-					Map<String, String> httpHeaderMap = Map.of("Content-Type", "application/x-www-form-urlencoded");
-					List<String[]> headerList = util.takeApartMap(httpHeaderMap);
-					headerList.stream().forEach(headerArray -> httpPost.addHeader(headerArray[0], headerArray[1]));
-
-					if (bodyStr != null) {
-						// set body，還可以使用URLEncodedUtils.format(parameters, charset)<-未找怎麼用
-						httpPost.setEntity(new StringEntity(bodyStr, "UTF-8"));
-					}
-
-					// 執行呼叫
-					response = httpclient.execute(httpPost);
-					statusCode = response.getStatusLine().getStatusCode();
-
-					if (statusCode == 200) {
-						HttpEntity httpEntity = response.getEntity();
-						String resStr = EntityUtils.toString(httpEntity, "UTF-8");
-						jsonContext = resStr;
-
-						oppositeOriginData = resStr;
-					} else {
-						throw new Exception("concatenate keycloak have serious error, token api status:" + statusCode);
-					}
-				} catch (Exception e) {
-					log.debug(e.toString());
-					Arrays.asList(e.getStackTrace()).stream().forEach(sub -> log.debug(sub.toString()));
-					throw e;
-				} finally {
-					httpclient.close();
-				}
-
-				// TODO 改進檢核是否為token格式
-				if (jsonContext != null) {
-					isok = true;
-				}
-
 				break;
 			}
 
@@ -207,7 +160,7 @@ public class UserDataAccesserTradImp implements UserDataAccesserTrad {
 			return;
 		}
 
-		sysAccount.setUserId(userName);
+		sysAccount.setAkaId(userName);
 		sysAccount.setUserName(userName);
 
 		// Date entrydate = new Date();
@@ -215,11 +168,11 @@ public class UserDataAccesserTradImp implements UserDataAccesserTrad {
 		// sysAccount.setCrtDate(entrydate);
 		// sysAccount.setUserRole(this.getDefaultRole());
 		// sysAccount.setAreaid(areaid);
-		// sysAccount.setCrtUserid(userName);
+		// sysAccount.setCrtAkaId(userName);
 		// sysAccount.setDeptid(deptid);
 		// sysAccount.setEnableMark(enableMark);
 		// sysAccount.setEntryDate(entrydate);
-		// sysAccount.setEntryUserid(userName);
+		// sysAccount.setEntryAkaId(userName);
 		// sysAccount.setError(error);
 		// sysAccount.setMail(mail);
 		// sysAccount.setStatus(status);

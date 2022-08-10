@@ -7,7 +7,9 @@ import org.apache.ibatis.annotations.Select;
 
 import com.asi.huanan.service.dao.mybatis.model.FriCom;
 import com.asi.huanan.service.dao.mybatis.model.FriComExample;
-import com.asi.huanan.service.dao.mybatis.model.customerize.FricomJoinRicmpf1;
+import com.asi.huanan.service.dao.mybatis.model.customerize.Rin1101FricomJoinRicmpf1;
+import com.asi.huanan.vo.Rin1102AChkRinIdUsableVOReq;
+import com.asi.huanan.vo.Rin1102ApopVOResp;
 
 public interface FriComMapper {
     /**
@@ -100,25 +102,62 @@ public interface FriComMapper {
     
     
     // =====針對使用自訂SQL=====
-    @Select("<script>"+ 
-    		"select rin_Com_Id as rinComId, cname, ename, usemrk " + 
-    		"from fri_com " + 
-    		"where rin_Com_Id like concat(#{rinComId,jdbcType=VARCHAR},'%') " + 
-    		"order by rin_Com_Id"+ 
-    		"</script>")
+    @Select({"<script>", 
+    		" select rin_Com_Id as rinComId, cname, ename, usemrk " , 
+    		" from fri_com " , 
+    		" where rin_Com_Id like concat(#{rinComId,jdbcType=VARCHAR},'%') " , 
+    		" order by rin_Com_Id ",
+    		"</script>"})
  
-    List<FricomJoinRicmpf1> queryReiners(@Param("rinComId") String rinComId);
+    List<Rin1101FricomJoinRicmpf1> queryReiners(@Param("rinComId") String rinComId);
     
-    @Select("<script>"+ 
-    		"select top 10 (rin_Com_Id ) as rinComId " + 
-    		"from fri_com " + 
-    		"where rin_Com_Id like concat(#{rinComId,jdbcType=VARCHAR},'%') " + 
-    		"order by rin_Com_Id"+ 
-    		"</script>")
+    @Select({"<script>", 
+    		"select top 10 (rin_Com_Id ) as rinComId " ,
+    		"from fri_com " , 
+    		"where rin_Com_Id like concat(#{rinComId,jdbcType=VARCHAR},'%') " , 
+    		"order by rin_Com_Id ",
+    		"</script>"})
  
     List<FriCom> autoTenRcid(@Param("rinComId") String rinComId);
     
+    @Select("<script> select rin_com_id as lblrin_com_id, ename as lblename, cname as lblcname, "
+    		+ "sname as lblsname, remark as lblremark, usemrk as dtaUSEMRK "
+    		+ "from fri_com "
+    		+ "where(bkacklst is null or bkacklst &gt; GETDATE()) "
+    		+ "and(blocklst is null or blocklst &gt; GETDATE()) "
+    		+ "and LEN(rin_com_id)=7 "
+    		+ "order by ename </script>")
+    
+    List<Rin1102ApopVOResp> queryAllFriCom();
     
     
+    @Select("<script> select count(*) "
+    		+ "from fri_com "
+    		+ "where remark != '' "
+    		+ "and rin_com_id = #{record.rinComId,jdbcType=VARCHAR}"
+    		+ "</script>")
+    int chkRemark(@Param("record") Rin1102AChkRinIdUsableVOReq record);
+    
+    @Select("<script> SELECT " + 
+    		"CASE WHEN SIGNNOK='Y'  AND FIRMRK='Y' THEN " + 
+    		"(case when inout not in ('C','T') then '不可承接分出業務' else '另案簽報名單' end) " + 
+    		"WHEN SHIGE='Y'   AND FIRMRK='Y' THEN '適格' " + 
+    		"WHEN WATCHTO='Y' AND FIRMRK='Y' THEN '觀察名單' " + 
+    		"WHEN BLOCKLST IS NOT NULL AND BLOCKLST != '1900/01/01' AND BLOCKLST &lt;= #{record.treatyBgn,jdbcType=TIMESTAMP} THEN '封鎖' " + 
+    		"WHEN BKACKLST IS NOT NULL AND BKACKLST != '1900/01/01' AND BKACKLST &lt;= #{record.treatyBgn,jdbcType=TIMESTAMP} THEN '黑名單' " + 
+    		"ELSE '不可往來火險業務' " + 
+    		"END AS FSTATUS " + 
+    		"FROM fri_com " + 
+    		"WHERE rin_com_id= #{record.rinComId,jdbcType=VARCHAR} </script>")
+    
+    String chkRinQua(@Param("record") Rin1102AChkRinIdUsableVOReq record);
+    
+    @Select("<script> select enode "
+    		+ "from fri_com "
+    		+ "where rin_com_id = #{rinComId,jdbcType=VARCHAR} </script>")
+    String chkEnode(@Param("rinComId") String rinComId);
+    
+    @Select("<script> select ename from fri_com where rin_com_id = #{rinComId,jdbcType=VARCHAR} </script>")
+    String queryOneReinser(@Param("rinComId") String rinComId);
     
 }

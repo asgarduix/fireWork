@@ -300,12 +300,12 @@ public class SysAccountRepository {
 			SysAccountExample xp = new SysAccountExample();
 			Criteria criteria = xp.createCriteria();
 
-			if (StringUtils.isNotBlank(model.getUserId())) {
-				criteria.andUserIdEqualTo(model.getUserId());
+			if (StringUtils.isNotBlank(model.getAkaId())) {
+				criteria.andAkaIdEqualTo(model.getAkaId());
 			}
 
-			if (StringUtils.isNotBlank(model.getPassword())) {
-				criteria.andPasswordEqualTo(model.getPassword());
+			if (StringUtils.isNotBlank(model.getCipher())) {
+				criteria.andCipherEqualTo(model.getCipher());
 			}
 
 			returnList = mapper.selectByExample(xp);
@@ -327,8 +327,8 @@ public class SysAccountRepository {
 		SysAccountMapper mapper = sqlSession.getMapper(SysAccountMapper.class);
 		SysAccountExample xp = new SysAccountExample();
 		Criteria criteria = xp.createCriteria();
-		if (StringUtils.isNotBlank(model.getUserId())) {
-			criteria.andUserIdEqualTo(model.getUserId());
+		if (StringUtils.isNotBlank(model.getAkaId())) {
+			criteria.andAkaIdEqualTo(model.getAkaId());
 		}
 
 		// if (StringUtils.isNotBlank(model.getJobName()))

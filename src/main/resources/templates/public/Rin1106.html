@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="../../shigen/plugin/bootstrap/bootstrap-grid-customizing.css">
 <!-- table tabulator -->
 <script type="text/javascript" src="../../shigen/plugin/tabulator.min.js"></script>
+<script src="../../shigen/js/loadingoverlay.min.js"></script>
 <!-- fontawsome -->
 <script defer src="../../shigen/fonts/js/all.min.js"></script>
 <link href="../../shigen/fonts/css/all.css" rel="stylesheet">
@@ -34,12 +35,16 @@
 <script src="../../shigen/js/common.js"></script>
 <script src="../../shigen/js/appglobal.js"></script>
 <script src="../../shigen/js/sys/glob4UiAuth.js"></script>
-<!-- <script type="text/javascript" src="../../shigen/js/app/policyChangeAppl.js"></script> -->
 <script src="../../shigen/js/yf/fireTableColumns.js"></script>
 <script src="../../shigen/js/yf/fireTable.js"></script>
 <link rel="stylesheet" href="../../shigen/css/fireTableCustom.css">
 <link rel="stylesheet" href="../../shigen/css/fireTablePaginator.css">
 <script src="../../shigen/plugin/numeral.js"></script>
+<style>
+	#table1106addBtn{
+		height:30px;
+	}
+</style>
 </head>
 
 <body>
@@ -48,62 +53,21 @@
 		<div class="ajax-section-main"></div>
 		<div class="container-fluid">
 			<div class="content">
-				<div class="bread-crumbs">
-					<a href="">火險作業</a>
-				</div>
 				<div class="big_title title s1">Rin1106-慕尼黑地區設定</div>
 				<div class="row-group">
 					<div class="row">
 						<div class="col-12 content_function_bar">
-							<button class="TBo">
-								<i class="fas fa-plus-square TFo"></i>
-							</button>
+						<div id="table1106addBtn"></div>	
 						</div>
 					</div>
 				</div>
 				<!-- table資訊 -->
 				<div id="table1106-errMsg"></div>
+				<div class="Greybg">
 				<table class="tblCssDataGrid">
 					<div id="table1106"></div>
-				
-<!-- 					<tbody> -->
-<!-- 						<tr class="cssDataGridHeader"> -->
-<!-- 							<th> -->
-<!-- 								<input type="checkbox" name="Check" checked="checked"> -->
-<!-- 							</th> -->
-<!-- 							<th> -->
-<!-- 								<a href="">天災區域代號</a> -->
-<!-- 							</th> -->
-<!-- 							<th> -->
-<!-- 								<a href="">縣市名稱</a> -->
-<!-- 							</th> -->
-<!-- 							<th> -->
-<!-- 								<a href="">慕尼黑地區代號</a> -->
-<!-- 							</th> -->
-<!-- 							<th> -->
-<!-- 								<a href="">慕尼黑地區說明</a> -->
-<!-- 							</th> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<td> -->
-<!-- 								<input type="checkbox" name="Check" checked="checked"> -->
-<!-- 							</td> -->
-<!-- 							<td>1</td> -->
-<!-- 							<td>台北市</td> -->
-<!-- 							<td>1</td> -->
-<!-- 							<td>City of Taipei</td> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<td> -->
-<!-- 								<input type="checkbox" name="Check" checked="checked"> -->
-<!-- 							</td> -->
-<!-- 							<td>2</td> -->
-<!-- 							<td>桃園</td> -->
-<!-- 							<td>2</td> -->
-<!-- 							<td>Taoyuan</td> -->
-<!-- 						</tr> -->
-<!-- 					</tbody> -->
 				</table>
+				</div>
 				<div class="divspace"></div>
 				<div class="row justify-content-center">
 					<div id="table1106-btn"></div>

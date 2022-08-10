@@ -22,34 +22,6 @@ public class Ricmpf1Repository {
 	
 	//=====針對使用自訂SQL=====
 	
-	/**
-	 * 
-	 */
-	public List<Ricmpf1> queryByModelBetweenSize(final Ricmpf1 model, String orderByColNm1, String ascOrDesc, int pageSize, int pageNum)
-			throws Exception {
-		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
-		List<Ricmpf1> returnList = null;
-
-		try {
-			//Integer[] a = CalculatorUtil.caculatorPageStartEndNum(pageSize, pageNum);
-
-			Ricmpf1Mapper mapper = sqlSession.getMapper(Ricmpf1Mapper.class);
-
-			//if (model.{GET} != null & !"".equals(model.{GET})) {
-			//	model.{SET}(model.{GET} + "%");
-			//}
-
-			//returnList = mapper.selectByParamBetweenSize(model.{GET}..., "CRT_TIME", "DESC", a[0], a[1]);
-
-			log.debug(returnList == null ? "returnList is null" : "筆數:" + returnList.size());
-		} catch(Exception e){
-			sqlSession.rollback();
-			throw e;
-		} finally {
-			sqlSession.close();
-		}
-		return returnList;
-	}
 	
 			/**
 	 * @param model

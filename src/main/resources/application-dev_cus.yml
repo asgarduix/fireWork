@@ -1,81 +1,106 @@
 spring:
-   config:
+  config:
     activate:
-      on-profile: dev_cus
-   datasource:
-      first:
-         url: jdbc:sqlserver://172.16.19.11:1433;databaseName=QuerySystem;catalogName=life
-         username: querysystem
-         password: qu1ry@syst1m
-         driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-         hikari:
-            minimum-idle: 10
-            maximum-pool-size: 25
-            auto-commit: true
-            idle-timeout: 35000
-            pool-name: ExpendHikariCP
-            max-lifetime: 288000000
-            connection-timeout: 60000
-            connection-test-query: SELECT 1
-            keepaliveTime: 30000
-      second:
-         url: jdbc:sqlserver://172.16.19.11:1433;databaseName=QuerySystem;catalogName=life
-         username: querysystem
-         password: qu1ry@syst1m
-         driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-         hikari:
-            minimum-idle: 10
-            maximum-pool-size: 25
-            auto-commit: true
-            idle-timeout: 35000
-            pool-name: ExpendHikariCP
-            max-lifetime: 288000000
-            connection-timeout: 60000
-            connection-test-query: SELECT 1
-            keepaliveTime: 30000
-      third:
-         url: 'jdbc:sqlite::memory:'
-         #url: 'jdbc:sqlite:litedb.db'
-         username: 
-         password: 
-         driver-class-name: org.sqlite.JDBC
-         hikari:
-            minimum-idle: 10
-            maximum-pool-size: 25
-            auto-commit: true
-            idle-timeout: 35000
-            pool-name: ExpendHikariCP3
-            max-lifetime: 288000000
-            connection-timeout: 30000
-            connection-test-query: select 1
-            keepaliveTime: 30000
+      on-profile: dev
+  datasource:
+    first:
+      url: jdbc:sqlserver://192.168.5.205:1433;databaseName=SC_RIN; catalogName=life
+      username: sa
+      password: "!@34QWerASdf"
+      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      hikari:
+        minimum-idle: 10
+        maximum-pool-size: 25
+        auto-commit: false
+        idle-timeout: 35000
+        pool-name: ExpendHikariCP
+        max-lifetime: 288000000
+        connection-timeout: 60000
+        connection-test-query: SELECT 1
+        keepaliveTime: 30000
+#      second:
+#         url:
+#         username:
+#         password:
+#         driver-class-name:
+#         hikari:
+#            minimum-idle: 10
+#            maximum-pool-size: 25
+#            auto-commit: false
+#            idle-timeout: 35000
+#            pool-name: ExpendHikariCP
+#            max-lifetime: 288000000
+#            connection-timeout: 60000
+#            connection-test-query: SELECT 1
+#            keepaliveTime: 30000
+#      third:
+#         url: 'jdbc:sqlite::memory:'
+#         #url: 'jdbc:sqlite:litedb.db'
+#         username:
+#         password:
+#         driver-class-name: org.sqlite.JDBC
+#         hikari:
+#            minimum-idle: 10
+#            maximum-pool-size: 25
+#            auto-commit: true
+#            idle-timeout: 35000
+#            pool-name: ExpendHikariCP3
+#            max-lifetime: 288000000
+#            connection-timeout: 30000
+#            connection-test-query: select 1
+#            keepaliveTime: 30000
 #   devtools:
 #      livereload:
 #         port:  35731
 environments:
-   security:
-      #CORS開關，注意正式環境需關閉，true:關閉CORS阻擋的問題
-      allowCors:
-         switcher: true
-         #switcher: false
-   project:
-      name: frontendfirereins
-      url: localhost
-      protocol: http://
-      serviceType: frontend
-      #authorization的內容均為空，則專案將會自我產生token並自我檢查token
-      authorization:
-         server: 
-            domain: http://localhost:10999
-            #domain: http://asiauthah-south-china.apps.ocp45.asgard.com.tw
-            authen: /authorization/authen
-            checktoken: /authorization/checktoken
-            refreshtoken: /authorization/authen/refresh
-            refreshtokenchecktime: /authorization/authen/refresh/checktime
-            #種類:空-須加密密碼、ldap-無須加密密碼
-            type: ldap
-server: 
-   port: 10127
+  security:
+    #CORS開關，注意正式環境需關閉，true:關閉CORS阻擋的問題
+    allowCors:
+      switcher: true
+      #switcher: false
+  frontend_sep:
+    protocol: http://
+    url: localhost
+    port: 8080
+  project:
+    name: frontendfirereins
+    url: localhost
+    protocol: http://
+    serviceType: frontend
+    #authorization的內容均為空，則專案將會自我產生token並自我檢查token
+    authorization:
+      server:
+        #domain: http://localhost:10999
+        domain: http://asiauthah-south-china.apps.ocp45.asgard.com.tw
+        authen: /authorization/authen
+        checktoken: /authorization/checktoken
+        refreshtoken: /authorization/authen/refresh
+        refreshtokenchecktime: /authorization/authen/refresh/checktime
+        #種類:空-須加密密碼、ldap-無須加密密碼
+        type: ldap
+  schedule:
+    func:
+      #Rin1203_同險設定排程(使用cron語法)
+      rin1203: "0 0 11 * * ?"
+      #rin1203排程中使用的參數(注意!僅一個變數，並無參與排程時間的設定)
+      rin1203_var_year: "2"
+      rin1203_var_runtime: "11"
+      #Rin1204 自動分保排程器(每多少毫秒執行一次)
+      rin1204: 600000
+      #Rin1206 合約帳單/合約明細列印排程(每多少毫秒執行一次)
+      rin1206: 600000
+      #Rin1302 臨分到期通知列印_排程執行(每多少毫秒執行一次)
+      rin1302: 600000
+server:
+  port: 10127
+#  憑證，此僅供本機憑證使用
+#  port: 10433
+#  httpPort: 10127
+#  ssl:
+#    enabled: true
+#    key-store: classpath:freinsUAT.south-china.com.tw.p12
+#    key-store-password: fire
+#    key-store-type: PKCS12
 authentication:
   #category: tradition
   category: spring_security
@@ -86,9 +111,19 @@ authentication:
 ldap:
   base:
     dn:
-    - dc=asgard,dc=test,dc=com
-    - ou=Users_Java,dc=asgard,dc=test,dc=com
+      - dc=asgard,dc=test,dc=com
+      - ou=Users_Java,dc=asgard,dc=test,dc=com
     server:
       domainName: asgard.test.com
-  factory: com.sun.jndi.ldap.LdapCtxFactory
-  urls: ldap://192.168.5.209:389/
+  fac:
+  urls:
+
+path:
+  #   url: static/shigen/images/uploadFile/
+  url: ../uploadFile/images/
+  staticAccessPath: ../uploadFile/front/
+  
+localFileSetting:
+  uploadPath: "../uploadFile/"
+  uploadPathForPdf: "../uploadFile/pdf"
+  uploadPathForExcel: "../uploadFile/excel"

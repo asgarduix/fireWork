@@ -4,8 +4,8 @@
  * @param checkfrom
  * @returns
  */
-	
-	
+
+
 function saveCheckInfo(data, checkfrom) {
 	var applno = $('#applnoAf').val();
 	if (checkIsNullSpace(applno)) {
@@ -46,25 +46,6 @@ function checkInfoHistory(applno, checkfrom) {
 	$('#textarea08').val(checkInfoHistory['data']['checkInfoHistoryX']);
 }
 
-/*
- * 車種列表
- */
-function prepareCarType() {
-	var param = {};
-	res = ajaxPostTokenReady("../../commonController/queryDropDownDataList", param, false);
-	var str = '';
-	var carTypeList = res['data'];
-	for (var i = 0; i < carTypeList.length; i++) {
-		var value = carTypeList[i].mappingValue;
-		if ("string" == typeof value) {
-			str += '<option value="' + carTypeList[i].mappingValue.trim() + '">' + carTypeList[i].displayName + '</option>';
-		} else {
-			str += '<option value="' + carTypeList[i].mappingValue + '">' + carTypeList[i].displayName + '</option>';
-		}
-	}
-	$('#input183').html(str);
-	$('#input65').html(str);
-}
 
 // 取得批單申請的批文生效日期
 function prepareOldEnvDate(applno) {
@@ -85,7 +66,8 @@ function uploadFileTemp() {
 			base64Array.push($('#base64String').val());
 			fileNameArray.push($('#base64FileName').val());
 		} else {
-			styleAlert("請選擇檔案");
+			// TODO 使用function 帶入的方式
+			// alert();
 			return false;
 		}
 	} else {
@@ -100,65 +82,36 @@ function uploadFileTemp() {
 			base64Array.push($('#base64String').val());
 			fileNameArray.push($('#base64FileName').val());
 		} else {
-			styleAlert("請選擇檔案");
+			// TODO 使用function 帶入的方式
+			// alert();
 			return false;
 		}
 	}
 	sessionStorage.setItem("tempFiles", files);
-	showFileList(files);
 
-}
-
-// 顯示檔案列表
-function showFileList(files) {
-	console.log(files);
-	var str = '';
-	for (var i = 0; i < files.length; i++) {
-		var names = files[i].name.split('.');
-		str += '<tr><td>';
-		str += '<button class="button" onclick="delFileData(' + i + ')">刪除</button>';
-		str += '<button class="button">檢視</button>';
-		str += '</td>';
-		str += '<td>' + names[0] + '</td>';
-		str += '<td>' + names[1] + '</td>';
-		str += '</tr>';
-	}
-	$('#fileDataAf').html(str);
-	$('#fileDataAx').html(str);
-	$('#dataInfoAf').show();
-	$('#dataInfoAx').show();
 }
 
 //轉為base64
 function getBase64(file) {
 	var reader = new FileReader(file);
-	reader.onload = function (e) {
+	reader.onload = function(e) {
 		console.log(e.target.result);
 		$('#base64String').val(e.target.result);
 		$('#base64FileName').val(file.name);
 	};
-	reader.onerror = function (error) {
+	reader.onerror = function(error) {
 		console.log('Error: ', error);
 	};
 	reader.readAsDataURL(file);
 }
 
-// 刪除列表
-function delFileData(num) {
-	files.splice(num, 1);
-	showFileList(files);
-}
+//// 刪除列表
+//function delFileData(num) {
+//	files.splice(num, 1);
+//}
 
 function preview(num) {
 	console.log('第' + num + '筆資料')
-}
-
-
-function preview(applno, name, type) {
-	var url = "&applno=" + applno
-		+ "&name=" + name
-		+ "&type=" + type
-	window.open("../../insEndorseBuildCreateInsideApi/preview?useUnicode=true&amp;characterEncoding=UTF-8" + url);
 }
 
 /**
@@ -201,41 +154,56 @@ function isEndmk(applno) {
 	return res['data'];
 }
 
-/**
- * 產生excel檔案
- * @param operationNo
- * @param paramJson
- * @returns
- */
-function createExcel(caseName, subCaseName, jsonObj) {
+function createExcel2(caseName, subCaseName, jsonObj) {
 	var objKey = Object.keys(jsonObj)
-	var url = ''
+
 	for (i = 0; i < objKey.length; i++) {
-		url = url + '&' + objKey[i] + '=' + jsonObj[objKey[i]]
+		//'%'符號為特殊字元，須以十六進位制值方式傳遞
+		objKey[i] = jsonObj[objKey[i]].replace(/%/g, '%25');
 	}
-	//'%'符號為特殊字元，須以十六進位制值方式傳遞
-	var newString = url.replace(/%/g, '%25')
+
 	$.LoadingOverlay("show", {
-		custom : "<span style=\"font-size: 25px;\">處理中，請稍候.....</span>"
+		custom: "<span style=\"font-size: 25px;\">處理中，請稍候.....</span>"
 	});
-	window.location.href = "../../" + caseName + "/" + subCaseName + "?useUnicode=true&amp;characterEncoding=UTF-8" + newString + "&" + "token=" + fetchToken();
+
+	ajaxGetTokenReady("../../" + caseName + "/" + subCaseName, jsonObj, false);
 	$.LoadingOverlay("hide");
 }
 
-function createExcel2(caseName, subCaseName, jsonObj) {
-	 var objKey = Object.keys(jsonObj)
-	 
-	 for (i = 0; i < objKey.length; i++) {
-	  //'%'符號為特殊字元，須以十六進位制值方式傳遞
-	  objKey[i] = jsonObj[objKey[i]].replace(/%/g, '%25');
-	 }
-	 
-	 $.LoadingOverlay("show", {
-	  custom : "<span style=\"font-size: 25px;\">處理中，請稍候.....</span>"
-	 });
-	 
-	 ajaxGetTokenReady("../../" + caseName + "/" + subCaseName, jsonObj, false);
-	 $.LoadingOverlay("hide");
+/**
+ * 以POST方式產生excel檔案
+ * @param caseName
+ * @param subCaseName
+ * @param jsonObj
+ * @param fileName
+ * @returns
+ */
+function createExcelByPOST(caseName, subCaseName, jsonObj, fileName) {
+	var token = fetchToken();
+	var xhr = new XMLHttpRequest();
+	xhr.responseType = "arraybuffer";
+	xhr.open("POST", "../../" + caseName + "/" + subCaseName, true);
+	xhr.onload = function() {
+		const blob = new Blob([this.response], { type: "application/vnd.ms-excel" });
+		if (blob.size < 1) {
+			alert('匯出失敗，匯出的內容為空！');
+			return;
+		}
+		if (window.navigator.msSaveOrOpenBlob) {
+			navigator.msSaveOrOpenBlob(blob, fileName + '.xls');
+		} else {
+			const aLink = document.createElement('a');
+			aLink.style.display = 'none';
+			aLink.href = window.URL.createObjectURL(blob);
+			aLink.download = fileName;
+			document.body.appendChild(aLink);
+			aLink.click();
+			document.body.removeChild(aLink);
+		}
+	}
+	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.setRequestHeader("Authorization", "bearer" + " " + token);
+	xhr.send(JSON.stringify(jsonObj));
 }
 
 /**
@@ -244,33 +212,19 @@ function createExcel2(caseName, subCaseName, jsonObj) {
  * @param lenght
  * @returns
  */
-function paddingLeft(str,len){
-	if(str.length >= len)
-	return str;
+function paddingLeft(str, len) {
+	if (str.length >= len)
+		return str;
 	else
-	return paddingLeft("0" +str,len);
+		return paddingLeft("0" + str, len);
 }
 
 function fetchPlaninsData(oidHastPePlan, oidHastPeKind, isQuery) {
 	let param = {
-			"oidPubtPeMain" : oidPubtPeMain,
-			"oidHastPekind" : oidHastPeKind,
-			"isQuery" : isQuery
+		"oidPubtPeMain": oidPubtPeMain,
+		"oidHastPekind": oidHastPeKind,
+		"isQuery": isQuery
 	}
-	let resInsType = ajaxPostTokenReady("../../HAS301009Api/showInsTypeSetting",param, false);
+	let resInsType = ajaxPostTokenReady("../../HAS301009Api/showInsTypeSetting", param, false);
 	return resInsType['data'];
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

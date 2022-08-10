@@ -13,8 +13,9 @@ import com.asi.huanan.service.dao.mybatis.mapper.FriRetainLimitMapper;
 import com.asi.huanan.service.dao.mybatis.model.FriRetainLimit;
 import com.asi.huanan.service.dao.mybatis.model.FriRetainLimitExample;
 import com.asi.huanan.service.dao.mybatis.model.FriRetainLimitExample.Criteria;
-import com.asi.huanan.vo.DeleteRetainVo;
-import com.asi.huanan.vo.Rin1105Vo;
+import com.asi.huanan.vo.Rin1105DeleteRetainVOReq;
+import com.asi.huanan.vo.Rin1105VOResp;
+import com.asi.huanan.vo.Rin1304QueryLimitVO;
 import com.asi.mechanism.service.connector.MyBatisConnector;
 
 @Repository
@@ -33,7 +34,7 @@ public class FriRetainLimitRepository {
      * @return int
      * @throws Exception
      */
-    public int deleteRetainsByPkList(final List<DeleteRetainVo> model) throws Exception
+    public int deleteRetainsByPkList(final List<Rin1105DeleteRetainVOReq> model) throws Exception
     {
         SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
         int count = 0;
@@ -60,11 +61,11 @@ public class FriRetainLimitRepository {
 	 * @return
 	 * @throws Exception
 	 */
-    public List<Rin1105Vo> queryRetainList(final String treatyYear, final String limitId)
+    public List<Rin1105VOResp> queryRetainList(final String treatyYear, final String limitId)
             throws Exception
     {
         SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
-        List<Rin1105Vo> returnList = null;
+        List<Rin1105VOResp> returnList = null;
         try
         {
             FriRetainLimitMapper mapper = sqlSession.getMapper(FriRetainLimitMapper.class);
@@ -81,34 +82,7 @@ public class FriRetainLimitRepository {
         }
         return returnList;
     }
-	/**
-	 * 
-	 */
-	public List<FriRetainLimit> queryByModelBetweenSize(final FriRetainLimit model, String orderByColNm1, String ascOrDesc, int pageSize, int pageNum)
-			throws Exception {
-		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
-		List<FriRetainLimit> returnList = null;
-
-		try {
-			//Integer[] a = CalculatorUtil.caculatorPageStartEndNum(pageSize, pageNum);
-
-			FriRetainLimitMapper mapper = sqlSession.getMapper(FriRetainLimitMapper.class);
-
-			//if (model.{GET} != null & !"".equals(model.{GET})) {
-			//	model.{SET}(model.{GET} + "%");
-			//}
-
-			//returnList = mapper.selectByParamBetweenSize(model.{GET}..., "CRT_TIME", "DESC", a[0], a[1]);
-
-			log.debug(returnList == null ? "returnList is null" : "筆數:" + returnList.size());
-		} catch(Exception e){
-			sqlSession.rollback();
-			throw e;
-		} finally {
-			sqlSession.close();
-		}
-		return returnList;
-	}
+	
 	
 			/**
 	 * @param model
@@ -495,6 +469,30 @@ public class FriRetainLimitRepository {
 		List<FriRetainLimit> result = null;
 		FriRetainLimitMapper mapper = sqlSession.getMapper(FriRetainLimitMapper.class);
 		result = mapper.selectByExample(null);
+		return result;
+	}
+
+	/**
+	 * Rin1304_保批單明細畫面_查詢保單限額、限額代號、限額
+	 * @param policyYear
+	 * @param propCode
+	 * @param constClass
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Rin1304QueryLimitVO> queryLimit(String policyYear, String propCode, String constClass) throws Exception {
+		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
+		List<Rin1304QueryLimitVO> result = null;
+		try {
+			FriRetainLimitMapper mapper = sqlSession.getMapper(FriRetainLimitMapper.class);
+			
+			result = mapper.queryLimit(policyYear,propCode,constClass);
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw e;
+		} finally {
+			sqlSession.close();
+		}
 		return result;
 	}
 	

@@ -1,0 +1,48 @@
+/* START:menu */
+.menu-section {
+    padding-left: 12px;
+}
+
+.nest-hidden {
+    display: none;
+}
+
+.menu-item span {
+    cursor: pointer;
+    font-size: 18px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+span.material-icons[attr="folder"] {
+	color: #8a8a8a;
+}
+
+
+span.material-icons[attr="arrow"] {
+	color: #555;
+}
+
+/* END:menu  */
+@media only screen and (max-width: 1280px) {}
+
+@media only screen and (min-width: 1200px) {}
+
+@media only screen and (max-width: 1199px) {}
+
+@media only screen and (min-width: 992px) {}
+
+@media only screen and (max-width: 991px) {}
+
+@media only screen and (min-width: 768px) {}
+
+@media only screen and (max-width: 767px) {}
+
+@media only screen and (max-width: 576px) {}
+
+@media only screen and (max-width: 440px) {}
+
+@media only screen and (max-width: 350px) {}
+
+@media only screen and (max-width: 200px) {}

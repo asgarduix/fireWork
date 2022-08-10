@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,9 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.asi.huanan.service.FriComCreditService;
 import com.asi.huanan.service.customerize.CustomerizeService;
 import com.asi.huanan.service.dao.mybatis.model.FriComCredit;
-import com.asi.huanan.service.dao.mybatis.model.customerize.FricomJoinRicmpf1;
-import com.asi.huanan.vo.QueryCreditVo;
-import com.asi.huanan.vo.QueryOneReinerVo;
+import com.asi.huanan.service.dao.mybatis.model.customerize.Rin1101FricomJoinRicmpf1;
+import com.asi.huanan.vo.Rin1101AQueryCreditVOReq;
+import com.asi.huanan.vo.Rin1101AQueryOneReinerVOReq;
 import com.asi.json.model.root.JsonBean;
 import com.asi.mechanism.common.SysEnum;
 
@@ -33,7 +32,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @Lazy
-@CrossOrigin(origins = "http://localhost:10127", maxAge = 3600)
 @RequestMapping("rin1101aapi")
 @RestController
 @Api(tags= {"Rin1101Aapi"})
@@ -62,14 +60,14 @@ public class Rin1101AController {
 	@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(value = "/queryonereiner")
 	@ResponseBody
-	public ResponseEntity<?> queryOneReiner(@ApiParam(value ="再保人代號")@RequestBody QueryOneReinerVo parJson) throws Exception {
+	public ResponseEntity<Object> queryOneReiner(@ApiParam(value ="再保人代號")@RequestBody Rin1101AQueryOneReinerVOReq parJson) throws Exception {
 
 		log.debug(">>> Rin1101AController.queryOneReiner(用「再保人代號」取得再保人)");
-		log.debug(">>> (用「再保人代號」取得再保人) rinComId = " + parJson.getRinComId());
+		log.debug(">>> (用「再保人代號」取得再保人) rinComId = {}", parJson.getRinComId());
 
 		JsonBean jsonBean = new JsonBean();
 		
-		List<FricomJoinRicmpf1> res = new ArrayList<FricomJoinRicmpf1>();
+		List<Rin1101FricomJoinRicmpf1> res = new ArrayList<>();
 
 		try {
 			
@@ -106,14 +104,14 @@ public class Rin1101AController {
 	@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(value = "/querycredit")
 	@ResponseBody
-	public ResponseEntity<?> queryCredit(@ApiParam(value ="再保人代號")@RequestBody QueryCreditVo parJson) throws Exception {
+	public ResponseEntity<Object> queryCredit(@ApiParam(value ="再保人代號")@RequestBody Rin1101AQueryCreditVOReq parJson) throws Exception {
 
 		log.debug(">>> Rin1101AController.querycredit(查詢「評等資料」)");
-		log.debug(">>> (查詢「評等資料」) rinComId = " + parJson.getRinComId());
+		log.debug(">>> (查詢「評等資料」) rinComId = {}", parJson.getRinComId());
 
 		JsonBean jsonBean = new JsonBean();
 		
-		List<FriComCredit> res = new ArrayList<FriComCredit>();
+		List<FriComCredit> res = new ArrayList<>();
 
 		try {
 			

@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="../../shigen/plugin/bootstrap/bootstrap-grid-customizing.css">
 <!-- table tabulator -->
 <script type="text/javascript" src="../../shigen/plugin/tabulator.min.js"></script>
+<script src="../../shigen/js/loadingoverlay.min.js"></script>
 <!-- fontawsome -->
 <script defer src="../../shigen/fonts/js/all.min.js"></script>
 <link href="../../shigen/fonts/css/all.css" rel="stylesheet">
@@ -34,13 +35,16 @@
 <script src="../../shigen/js/common.js"></script>
 <script src="../../shigen/js/appglobal.js"></script>
 <script src="../../shigen/js/sys/glob4UiAuth.js"></script>
-<!-- <script type="text/javascript" src="../../shigen/js/app/policyChangeAppl.js"></script> -->
 <script src="../../shigen/js/yf/fireTableColumns.js"></script>
 <script src="../../shigen/js/yf/fireTable.js"></script>
 <link rel="stylesheet" href="../../shigen/css/fireTableCustom.css">
 <link rel="stylesheet" href="../../shigen/css/fireTablePaginator.css">
 <script src="../../shigen/plugin/numeral.js"></script>
-
+<style>
+	#table1103addBtn{
+		height:30px;
+	}
+</style>
 </head>
 
 <body>
@@ -49,9 +53,6 @@
 		<div class="ajax-section-main"></div>
 		<div class="container-fluid">
 			<div class="content">
-				<div class="bread-crumbs">
-					<a href="">火險作業</a>
-				</div>
 				<div class="big_title title s1">Rin1103-梯次佣金維護</div>
 				<div class="row-group">
 					<div class="row">
@@ -60,7 +61,9 @@
 						</div>
 					</div>
 				</div>
-				<table class="tblDataArea tblInquireArea" cellspacing="0" cellpadding="0" width="100%">
+				<div class="Greybg">
+					<div class="redClu">
+				<table class="tblDataArea" cellspacing="0" cellpadding="0" width="100%">
 					<tbody>
 						<tr>
 							<td class="tdDataCaption">合約年度</td>
@@ -72,13 +75,11 @@
 								<input type="text" value="" id="txttready_no1">
 							</td>
 						</tr>
-
 					</tbody>
 				</table>
+				    </div>
 				<div class="divspace"></div>
-				<button class="TBo">
-					<i class="fas fa-plus-square TFo"></i>
-				</button>
+				<div id="table1103addBtn"></div>
 				<div id="table1103-errMsg"></div>
 				<table class="tblCssDataGrid">
 					<div id="table1103"></div>
@@ -87,6 +88,7 @@
 				<div class="row justify-content-center">
 					<div id="table1103-btn"></div>
 				</div>
+			    </div>
 			</div>
 			<!-- content end  -->
 		</div>

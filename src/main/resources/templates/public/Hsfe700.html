@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" lang="zh-Hant-TW">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="icon" type="image/png"
+	href="../../shigen/images/general/favicon.ico">
+	<title>華南產物保險-火險再保系統</title>
+<!-- jQuery -->
+<script src="../../shigen/plugin/jquery.min.js"></script>
+<!-- jQuery UI -->
+<link href="../../shigen/plugin/jquery_ui/jquery-ui.min.css"
+	rel="stylesheet">
+<script src="../../shigen/plugin/jquery_ui/jquery-ui.min.js"></script>
+<!-- 日期選擇器_民國年或西元年：支援 jQuery UI -->
+<script src="../../shigen/plugin/datepicker_globe_tw.js"></script>
+<!-- bootstrap -->
+<script src="../../shigen/plugin/bootstrap/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="../../shigen/plugin/bootstrap/bootstrap.css">
+<link rel="stylesheet"
+	href="../../shigen/plugin/bootstrap/bootstrap-grid-customizing.css">
+<!-- table tabulator -->
+<script type="text/javascript"
+	src="../../shigen/plugin/tabulator.min.js"></script>
+<script src="../../shigen/js/loadingoverlay.min.js"></script>
+<!-- fontawsome -->
+<script defer src="../../shigen/fonts/js/all.min.js"></script>
+<link href="../../shigen/fonts/css/all.css" rel="stylesheet">
+<!--load all styles -->
+<!-- Plug CSS樣式 -->
+<link rel="stylesheet" href="../../shigen/css/type_plug.css">
+<!-- 共用樣式 -->
+<link rel="stylesheet" href="../../shigen/css/type.css">
+<link href="../../shigen/css/colorful-tabulator.css" rel="stylesheet">
+
+<!-- 自訂JS樣式 -->
+<script src="../../shigen/js/type.js"></script>
+<script src="../../shigen/js/common.js"></script>
+<script src="../../shigen/js/appglobal.js"></script>
+<script src="../../shigen/js/sys/glob4UiAuth.js"></script>
+<script src="../../shigen/js/yf/fireTableColumns.js"></script>
+<script src="../../shigen/js/yf/oldfireTable.js"></script>
+<style>
+* {
+	box-sizing: border-box;
+}
+
+.tabulator-row.table-editable {
+	background-color:#F0F0F0;
+}
+
+.cell-editable {
+	border: 2px solid black;
+	background-color: white;
+}
+
+.btn-hide {
+	display: none;
+}
+
+.tabulator-cell{
+    height:2em !important;
+    line-height:1.5em;
+    font-size:20px;
+}
+</style>
+
+</head>
+
+<body>
+	<div class="ajax-aside-navFIRE"></div>
+	<section>
+		<div class="ajax-section-main"></div>
+		<div class="container-fluid">
+			<div class="content">
+				<div class="big_title title s1">Hsfe700-移轉帳維護作業</div>
+				<div class="row-group">
+					<div class="row">
+						<div class="col-12 content_function_bar">
+							<button class="btn btn-titBlue">移轉帳帳單作業</button>
+							<button class="btn btn-titBlue">查詢</button>
+							<button class="btn btn-titBlue">資料匯出(100%)</button>
+							<button class="btn btn-titBlue">資料匯出(實際比例)</button>
+							<button class="btn btn-titBlue">Runoff明細匯出</button>
+						</div>
+					</div>
+				</div>
+				<div class="Greybg">
+				<div class="redClu">
+					<table class="tblDataArea" cellspacing="0"
+						cellpadding="0" width="100%">
+						<tbody>
+							<tr>
+								<td class="tdDataCaption" style="width:25%;">計算年度</td>
+								<td class="tdDataField" style="width:25%;">
+									<input type="text" value="">
+								</td>
+								<td class="tdDataCaption" style="width:25%;">計算月份</td>
+								<td class="tdDataField" style="width:25%;">
+									<select name="" id="">
+										<option value="">01</option>
+										<option value="">02</option>
+										<option value="">03</option>
+										<option value="">04</option>
+										<option value="">05</option>
+										<option value="">06</option>
+										<option value="">07</option>
+										<option value="">08</option>
+										<option value="">09</option>
+										<option value="">10</option>
+										<option value="">11</option>
+										<option value="">12</option>
+									</select>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+                </div>
+				<div class="divspace"></div>
+                <div class="Greybg">
+					<row>
+						<div class="row justify-content-center">
+							<button type="button" class="btn btn-oneD">存檔</button>
+							<button type="button" class="btn btn-oneC">重新計算</button>
+							<button type="button" class="btn btn-oneA">刪除</button>
+								<input type="checkbox" class="checkbox_box" >
+								<span style="padding-top:7px ;">更新理賠金額</span>
+						</div>
+					</row>
+                    <table class="tblDataArea tblInquireArea" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td class="tdDataAnther">結算年</td>
+                                <td class="tdDataTrip">
+                                    <input type="text" value="">
+                                </td>
+                                <td class="tdDataAnther">結算月</td>
+                                <td class="tdDataTrip">
+                                    <select name="" id="">
+                                        <option value="">01</option>
+                                        <option value="">02</option>
+                                        <option value="">03</option>
+                                        <option value="">04</option>
+                                        <option value="">05</option>
+                                        <option value="">06</option>
+                                        <option value="">07</option>
+                                        <option value="">08</option>
+                                        <option value="">09</option>
+                                        <option value="">10</option>
+                                        <option value="">11</option>
+                                        <option value="">12</option>
+                                    </select>
+                                </td>
+                                <td class="tdDataAnther">暫定佣金率</td>
+                                <td class="tdDataTrip">
+                                    <input type="text" value="">％
+                                </td>
+                                <td class="tdDataAnther">總損率</td>
+                                <td class="tdDataTrip">
+                                    <input type="text" value="">％
+                                </td>
+                            </tr>
+							<tr>
+                                <td class="tdDataAnther">結算年</td>
+                                <td class="tdDataTrip" colspan="7">
+                                    <input type="text" value="">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+					<table class="tblDataArea" cellspacing="0" cellpadding="0" width="100%" id="rinserEditArea1">
+							<tbody>
+								<tr>
+									<td class="tdDataCaption">
+										清單
+									</td>
+									<td class="tdDataField" colspan="5">
+										<table class="tblCssDataGrid">
+											<tbody>
+												<tr class="cssDataGridHeader ">
+													<th>年月</th>
+													<th>Factor23</th>
+													<th>Factor21</th>
+													<th>Factor19</th>
+													<th>Factor17</th>
+													<th>Factor15</th>
+													<th>Factor13</th>
+													<th>Factor11</th>
+													<th>Factor09</th>
+													<th>Factor07</th>
+													<th>Factor05</th>
+													<th>Factor03</th>
+													<th>Factor01</th>
+												</tr>
+												<tr>
+													<td>未滿期數</td>
+													<td class="ak">01</td>
+													<td class="ak">03</td>
+													<td class="ak">05</td>
+													<td class="ak">07</td>
+													<td class="ak">09</td>
+													<td class="ak">11</td>
+													<td class="ak">13</td>
+													<td class="ak">15</td>
+													<td class="ak">17</td>
+													<td class="ak">19</td>
+													<td class="ak">21</td>
+													<td class="ak">23</td>
+												</tr>
+												<tr>
+													<td>保單保費</td>
+													<td class="ak">13,043,501</td>
+													<td class="ak">15,928,677</td>
+													<td class="ak">16,347,134</td>
+													<td class="ak">16,699,630</td>
+													<td class="ak">23,393,027</td>
+													<td class="ak">14,239,685</td>
+													<td class="ak">15,982,879</td>
+													<td class="ak">15,462,199</td>
+													<td class="ak">11,766,576</td>
+													<td class="ak">11,549,318</td>
+													<td class="ak">6,129,226</td>
+													<td class="ak">2,448,227</td>
+												</tr>
+												<tr>
+													<td>批單保費</td>
+													<td class="ak">-41,222</td>
+													<td class="ak">-289,160</td>
+													<td class="ak">-39,951</td>
+													<td class="ak">-210,563</td>
+													<td class="ak">-164,878</td>
+													<td class="ak">14,239,685</td>
+													<td class="ak">15,982,879</td>
+													<td class="ak">15,462,199</td>
+													<td class="ak">11,766,576</td>
+													<td class="ak">11,549,318</td>
+													<td class="ak">6,129,226</td>
+													<td class="ak">2,448,227</td>
+												</tr>
+												<tr>
+													<td>未滿期保費</td>
+													<td class="ak">541,762</td>
+													<td class="ak">1,954,940</td>
+													<td class="ak">3,397,330</td>
+													<td class="ak">4,809,311</td>
+													<td class="ak">8,710,556</td>
+													<td class="ak">6,465,210</td>
+													<td class="ak">8,441,380</td>
+													<td class="ak">9,500,358</td>
+													<td class="ak">7,876,627</td>
+													<td class="ak">9,127,009</td>
+													<td class="ak">5,263,941</td>
+													<td class="ak">2,347,189</td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td class="tdDataCaption" colspan="2">上年度轉入未滿期再保費(0)</td>
+									<td class="tdDataField">
+										<input type="text" value="" placeholder="">
+									</td>
+									<td class="tdDataCaption" colspan="2">上年度轉入未決賠款(8)</td>
+									<td class="tdDataField">
+										<input type="text" value="" placeholder="">
+									</td>
+								</tr>
+								<tr>
+									<td class="tdDataCaption" colspan="2">本年度再保費(1)</td>
+									<td class="tdDataField">
+										<input type="text" value="" placeholder="">
+									</td>
+									<td class="tdDataCaption" colspan="2">年度賠款攤賠(9)</td>
+									<td class="tdDataField">
+										<input type="text" value="" placeholder="">
+									</td>
+								</tr>
+								<tr>
+									<td class="tdDataCaption" colspan="2">本年度未滿期再保費(2)</td>
+									<td class="tdDataField">
+										<input type="text" value="" placeholder="">
+									</td>
+									<td class="tdDataCaption" colspan="2">本年度未決賠款(10)</td>
+									<td class="tdDataField">
+										<input type="text" value="" placeholder="">
+									</td>
+								</tr>
+								<tr>
+									<td class="tdDataCaption" colspan="2">本年度已滿期保費(3)=(0)+(1)-(2)</td>
+									<td class="tdDataField">
+										<input type="text" value="" placeholder="">
+									</td>
+									<td class="tdDataCaption" colspan="2">年度結算賠款攤賠(11)=(9)+(10)-(8)</td>
+									<td class="tdDataField">
+										<input type="text" value="" placeholder="">
+									</td>
+								</tr>
+								<tr>
+									<td class="tdDataCaption">再保佣金(4)=(3)*(5)</td>
+									<td class="tdDataField">
+										<input type="text" value="" placeholder="">
+									</td>
+									<td class="tdDataCaption">佣金率(5)</td>
+									<td class="tdDataField">
+										<input type="text" value="" placeholder="">%
+									</td>
+									<td class="tdDataCaption">再保業務損失率(12)=(11)/(3)</td>
+									<td class="tdDataField">
+										<input type="text" value="" placeholder="">
+									</td>
+								</tr>
+								<tr>
+									<td class="tdDataCaption">營業稅(6)=(3)*(7)</td>
+									<td class="tdDataField">
+										<input type="text" value="" placeholder="">
+									</td>
+									<td class="tdDataCaption">營業稅率(7)</td>
+									<td class="tdDataField">
+										<input type="text" value="" placeholder="">%
+									</td>
+									<td class="tdDataCaption">再保業務綜合損失率(13)=(11)+(4)+(6)/(3)</td>
+									<td class="tdDataField">
+										<input type="text" value="" placeholder="">
+									</td>
+								</tr>
+								<tr>
+									<td class="tdDataCaption"></td>
+									<td class="tdDataField"></td>
+									<td class="tdDataCaption"></td>
+									<td class="tdDataField"></td>
+									<td class="tdDataCaption">年度結算盈餘(14)=(3)-(4)-(6)-(11)</td>
+									<td class="tdDataField">
+										<input type="text" value="" placeholder="">
+									</td>
+								</tr>
+							</tbody>
+					</table>
+                </div>
+			</div>
+			<!-- content end  -->
+		</div>
+	</section>
+	<!-- dialog -->
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" data-backdrop="static"
+		tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">Title</h5>
+					<button id="_close_dialog" type="button" class="close"
+						data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="foo">
+					<div id="example-table"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-primary"
+						onclick="doModify(this);return false;">確定</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+<!-- 功能使用的js，建議放置在html最尾 -->
+<script type="text/javascript"></script>
+</html>

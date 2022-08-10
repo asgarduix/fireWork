@@ -313,20 +313,20 @@ public class SysIndexRoleRepository {
 		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
 		List<SysIndexRole> returnList = null;
 		try {
-//            SysIndexRoleMapper mapper = sqlSession.getMapper(SysIndexRoleMapper.class);
-//            SysIndexRoleExample xp = new SysIndexRoleExample();
+			SysIndexRoleMapper mapper = sqlSession.getMapper(SysIndexRoleMapper.class);
+			SysIndexRoleExample xp = new SysIndexRoleExample();
 //            Criteria criteria = xp.createCriteria();
 //            if (StringUtils.isNotBlank(model.get{VAR_NAME}()))
 //            {
 //            criteria.and{VAR_NAME}EqualTo(model.get{VAR_NAME}());
 //            }
-//			
-//            // if (StringUtils.isNotBlank(model.getJobName()))
-//            // {
-//            // criteria.andJobNameEqualTo(model.getJobName());
-//            // }
-//            // returnList = mapper.selectByExample(xp);
-//            log.debug(returnList == null ? "returnList is null" : "筆數:" + returnList.size());
+
+			// if (StringUtils.isNotBlank(model.getJobName()))
+			// {
+			// criteria.andJobNameEqualTo(model.getJobName());
+			// }
+			returnList = mapper.selectByExample(xp);
+			log.debug(returnList == null ? "returnList is null" : "筆數:" + returnList.size());
 		} catch (Exception e) {
 			sqlSession.rollback();
 			throw e;

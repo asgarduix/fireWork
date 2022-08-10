@@ -123,19 +123,25 @@ public class SpringAspectjComponent {
 		// fetch all request info
 		RequestAttributes ra = RequestContextHolder.getRequestAttributes();
 		ServletRequestAttributes sra = (ServletRequestAttributes) ra;
-		HttpServletRequest request = sra.getRequest();
-
+		HttpServletRequest request = null;
+		if (null != sra) {
+			request = sra.getRequest();
+		}
+		if (request == null) {
+			throw new Exception();
+		}
 		StringBuffer name = new StringBuffer();
-		String userId = null;
+		String akaId = null;
 
 		try {
+
 			String token = request.getHeader("Authorization");
 			String temp = token.replace("bearer ", "");
 			String username = jwtTokenUtil.getUsernameFromToken(temp);
 			// log.debug("header-autorization:" + token);
 			name.append("user:" + username + ",");
 
-			userId = username;
+			akaId = username;
 		} catch (Exception e) {
 			log.debug(e.toString());
 			Arrays.asList(e.getStackTrace()).forEach(sub -> log.debug(sub.toString()));
@@ -162,7 +168,7 @@ public class SpringAspectjComponent {
 		// log to database(or kafka)
 		try {
 			SysAccessRecord record = new SysAccessRecord();
-			record.setAccUserid(userId);
+			record.setAccAkaId(akaId);
 			record.setAccLog(contextSb.toString());
 			record.setAccTime(new Date());
 			record.setAccMsg(msg);

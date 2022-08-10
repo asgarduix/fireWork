@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" lang="zh-Hant-TW">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="icon" type="image/png" href="../../shigen/images/general/favicon.ico">
+<title>華南產物保險-火險再保系統</title>
+<!-- jQuery -->
+<script src="../../shigen/plugin/jquery.min.js"></script>
+<!-- jQuery UI -->
+<link href="../../shigen/plugin/jquery_ui/jquery-ui.min.css" rel="stylesheet">
+<script src="../../shigen/plugin/jquery_ui/jquery-ui.min.js"></script>
+<!-- 日期選擇器_民國年或西元年：支援 jQuery UI -->
+<script src="../../shigen/plugin/datepicker_globe_tw.js"></script>
+<!-- bootstrap -->
+<script src="../../shigen/plugin/bootstrap/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../../shigen/plugin/bootstrap/bootstrap.css">
+<link rel="stylesheet" href="../../shigen/plugin/bootstrap/bootstrap-grid-customizing.css">
+<!-- table tabulator -->
+<script type="text/javascript" src="../../shigen/plugin/tabulator.min.js"></script>
+<script src="../../shigen/js/loadingoverlay.min.js"></script>
+<!-- fontawsome -->
+<script defer src="../../shigen/fonts/js/all.min.js"></script>
+<link href="../../shigen/fonts/css/all.css" rel="stylesheet">
+<!--load all styles -->
+<!-- Plug CSS樣式 -->
+<link rel="stylesheet" href="../../shigen/css/type_plug.css">
+<!-- 共用樣式 -->
+<link rel="stylesheet" href="../../shigen/css/type.css">
+<link href="../../shigen/css/colorful-tabulator.css" rel="stylesheet">
+
+<!-- 自訂JS樣式 -->
+<!-- <script src="../../shigen/js/type.js"></script> -->
+<script src="../../shigen/js/common.js"></script> 
+<!-- <script src="../../shigen/js/appglobal.js"></script> -->
+<script src="../../shigen/js/sys/glob4UiAuth.js"></script> 
+<!-- <script type="text/javascript" src="../../shigen/js/app/policyChangeAppl.js"></script> -->
+<!-- <script src="../../shigen/js/yf/fireTableColumns.js"></script>
+<script src="../../shigen/js/yf/fireTable.js"></script>
+<link rel="stylesheet" href="../../shigen/css/fireTableCustom.css">
+<link rel="stylesheet" href="../../shigen/css/fireTablePaginator.css">
+<script src="../../shigen/plugin/numeral.js"></script>
+<script type="text/javascript" src="../../shigen/js/uiapis4app/ddls.js"></script> -->
+
+</head>
+
+<body>
+	<div class="ajax-aside-navFIRE"></div>
+	<section>
+		<div class="ajax-section-main"></div>
+		<div class="container-fluid">
+			<div class="content">
+				<div class="big_title title s1">Hsfr399 轉檔校核與合約明細表作業</div>
+				<div class="row-group">
+					<div class="row">
+						<div class="col-12 content_function_bar">
+							<button class="btn btn-titBlue"><i class="fas fa-undo" style="padding-right: 5px; font-size:1.2rem;"></i>回上頁</button>
+							<button class="btn btn-titBlue"><i class="fas fa-glasses" style="padding-right: 5px; font-size:1.2rem;"></i>讀檔預覽</button>
+							<button class="btn btn-titBlue"><i class="fas fa-save" style="padding-right: 5px; font-size:1.2rem;"></i>存檔</button>
+							<button class="btn btn-titBlue"><i class="fas fa-print" style="padding-right: 5px; font-size:1.2rem;"></i>列印</button>
+							<button class="btn btn-titBlue"><i class="fas fa-file-excel"style="padding-right: 5px; font-size:1.2rem;"></i>匯出excel</button>
+						</div>
+					</div>
+				</div>
+				<!-- tab開始 -->
+				<div class="row-group">
+					<ul class="row nav nav-pills" id="pills-tab" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active" id="pills-1-tab" data-toggle="pill" href="#pills-1" role="tab" aria-controls="pills-1" aria-selected="true">轉檔校核查詢</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" id="pills-2-tab" data-toggle="pill" href="#pills-2" role="tab" aria-controls="pills-2" aria-selected="false">合約明細表查詢</a>
+						</li>
+                        <li class="nav-item">
+							<a class="nav-link" id="pills-3-tab" data-toggle="pill" href="#pills-3" role="tab" aria-controls="pills-3" aria-selected="false">結果</a>
+						</li>
+					</ul>
+				</div>
+                <!-- tab開始 -->
+				<div style="border: 2px solid #9C9B96; margin: 15px 0; padding: 7px 10px; background-color: #f8f8f8;">
+					<div class="tab-content" id="pills-tabContent">
+						<div class="row-group tab-pane fade show active" id="pills-1" role="tabpanel" aria-labelledby="pills-1-tab">
+							<table class="tblDataArea tblInquireArea" cellspacing="0" cellpadding="0" width="100%">
+								<tbody>
+									<tr>
+										<td class="tdDataAnther">轉檔類型</td>
+										<td class="tdDataTrip">
+											<span class="checkbox_box ml-2">
+                                                <input id="check1" type="radio" name="radio" value="1">
+                                                <label for="check1">臨分轉檔</label>
+                                            </span>
+                                            <span class="checkbox_box ml-2">
+                                                <input id="check2" type="radio" name="radio" value="2">
+                                                <label for="check2">分入轉檔</label>
+                                            </span>
+                                            <span class="checkbox_box ml-2">
+                                                <input id="check3" type="radio" name="radio" value="3">
+                                                <label for="check3">合約轉檔</label>
+                                            </span>
+                                            <span class="checkbox_box ml-2">
+                                                <input id="check4" type="radio" name="radio" value="4">
+                                                <label for="check4">超額合約</label>
+                                            </span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+                            <!-- 選擇合約轉檔時 -->
+                            <!-- <table class="tblDataArea tblInquireArea" cellspacing="0" cellpadding="0" width="100%">
+                                <tbody>
+                                    <tr>
+										<td class="tdDataAnther">帳單年度</td>
+										<td class="tdDataTrip">
+											<input type="text" value="" placeholder="填入西元年" >
+										</td>
+									</tr>
+                                    <tr>
+										<td class="tdDataAnther">轉會計日期</td>
+										<td class="tdDataTrip">
+											<input type="text" value="" maxlength="9" >
+										</td>
+									</tr>
+                                    <tr>
+										<td class="tdDataAnther">季帳單</td>
+										<td class="tdDataTrip">
+											<select name="" id="">
+                                                <option value="">第1季</option>
+                                                <option value="">第2季</option>
+                                                <option value="">第3季</option>
+                                                <option value="">第4季</option>
+                                            </select>
+										</td>
+									</tr>
+                                </tbody>
+                            </table> -->
+                            <!-- 選擇臨分轉檔時 -->
+                            <!-- <table class="tblDataArea tblInquireArea" cellspacing="0" cellpadding="0" width="100%">
+                                <tbody>
+                                    <tr>
+										<td class="tdDataAnther">日期</td>
+										<td class="tdDataTrip">
+											<input style="width:30%;" type="text" value="" placeholder="填入民國年">～
+                                            <input style="width:30%;" type="text" value="" placeholder="填入民國年">
+										</td>
+									</tr>
+                                    <tr>
+										<td class="tdDataAnther">是否已轉至會計檔</td>
+										<td class="tdDataTrip">
+											<span class="checkbox_box ml-2">
+                                                <input id="check1" type="radio" name="radio" value="1">
+                                                <label for="check1">未轉</label>
+                                            </span>
+                                            <span class="checkbox_box ml-2">
+                                                <input id="check2" type="radio" name="radio" value="2">
+                                                <label for="check2">已轉</label>
+                                            </span>
+										</td>
+									</tr>
+                                    <tr>
+										<td class="tdDataAnther">報表</td>
+										<td class="tdDataTrip">
+											<span class="checkbox_box ml-2">
+                                                <input id="check1" type="radio" name="radio" value="1">
+                                                <label for="check1">再保</label>
+                                            </span>
+                                            <span class="checkbox_box ml-2">
+                                                <input id="check2" type="radio" name="radio" value="2">
+                                                <label for="check2">理賠</label>
+                                            </span>
+										</td>
+									</tr>
+                                </tbody>
+                            </table> -->
+                            <!-- 選擇超額合約、分入轉檔 -->
+                            <table class="tblDataArea tblInquireArea" cellspacing="0" cellpadding="0" width="100%">
+                                <tbody>
+                                    <tr>
+										<td class="tdDataAnther">日期</td>
+										<td class="tdDataTrip">
+											<input style="width:30%;" type="text" value="" placeholder="填入民國年">～
+                                            <input style="width:30%;" type="text" value="" placeholder="填入民國年">
+										</td>
+									</tr>
+                                    <tr>
+										<td class="tdDataAnther">是否已轉至會計檔</td>
+										<td class="tdDataTrip">
+											<span class="checkbox_box ml-2">
+                                                <input id="check1" type="radio" name="radio" value="1">
+                                                <label for="check1">未轉</label>
+                                            </span>
+                                            <span class="checkbox_box ml-2">
+                                                <input id="check2" type="radio" name="radio" value="2">
+                                                <label for="check2">已轉</label>
+                                            </span>
+										</td>
+									</tr>
+                                </tbody>
+                            </table>
+                            <div class="divspace"></div>
+                            <!-- 不知道會不會用到表格 先隱藏 -->
+                            <!-- <table class="tblCssDataGrid"> 
+                                <tbody> 
+                                    <tr class="cssDataGridHeader">
+                           				<th><a href="">合約年度</a></th>
+                              			<th><a href="">合約代號</a></th> 
+                              			<th><a href="">序號</a></th> 
+                              			<th><a href="">合約名稱</a></th> 
+                                		<th><a href="">合約起日</a></th>
+                                		<th><a href="">合約迄日</a></th>
+                                		<th><a href="">合約型態</a></th>
+                                    </tr>
+                             		<tr class="Ainfo">
+                          			    <td>
+                                            <span class="checkbox_box ml-2">
+                                                <input id="" type="radio" name="" value="1" >
+                                                <label for="optSlipNew">2021</label>
+                                            </span>
+                                        </td>
+                          				<td><a href="">FEXL</a></td> 
+                             			<td>0</td>
+                            			<td><a href="">ThisisContracName</a></td> 
+                             			<td>2021/01/01</td>
+                                        <td>2021/12/31</td>
+                                        <td>年</td>
+                                    </tr> 
+                                </tbody>
+                            </table> -->
+						</div>
+						<!-- pills-1 end -->
+						<div class="row-group tab-pane fade show" id="pills-2"
+							role="tabpanel" aria-labelledby="pills-2-tab">
+							<table class="tblDataArea tblInquireArea" cellspacing="0"
+								cellpadding="0" width="100%">
+								<tbody>
+									<tr>
+										<td class="tdDataThree">類別</td>
+										<td class="tdDataBorde">
+                                            <select name="" id="">
+                                                <option value="1">全部</option>
+                                                <option value="2">分入</option>
+                                                <option value="3">分出</option>
+                                            </select>
+                                        </td>
+                                        <td class="tdDataThree">境外公司註記</td>
+										<td class="tdDataBorde">
+                                            <select name="" id="">
+                                                <option value="1">全部</option>
+                                                <option value="2" selected>境內</option>
+                                                <option value="3">境外</option>
+                                            </select>
+                                        </td>
+									</tr>
+									<tr>
+										<td class="tdDataThree">入帳年度</td>
+										<td class="tdDataBorde"><input type="text"
+											value="" id="" placeholder="必填" maxlength="4"></td>
+										<td class="tdDataThree">入帳月份</td>
+										<td class="tdDataBorde">
+                                            <select name="" id="">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                            </select>
+                                        </td>
+									</tr>
+									<tr>
+										<td class="tdDataThree">帳單年度</td>
+										<td class="tdDataBorde"><input type="text"
+											value="" id="" maxlength="9" ></td>
+                                            <td class="tdDataThree">帳單月份</td>
+										<td class="tdDataBorde">
+                                            <select name="" id="">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                            </select>
+                                        </td>
+									</tr>
+									<tr>
+                                        <td class="tdDataThree">合約年度</td>
+										<td class="tdDataBorde"><input type="text"
+											value="" id="" placeholder="必填" maxlength="4">
+                                        </td>
+										<td class="tdDataThree">合約編號</td>
+										<td class="tdDataBorde">
+                                            <input type="text"
+											value="" id="" placeholder="必填" maxlength="4">
+                                        </td>
+									</tr>
+									<tr>
+										
+										<td class="tdDataThree">轉檔日期</td>
+										<td class="tdDataBorde"><input type="text"
+											value="" id="" maxlength="9" ></td>
+										<td class="tdDataThree"></td>
+										<td class="tdDataBorde"></td>
+                                    </tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- pills-2 end -->
+						<div class="row-group tab-pane fade show" id="pills-3"
+							role="tabpanel" aria-labelledby="pills-3-tab">
+							<!-- 輸入合約季帳單轉檔校核資料查詢結果 -->
+							<!-- <table class="tblCssDataGrid"> 
+                                <tbody> 
+                                    <tr class="cssDataGridHeader">
+                           			<th>型態</th>
+                              		<th>知會號</th> 
+                              		<th>經紀/再保人</th> 
+                              		<th>再保人</th> 
+                                	<th>出單年度</th>
+                                	<th>出單月份</th>
+                                	<th>合約年度</th>
+                                	<th>合約編號</th>
+                                	<th>再保費</th>
+                                	<th>佣金</th>
+                                	<th>稅金</th>
+									<th>賠款金額</th>
+									<th>同業往來</th>
+									<th>佣金率</th>
+									<th>帳單類別</th>
+									<th>轉檔註</th>
+                                    </tr>
+                             		<tr class="Ainfo">
+                          			<td>簽單分出</td>
+                          			<td>2021FTB0088</td> 
+                             		<td>B00006</td>
+                            		<td>R202358</td> 
+                             		<td>2021</td>
+                                    <td>9</td>
+                                    <td>2021</td>
+                                    <td>FFQSQ</td>
+                                    <td>2,207,910</td>
+                                    <td>574,057</td>
+                                    <td>22,079</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    </tr> 
+                                </tbody>
+                            </table> -->
+							<!-- 臨分轉檔校核資料查詢結果 -->
+							<!-- <div class="x_scroll">
+							<table class="tblCssDataGrid"> 
+                                <tbody> 
+                                    <tr class="cssDataGridHeader">
+                           			<th>轉檔狀態</th>
+                              		<th>合約號</th> 
+                              		<th>知會號</th> 
+                              		<th>型態</th> 
+                                	<th>保單號</th>
+                                	<th>批單號</th>
+                                	<th>被保險人</th>
+                                	<th>臨分起訖</th>
+                                	<th>再保人代號</th>
+                                	<th>再保人</th>
+                                	<th>幣別</th>
+									<th>商業火險保費</th>
+									<th>地震險保費</th>
+									<th>颱洪險保費</th>
+									<th>再保費</th>
+									<th>再保佣</th>
+									<th>經紀佣</th>
+									<th>處理費</th>
+									<th>稅</th>
+									<th>淨額</th>
+									<th>境外分入註記</th>
+                                    </tr>
+                             		<tr class="Ainfo">
+                          			<td>
+										<select name="" id="">
+											<option value="Y">要轉(Y)</option>
+											<option value="N">先不轉(N)</option>
+										</select>
+									</td>
+                          			<td>2017FF249</td> 
+                             		<td>2021FAC0664</td>
+                            		<td>簽單分出</td> 
+                             		<td>0006FA0000314</td>
+                                    <td>0010ADJ0049</td>
+                                    <td>三晃股份有限公司</td>
+                                    <td>2018/01/17</td>
+                                    <td>2018/09/30</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    </tr> 
+                                </tbody>
+                            </table>
+						    </div> -->
+							<!-- 分入轉檔校核資料查詢結果 -->
+							<!-- <div class="x_scroll">
+								<table class="tblCssDataGrid"> 
+									<tbody> 
+										<tr class="cssDataGridHeader">
+										<th>轉檔狀態</th>
+										<th>保單號</th> 
+										<th>批單號</th> 
+										<th>被保險人</th> 
+										<th>出單日</th>
+										<th>保單來源類別</th>
+										<th>對方帳單日</th>
+										<th>對方保單號</th>
+										<th>經紀人</th>
+										<th>再保人</th>
+										<th>幣別</th>
+										<th>再保費</th>
+										<th>佣金</th>
+										<th>淨額</th>
+										<th>再保費(台幣)</th>
+										<th>佣金(台幣)</th>
+										<th>淨額(台幣)</th>
+										<th>境外分入註記</th>
+										</tr>
+										 <tr class="Ainfo">
+										  <td>
+											<select name="" id="">
+												<option value="Y">要轉(Y)</option>
+												<option value="N">先不轉(N)</option>
+											</select>
+										</td>
+										  <td>2017FF249</td> 
+										 <td>2021FAC0664</td>
+										<td>簽單分出</td> 
+										 <td>0006FA0000314</td>
+										<td>0010ADJ0049</td>
+										<td>三晃股份有限公司</td>
+										<td>2018/01/17</td>
+										<td>2018/09/30</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										</tr> 
+									</tbody>
+								</table>
+							</div> -->
+							<!-- 超額合約轉檔校核資料查詢結果 -->
+							<div class="x_scroll">
+								<table class="tblCssDataGrid"> 
+									<tbody> 
+										<tr class="cssDataGridHeader">
+										<th>轉檔狀態</th>
+										<th>帳務期間</th> 
+										<th>合約年度</th> 
+										<th>合約代號</th> 
+										<th>合約序號</th>
+										<th>第一再保人</th>
+										<th>第一再保人名稱</th>
+										<th>入帳年度</th>
+										<th>入帳月份</th>
+										<th>原幣別</th>
+										<th>稅率</th>
+										<th>保費</th>
+										<th>稅額</th>
+										<th>＋:Duetoyou/<br>－:Duetous</th>
+										</tr>
+										<tr class="Ainfo">
+										<td>
+											<select name="" id="">
+												<option value="Y" selected>要轉(Y)</option>
+												<option value="N">先不轉(N)</option>
+												<option value="D">調整(D)</option>
+												<option value="H">手動入帳(H)</option>
+												<option value="H">已轉(T)</option>
+											</select>
+										</td>
+										<td>2017FF249</td> 
+										<td>2021FAC0664</td>
+										<td>簽單分出</td> 
+										<td>0006FA0000314</td>
+										<td>0010ADJ0049</td>
+										<td>三晃股份有限公司</td>
+										<td>2018/01/17</td>
+										<td>2018/09/30</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										</tr> 
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- pills-3 end -->
+					</div>
+				</div>
+				<!-- tab結束 -->
+			</div>
+			<!-- content end  -->
+		</div>
+	</section>
+	<!-- dialog -->
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">Title</h5>
+					<button id="_close_dialog" type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="foo">
+					<div id="example-table"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-primary" onclick="doModify(this);return false;">確定</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+<!-- 功能使用的js，建議放置在html最尾 -->
+</html>

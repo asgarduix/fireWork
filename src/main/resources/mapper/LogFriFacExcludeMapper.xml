@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.asi.huanan.service.dao.mybatis.mapper.LogFriFacExcludeMapper">
+  <resultMap id="BaseResultMap" type="com.asi.huanan.service.dao.mybatis.model.LogFriFacExcludeKey">
+    <id column="slip_no" jdbcType="VARCHAR" property="slipNo" />
+    <id column="LOG_seq" jdbcType="VARCHAR" property="logSeq" />
+    <id column="rin_com_id" jdbcType="VARCHAR" property="rinComId" />
+    <id column="content" jdbcType="VARCHAR" property="content" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    slip_no, LOG_seq, rin_com_id, content
+  </sql>
+  <select id="selectByExample" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacExcludeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from LOG_fri_fac_exclude
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacExcludeKey">
+    delete from LOG_fri_fac_exclude
+    where slip_no = #{slipNo,jdbcType=VARCHAR}
+      and LOG_seq = #{logSeq,jdbcType=VARCHAR}
+      and rin_com_id = #{rinComId,jdbcType=VARCHAR}
+      and content = #{content,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacExcludeExample">
+    delete from LOG_fri_fac_exclude
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacExcludeKey">
+    insert into LOG_fri_fac_exclude (slip_no, LOG_seq, rin_com_id, 
+      content)
+    values (#{slipNo,jdbcType=VARCHAR}, #{logSeq,jdbcType=VARCHAR}, #{rinComId,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacExcludeKey">
+    insert into LOG_fri_fac_exclude
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="slipNo != null">
+        slip_no,
+      </if>
+      <if test="logSeq != null">
+        LOG_seq,
+      </if>
+      <if test="rinComId != null">
+        rin_com_id,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="slipNo != null">
+        #{slipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="logSeq != null">
+        #{logSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="rinComId != null">
+        #{rinComId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.asi.huanan.service.dao.mybatis.model.LogFriFacExcludeExample" resultType="java.lang.Long">
+    select count(*) from LOG_fri_fac_exclude
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update LOG_fri_fac_exclude
+    <set>
+      <if test="record.slipNo != null">
+        slip_no = #{record.slipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logSeq != null">
+        LOG_seq = #{record.logSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rinComId != null">
+        rin_com_id = #{record.rinComId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update LOG_fri_fac_exclude
+    set slip_no = #{record.slipNo,jdbcType=VARCHAR},
+      LOG_seq = #{record.logSeq,jdbcType=VARCHAR},
+      rin_com_id = #{record.rinComId,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

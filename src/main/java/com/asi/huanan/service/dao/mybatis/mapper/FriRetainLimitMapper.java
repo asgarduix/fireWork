@@ -9,8 +9,9 @@ import org.apache.ibatis.annotations.Select;
 import com.asi.huanan.service.dao.mybatis.model.FriRetainLimit;
 import com.asi.huanan.service.dao.mybatis.model.FriRetainLimitExample;
 import com.asi.huanan.service.dao.mybatis.model.FriRetainLimitKey;
-import com.asi.huanan.vo.DeleteRetainVo;
-import com.asi.huanan.vo.Rin1105Vo;
+import com.asi.huanan.vo.Rin1105DeleteRetainVOReq;
+import com.asi.huanan.vo.Rin1105VOResp;
+import com.asi.huanan.vo.Rin1304QueryLimitVO;
 
 public interface FriRetainLimitMapper {
     /**
@@ -109,7 +110,7 @@ public interface FriRetainLimitMapper {
     		+ "and limit_id like concat(#{limitId,jdbcType=VARCHAR},'%')"
     		+ "</script>")
     
-    List<Rin1105Vo> queryRetainList(@Param("treatyYear") String treatyYear, @Param("limitId") String limitId);
+    List<Rin1105VOResp> queryRetainList(@Param("treatyYear") String treatyYear, @Param("limitId") String limitId);
     
     
     @Delete("<script> delete from fri_retain_limit where "
@@ -118,5 +119,39 @@ public interface FriRetainLimitMapper {
     		+ "</foreach>"  
     		+ "</script>")
     
-    int deleteRetainsByPkList(@Param("record") List<DeleteRetainVo> record);
+    int deleteRetainsByPkList(@Param("record") List<Rin1105DeleteRetainVOReq> record);
+    
+    /**
+     * Rin1304_保批單明細畫面_查詢保單限額、限額代號、限額
+     * @param policyYear
+     * @param propCode
+     * @param constClass
+     * @return
+     */
+    @Select({"<script>"
+    	    ,"select distinct limit_id as limitId,limit_amount as limitAmount from fri_retain_limit "
+    	    ,"where treaty_year = #{policyYear,jdbcType=VARCHAR}"
+    	    ,"and limit_id = "
+    	    ,"<choose>"
+    	    ,"<when test=\"constClass != null and( constClass == '0'.toString() or constClass== '1'.toString())\">"
+            ,"  (select special1_limit from fri_use_limit where use_prop_id = #{propCode,jdbcType=VARCHAR})"
+            ,"</when>"
+            ,"<when test=\"constClass != null and constClass == '2'.toString()\">"
+            ," (select special2_limit from fri_use_limit where use_prop_id = #{propCode,jdbcType=VARCHAR})"
+            ,"</when>"
+            ,"<when test=\"constClass != null and constClass == '3'.toString()\">"
+            ," (select first_limit from fri_use_limit where use_prop_id = #{propCode,jdbcType=VARCHAR})"
+            ,"</when>"
+            ,"<when test=\"constClass!= null and constClass == '5'.toString()\">"
+            ," (select second_limit from fri_use_limit where use_prop_id = #{propCode,jdbcType=VARCHAR})"
+            ,"</when>"
+            ,"<when test=\"constClass != null and constClass == '6'.toString()\">"
+            ," (select third_limit from fri_use_limit where use_prop_id =#{propCode,jdbcType=VARCHAR})"
+            ,"</when>"
+            ,"<when test=\"constClass != null and constClass == '7'.toString()\">"
+            ," (select outside_limit from fri_use_limit where use_prop_id = #{propCode,jdbcType=VARCHAR})"
+            ,"</when>"
+    		,"</choose>"	 
+    		, "</script>"})
+    List<Rin1304QueryLimitVO> queryLimit (@Param("policyYear") String policyYear,@Param("propCode") String propCode,@Param("constClass") String constClass);
 }

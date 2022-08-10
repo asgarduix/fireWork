@@ -1,6 +1,5 @@
 package com.asi.huanan.controller.api;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.asi.huanan.service.FriRetainLimitService;
 import com.asi.huanan.service.dao.mybatis.model.FriRetainLimit;
-import com.asi.huanan.service.dao.mybatis.model.FriTreatyComm;
-import com.asi.huanan.vo.DeleteRetainVo;
-import com.asi.huanan.vo.InsertRetainVo;
-import com.asi.huanan.vo.QueryRetainListVo;
-import com.asi.huanan.vo.Rin1105Vo;
-import com.asi.huanan.vo.UpdateRetainVo;
+import com.asi.huanan.vo.Rin1105DeleteRetainVOReq;
+import com.asi.huanan.vo.Rin1105InsertRetainVOReq;
+import com.asi.huanan.vo.Rin1105QueryRetainListVOReq;
+import com.asi.huanan.vo.Rin1105VOResp;
+import com.asi.huanan.vo.Rin1105UpdateRetainVOReq;
 import com.asi.json.model.root.JsonBean;
 import com.asi.mechanism.common.SysEnum;
 
@@ -36,7 +33,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @Lazy
-@CrossOrigin(origins = "http://localhost:10127", maxAge = 3600)
 @RequestMapping("rin1105api")
 @RestController
 @Api(tags = { "Rin1105api" })
@@ -63,14 +59,14 @@ public class Rin1105Controller {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(value = "/queryretainlist")
 	@ResponseBody
-	public ResponseEntity<?> queryRetainList(@ApiParam(value = "限額資料條件") @RequestBody QueryRetainListVo parJson)
+	public ResponseEntity<Object> queryRetainList(@ApiParam(value = "限額資料條件") @RequestBody Rin1105QueryRetainListVOReq parJson)
 			throws Exception {
 
 		log.debug(">>> Rin1105Controller.queryRetainList(搜尋「限額資料」)");
 
 		JsonBean jsonBean = new JsonBean();
 
-		List<Rin1105Vo> res = new ArrayList<Rin1105Vo>();
+		List<Rin1105VOResp> res = new ArrayList<>();
 
 		try {
 
@@ -109,14 +105,14 @@ public class Rin1105Controller {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(value = "/insertretain")
 	@ResponseBody
-	public ResponseEntity<?> insertRetain(@ApiParam(value = "限額資料") @RequestBody InsertRetainVo parJson)
+	public ResponseEntity<Object> insertRetain(@ApiParam(value = "限額資料") @RequestBody Rin1105InsertRetainVOReq parJson)
 			throws Exception {
 
 		log.debug(">>> Rin1105Controller.insertRetain(新增「限額資料」)");
 
 		JsonBean jsonBean = new JsonBean();
 		
-		List<FriRetainLimit> results = new ArrayList<FriRetainLimit>();
+		List<FriRetainLimit> results = new ArrayList<>();
 		
 		int res = 0;
 
@@ -124,13 +120,13 @@ public class Rin1105Controller {
 			FriRetainLimit model = new FriRetainLimit();
 			
 			//檢核是否已存在資料		
-			model.setTreatyYear(parJson.getTxttreaty_year());
-			model.setLimitId(parJson.getTxtlimit_id());
+			model.setTreatyYear(parJson.getTxttreaty_year());	//合約年度
+			model.setLimitId(parJson.getTxtlimit_id());			//限額代號
 			results = friRetainLimitService.queryByFriRetainLimit(model);
 			
 			
 			// 若已有，則不可新增
-			if (results.size() > 0) {
+			if (!results.isEmpty()) {
 
 				jsonBean.setData("");
 				jsonBean.setStatus(SysEnum.statusFinish.code);
@@ -140,7 +136,7 @@ public class Rin1105Controller {
 
 			}
 
-			model.setLimitAmount(parJson.getNumlimit_amount());
+			model.setLimitAmount(parJson.getNumlimit_amount());	//限額
 			//執行新增
 			res = friRetainLimitService.insert(model);
 
@@ -180,7 +176,7 @@ public class Rin1105Controller {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(value = "/updateretain")
 	@ResponseBody
-	public ResponseEntity<?> updateRetain(@ApiParam(value = "修改「限額資料」") @RequestBody UpdateRetainVo parJson)
+	public ResponseEntity<Object> updateRetain(@ApiParam(value = "修改「限額資料」") @RequestBody Rin1105UpdateRetainVOReq parJson)
 			throws Exception {
 
 		log.debug(">>> Rin1105Controller.updateRetain(修改「限額資料」)");
@@ -192,9 +188,9 @@ public class Rin1105Controller {
 
 		try {
 			
-			model.setTreatyYear(parJson.getTxttreaty_year());
-			model.setLimitId(parJson.getTxtlimit_id());
-			model.setLimitAmount(parJson.getNumlimit_amount());
+			model.setTreatyYear(parJson.getTxttreaty_year());	//合約年度
+			model.setLimitId(parJson.getTxtlimit_id());			//限額代號
+			model.setLimitAmount(parJson.getNumlimit_amount());	//限額
 
 			//執行修改
 			res = friRetainLimitService.update(model);
@@ -233,7 +229,7 @@ public class Rin1105Controller {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(value = "/deleteretain")
 	@ResponseBody
-	public ResponseEntity<?> deleteRetain(@ApiParam(value = "「限額資料」主鍵") @RequestBody List<DeleteRetainVo> parJson)
+	public ResponseEntity<Object> deleteRetain(@ApiParam(value = "「限額資料」主鍵") @RequestBody List<Rin1105DeleteRetainVOReq> parJson)
 			throws Exception {
 
 		log.debug(">>> Rin1105Controller.deleteRetain(刪除「限額資料」)");
@@ -244,7 +240,7 @@ public class Rin1105Controller {
 
 		try {
 			//有資料才進行刪除
-			if (parJson.size() > 0) {
+			if (!parJson.isEmpty()) {
 				res = friRetainLimitService.deleteRetainsByPkList(parJson);
 			}
 

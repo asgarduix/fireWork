@@ -10,8 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.asi.huanan.service.dao.mybatis.mapper.FriComMapper;
 import com.asi.huanan.service.dao.mybatis.model.FriCom;
-import com.asi.huanan.service.dao.mybatis.model.customerize.FricomJoinRicmpf1;
+import com.asi.huanan.service.dao.mybatis.model.customerize.Rin1101FricomJoinRicmpf1;
 import com.asi.huanan.service.repository.FriComRepository;
+import com.asi.huanan.vo.Rin1102AChkRinIdUsableVOReq;
+import com.asi.huanan.vo.Rin1102ApopVOResp;
+import com.asi.huanan.vo.rin1301.req.Rin1301FacRinserVoReq;
+
 
 @Service
 public class FriComService {
@@ -25,12 +29,79 @@ public class FriComService {
 	
 	//...
 	/**
+	 * @param rinComId 
+     * @return 
+	 * @throws Exception
+	 */
+	public String queryOneReinser(String rinComId) throws Exception {
+		
+		return repository.queryOneReinser(rinComId);
+	}
+	
+	
+	/**
+	 * @param rinComId 
+     * @return 
+	 * @throws Exception
+	 */
+	public String chkEnode(String txtrin_com_id1) throws Exception {
+		
+		return repository.chkEnode(txtrin_com_id1);
+	}
+	
+	/**
+	 * @param model 
+     * @return 
+	 * @throws Exception
+	 */
+	public String chkRinQua(Rin1102AChkRinIdUsableVOReq model, FriComMapper mapper) throws Exception {
+		String msg = "";
+		String result = "";
+		msg = repository.chkRinQua(model, mapper);
+		
+		if(!"適格".equals(msg)) {
+			if("另案簽報名單".equals(msg) || "觀察名單".equals(msg)) {
+				result = model.getType().equals("reinder")?"請留意，此再保人為"+msg:"請留意，此經紀人為"+msg;
+			}else {
+				result = model.getType().equals("reinder")?"此再保人"+msg+"，不可選擇!":"此經紀人"+msg+"，不可選擇!";
+			}
+		}		
+		
+		return result;
+	}
+	
+	public String chkRinQua2(Rin1301FacRinserVoReq req) throws Exception {
+		var model=new Rin1102AChkRinIdUsableVOReq();
+		model.setRinComId(req.getRinComId());
+		model.setTreatyBgn(req.getTreatyDBgn());
+		return repository.chkRinQua2(model);
+	}
+	
+	/**
+	 * @param model 
+     * @return 
+	 * @throws Exception
+	 */
+	public int chkRemark(Rin1102AChkRinIdUsableVOReq model, FriComMapper mapper) throws Exception {	
+		return repository.chkRemark(model, mapper);
+	}
+	
+	/**
+	 * 
+     * @return 
+	 * @throws Exception
+	 */
+	public List<Rin1102ApopVOResp> queryAllFriCom() throws Exception {
+		return repository.queryAllFriCom();
+	}
+	
+	/**
      * 
      * @param rinComId
      * @return
      * @throws Exception
      */
-    public List<FricomJoinRicmpf1> queryReiners(final String rinComId)
+    public List<Rin1101FricomJoinRicmpf1> queryReiners(final String rinComId)
             throws Exception
     {
         return repository.queryReiners(rinComId);

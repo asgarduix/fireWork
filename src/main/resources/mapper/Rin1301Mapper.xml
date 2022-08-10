@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.asi.huanan.service.dao.mybatis.mapper.customerize.Rin1301Mapper">
+  
+   <resultMap id="policyDataMap" type="com.asi.huanan.service.dao.mybatis.model.customerize.rin1301.Rin1301QueryPolicyData">
+   <result column="policy_no" jdbcType="VARCHAR" property="policyNo" />
+   <result column="endorse_no" jdbcType="VARCHAR" property="endorseNo" />
+   <result column="cession_no" jdbcType="VARCHAR" property="cessionNo" />
+   <result column="cinsurant" jdbcType="VARCHAR" property="cinsurant" />
+   <result column="end_reason" jdbcType="VARCHAR" property="endReason" />
+   <result column="risk_no" jdbcType="VARCHAR" property="riskNo" />
+   <result column="addr_no" jdbcType="VARCHAR" property="addrNo" />
+   <result column="amt" jdbcType="DECIMAL" property="amt" />
+   <result column="mkovse" jdbcType="CHAR" property="mkovse" />
+   <result column="useprop_name" jdbcType="VARCHAR" property="usepropName" />
+   <result column="const_class" jdbcType="VARCHAR" property="constClass" />
+   <result column="prop_addr" jdbcType="VARCHAR" property="propAddr" />
+   <result column="addition_seq" jdbcType="SMALLINT" property="additionSeq" />
+   <result column="addition_no" jdbcType="VARCHAR" property="additionNo" />
+   <result column="addition_name" jdbcType="VARCHAR" property="additionName" />
+   <result column="addition_ename" jdbcType="VARCHAR" property="additionEname" />
+   <result column="property_no" jdbcType="VARCHAR" property="propertyNo" />
+   <result column="coins_rate" jdbcType="DECIMAL" property="coinsRate" />
+   <result column="coins_amt" jdbcType="DECIMAL" property="coinsAmt" />
+   <result column="property_name" jdbcType="VARCHAR" property="propertyName" />
+   <result column="property_ename" jdbcType="VARCHAR" property="propertyEname" />
+   <result column="policy_dbgn" jdbcType="TIMESTAMP" property="policyDbgn" />
+   <result column="policy_dend" jdbcType="TIMESTAMP" property="policyDend" />
+   <result column="prem" jdbcType="DECIMAL" property="prem" />
+   <result column="comm_rate" jdbcType="DECIMAL" property="commRate" />
+   <result column="comm" jdbcType="DECIMAL" property="comm" />
+   <result column="coins_prem" jdbcType="DECIMAL" property="coinsPrem" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="include_amt" jdbcType="VARCHAR" property="includeAmt" />
+    <result column="include_prem" jdbcType="VARCHAR" property="includePrem" />
+   <result column="amt_typ" jdbcType="DECIMAL" property="amtTyp" />
+    <result column="prem_typ" jdbcType="DECIMAL" property="premTyp" />
+    <result column="amt_ear" jdbcType="DECIMAL" property="amtEar" />
+    <result column="prem_ear" jdbcType="DECIMAL" property="premEar" />
+     <result column="duty_dbgn" jdbcType="TIMESTAMP" property="dutyDbgn" />
+   <result column="duty_dend" jdbcType="TIMESTAMP" property="dutyDend" />
+  </resultMap>
+  
+   
+   <resultMap id="mainDataMap" type="com.asi.huanan.service.dao.mybatis.model.customerize.rin1301.Rin1301QueryMainData">
+     <result column="policy_no" jdbcType="VARCHAR" property="policyNo" />
+     <result column="endorse_no" jdbcType="VARCHAR" property="endorseNo" />
+     <result column="cession_no" jdbcType="VARCHAR" property="cessionNo" />
+     <result column="cession_name" jdbcType="VARCHAR" property="cessionName" />
+     <result column="slip_no" jdbcType="VARCHAR" property="slipNo" />
+     <result column="LOG_seq" jdbcType="VARCHAR" property="logSeq" />
+    <result column="conversion_status" jdbcType="VARCHAR" property="conversionStatus" />
+    <result column="isLOG" jdbcType="VARCHAR" property="isLog" />
+    <result column="print_type" jdbcType="VARCHAR" property="printType" />
+    <result column="tmp" jdbcType="VARCHAR" property="tmp" />
+    <result column="acct_flag" jdbcType="VARCHAR" property="acctFlag" />
+     <result column="transfer_status" jdbcType="VARCHAR" property="transferStatus" />
+    <result column="show_seq" jdbcType="VARCHAR" property="showSeq" />
+    <result column="pre_slip_no" jdbcType="VARCHAR" property="preSlipNo" />
+    <result column="pre_cession_no" jdbcType="VARCHAR" property="preCessionNo" />
+     <result column="treaty_dend" jdbcType="TIMESTAMP" property="treatyDend" />
+      <result column="fac_type" jdbcType="VARCHAR" property="facType" />
+    </resultMap>
+    
+    
+
+  <resultMap id="rinserResultMap" type="com.asi.huanan.service.dao.mybatis.model.customerize.rin1301.Rin1301QueryRinserData">
+    <result column="rinser_ename" jdbcType="VARCHAR" property="rinserEname" />
+    <result column="close_date" jdbcType="TIMESTAMP" property="closeDate"/>
+ 	<association property="friFacRincom" javaType="com.asi.huanan.service.dao.mybatis.model.FriFacRincom">
+    <id column="slip_no" jdbcType="VARCHAR" property="slipNo" />
+    <id column="rin_com_id" jdbcType="VARCHAR" property="rinComId" />
+    <result column="share_status" jdbcType="VARCHAR" property="shareStatus" />
+    <result column="share_rate" jdbcType="DECIMAL" property="shareRate" />
+    <result column="cede_amt" jdbcType="DECIMAL" property="cedeAmt" />
+    <result column="comm_rate" jdbcType="DECIMAL" property="commRate" />
+    <result column="tax_rate" jdbcType="DECIMAL" property="taxRate" />
+    <result column="handling_rate" jdbcType="DECIMAL" property="handlingRate" />
+    <result column="broker_rate" jdbcType="DECIMAL" property="brokerRate" />
+    <result column="discount_rate" jdbcType="DECIMAL" property="discountRate" />
+    <result column="cede_prem" jdbcType="DECIMAL" property="cedePrem" />
+    <result column="ref_no" jdbcType="VARCHAR" property="refNo" />
+    <result column="answer_date" jdbcType="TIMESTAMP" property="answerDate" />
+    <result column="paid_date" jdbcType="TIMESTAMP" property="paidDate" />
+    <result column="acct_flag" jdbcType="VARCHAR" property="acctFlag" />
+    <result column="bill_no_external" jdbcType="VARCHAR" property="billNoExternal" />
+    <result column="transfer_status" jdbcType="VARCHAR" property="transferStatus" />
+    <result column="transfer_date" jdbcType="TIMESTAMP" property="transferDate" />
+    <result column="print_date" jdbcType="TIMESTAMP" property="printDate" />
+    <result column="paid_date_expect" jdbcType="TIMESTAMP" property="paidDateExpect" />
+    <result column="LastUpdateDate" jdbcType="TIMESTAMP" property="lastupdatedate" />
+    <result column="rin_com_id_OLD" jdbcType="VARCHAR" property="rinComIdOld" />
+    <result column="OrgPrem" jdbcType="DECIMAL" property="orgprem" />
+    <result column="OrgComm" jdbcType="DECIMAL" property="orgcomm" />
+    <result column="OrgTax" jdbcType="DECIMAL" property="orgtax" />
+  </association>
+  </resultMap>
+  
+  
+  <resultMap id="logRinserResultMap" type="com.asi.huanan.service.dao.mybatis.model.customerize.rin1301.Rin1301QueryRinserData">
+    <result column="rinser_ename" jdbcType="VARCHAR" property="rinserEname" />
+    <result column="close_date" jdbcType="TIMESTAMP" property="closeDate"/>
+ 	<association property="logFriFacRincom" javaType="com.asi.huanan.service.dao.mybatis.model.LogFriFacRincom">
+    <id column="slip_no" jdbcType="VARCHAR" property="slipNo" />
+    <id column="LOG_seq" jdbcType="VARCHAR" property="logSeq" />
+    <id column="rin_com_id" jdbcType="VARCHAR" property="rinComId" />
+    <result column="share_status" jdbcType="VARCHAR" property="shareStatus" />
+    <result column="share_rate" jdbcType="DECIMAL" property="shareRate" />
+    <result column="cede_amt" jdbcType="DECIMAL" property="cedeAmt" />
+    <result column="comm_rate" jdbcType="DECIMAL" property="commRate" />
+    <result column="tax_rate" jdbcType="DECIMAL" property="taxRate" />
+    <result column="handling_rate" jdbcType="DECIMAL" property="handlingRate" />
+    <result column="broker_rate" jdbcType="DECIMAL" property="brokerRate" />
+    <result column="discount_rate" jdbcType="DECIMAL" property="discountRate" />
+    <result column="cede_prem" jdbcType="DECIMAL" property="cedePrem" />
+    <result column="ref_no" jdbcType="VARCHAR" property="refNo" />
+    <result column="answer_date" jdbcType="TIMESTAMP" property="answerDate" />
+    <result column="paid_date" jdbcType="TIMESTAMP" property="paidDate" />
+    <result column="acct_flag" jdbcType="VARCHAR" property="acctFlag" />
+    <result column="bill_no_external" jdbcType="VARCHAR" property="billNoExternal" />
+    <result column="transfer_status" jdbcType="VARCHAR" property="transferStatus" />
+    <result column="transfer_date" jdbcType="TIMESTAMP" property="transferDate" />
+    <result column="print_date" jdbcType="TIMESTAMP" property="printDate" />
+    <result column="paid_date_expect" jdbcType="TIMESTAMP" property="paidDateExpect" />
+    <result column="LastUpdateDate" jdbcType="TIMESTAMP" property="lastupdatedate" />
+    <result column="rin_com_id_OLD" jdbcType="VARCHAR" property="rinComIdOld" />
+    <result column="OrgPrem" jdbcType="DECIMAL" property="orgprem" />
+    <result column="OrgComm" jdbcType="DECIMAL" property="orgcomm" />
+    <result column="OrgTax" jdbcType="DECIMAL" property="orgtax" />
+  </association>
+  </resultMap>
+ 
+ 
+</mapper>

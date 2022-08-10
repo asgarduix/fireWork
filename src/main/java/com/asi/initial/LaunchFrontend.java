@@ -17,13 +17,12 @@ import com.asi.mechanism.security.jwtref.JwtRequestFilter;
 @SpringBootApplication
 @ComponentScan({ "com.asi.huanan.controller", "com.asi.huanan.controller.api", "com.asi.huanan.controller.api.common",
 		"com.asi.huanan.controller.api.common", "com.asi.huanan.service", "com.asi.huanan.service",
-		"com.asi.huanan.service.dao", "com.asi.huanan.service.dao.mybatis.mapper", "com.asi.huanan.service.repository",
-		"com.asi.mechanism", "com.asi.mechanism.handler", "com.asi.mechanism.security",
-		"com.asi.mechanism.security.acc", "com.asi.mechanism.service", "com.asi.mechanismnservice",
-		"com.asi.mechanismnservice.dao", "com.asi.mechanismnservice.dao.mybatis.mapper",
-		"com.asi.mechanismnservice.repository", "com.asi.schedule.job", "com.asi.huanan.service.connector",
-		"com.asi.huanan.service.dao.mybatis.model", "com.asi.mechanism.controller", "com.asi.mechanism.security.jwtref",
-		"com.asi.schedule" })
+		"com.asi.huanan.service.connector", "com.asi.huanan.service.dao", "com.asi.huanan.service.dao.mybatis.mapper",
+		"com.asi.huanan.service.dao.mybatis.model", "com.asi.huanan.service.repository", "com.asi.mechanism",
+		"com.asi.mechanism.controller", "com.asi.mechanism.handler", "com.asi.mechanism.security",
+		"com.asi.mechanism.security.acc", "com.asi.mechanism.security.jwtref", "com.asi.mechanism.service",
+		"com.asi.mechanismn.service", "com.asi.mechanismn.service.dao", "com.asi.mechanismn.service.dao.mybatis.mapper",
+		"com.asi.mechanismn.service.repository", "com.asi.schedule", "com.asi.schedule.job" })
 @Configuration
 public class LaunchFrontend extends SpringBootServletInitializer {
 	private static Logger logger = LogManager.getLogger(LaunchFrontend.class);

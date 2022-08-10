@@ -11,7 +11,9 @@ import org.springframework.stereotype.Repository;
 
 import com.asi.huanan.service.dao.mybatis.mapper.FriComMapper;
 import com.asi.huanan.service.dao.mybatis.model.FriCom;
-import com.asi.huanan.service.dao.mybatis.model.customerize.FricomJoinRicmpf1;
+import com.asi.huanan.service.dao.mybatis.model.customerize.Rin1101FricomJoinRicmpf1;
+import com.asi.huanan.vo.Rin1102AChkRinIdUsableVOReq;
+import com.asi.huanan.vo.Rin1102ApopVOResp;
 import com.asi.mechanism.service.connector.MyBatisConnector;
 
 @Repository
@@ -24,9 +26,122 @@ public class FriComRepository {
 	
 	//=====針對使用自訂SQL=====
 	
-	public List<FricomJoinRicmpf1> queryReiners(String rinComId) throws Exception {
+	public String queryOneReinser(String rinComId) throws Exception {
 
-		List<FricomJoinRicmpf1> results = new ArrayList<>();
+		String result = "";
+		
+		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
+
+		try
+        {
+			FriComMapper mapper = sqlSession.getMapper(FriComMapper.class);
+			result = mapper.queryOneReinser(rinComId);
+			
+        } catch(Exception e){
+        	sqlSession.rollback();
+        	throw e;
+		}finally{
+	        sqlSession.close();
+	    }
+        return result;
+	}
+	
+	public String chkEnode(String rinComID) throws Exception {
+
+		String result = "";
+		
+		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
+
+		try
+        {
+			FriComMapper mapper = sqlSession.getMapper(FriComMapper.class);
+			result = mapper.chkEnode(rinComID);
+			
+        } catch(Exception e){
+        	sqlSession.rollback();
+        	throw e;
+		}finally{
+	        sqlSession.close();
+	    }
+        return result;
+	}
+	
+	
+	public String chkRinQua2(Rin1102AChkRinIdUsableVOReq model) throws Exception {
+
+		String result = "";
+		
+		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
+
+		try
+        {
+			FriComMapper mapper = sqlSession.getMapper(FriComMapper.class);
+			result = mapper.chkRinQua(model);
+			
+        } catch(Exception e){
+        	sqlSession.rollback();
+        	throw e;
+		}finally{
+	        sqlSession.close();
+	    }
+        return result;
+	}
+	
+	public String chkRinQua(Rin1102AChkRinIdUsableVOReq model, FriComMapper mapper) throws Exception {
+
+		String result = "";
+
+		try
+        {
+
+			result = mapper.chkRinQua(model);
+			
+        } catch(Exception e){
+			throw e;
+		}
+        return result;
+	}
+	
+	public int chkRemark(Rin1102AChkRinIdUsableVOReq model, FriComMapper mapper) throws Exception {
+
+		int result = 0;
+
+		try
+        {
+
+			result = mapper.chkRemark(model);
+			
+        } catch(Exception e){
+			throw e;
+		}
+        return result;
+	}
+	
+	public List<Rin1102ApopVOResp> queryAllFriCom() throws Exception {
+
+		List<Rin1102ApopVOResp> results = new ArrayList<>();
+
+		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
+
+		try
+        {
+			FriComMapper mapper = sqlSession.getMapper(FriComMapper.class);
+			results = mapper.queryAllFriCom();
+			
+        } catch(Exception e){
+			sqlSession.rollback();
+			throw e;
+		}
+        finally
+        {
+            sqlSession.close();
+        }
+        return results;
+	}
+	
+	public List<Rin1101FricomJoinRicmpf1> queryReiners(String rinComId) throws Exception {
+
+		List<Rin1101FricomJoinRicmpf1> results = new ArrayList<>();
 
 		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
 
@@ -70,35 +185,6 @@ public class FriComRepository {
 	}
 	
 	
-
-	/**
-	 * 
-	 */
-	public List<FriCom> queryByModelBetweenSize(final FriCom model, String orderByColNm1, String ascOrDesc, int pageSize, int pageNum)
-			throws Exception {
-		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
-		List<FriCom> returnList = null;
-
-		try {
-			//Integer[] a = CalculatorUtil.caculatorPageStartEndNum(pageSize, pageNum);
-
-			FriComMapper mapper = sqlSession.getMapper(FriComMapper.class);
-
-			//if (model.{GET} != null & !"".equals(model.{GET})) {
-			//	model.{SET}(model.{GET} + "%");
-			//}
-
-			//returnList = mapper.selectByParamBetweenSize(model.{GET}..., "CRT_TIME", "DESC", a[0], a[1]);
-
-			log.debug(returnList == null ? "returnList is null" : "筆數:" + returnList.size());
-		} catch(Exception e){
-			sqlSession.rollback();
-			throw e;
-		} finally {
-			sqlSession.close();
-		}
-		return returnList;
-	}
 	
 			/**
 	 * @param model

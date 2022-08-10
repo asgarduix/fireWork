@@ -164,7 +164,7 @@ public class SysAccountRoleRepository {
 		SysAccountRoleExample ex = new SysAccountRoleExample();
 		Criteria cr = ex.createCriteria();
 		cr.andUserRoleEqualTo(pkModel.getUserRole());
-		cr.andUserIdEqualTo(pkModel.getUserId());
+		cr.andAkaIdEqualTo(pkModel.getAkaId());
 		return mapper.updateByExample(newPkModel, ex);
 	}
 
@@ -325,8 +325,8 @@ public class SysAccountRoleRepository {
 			SysAccountRoleMapper mapper = sqlSession.getMapper(SysAccountRoleMapper.class);
 			SysAccountRoleExample xp = new SysAccountRoleExample();
 			Criteria criteria = xp.createCriteria();
-			if (StringUtils.isNotBlank(model.getUserId())) {
-				criteria.andUserIdEqualTo(model.getUserId());
+			if (StringUtils.isNotBlank(model.getAkaId())) {
+				criteria.andAkaIdEqualTo(model.getAkaId());
 			}
 
 			// if (StringUtils.isNotBlank(model.getJobName()))
@@ -353,8 +353,8 @@ public class SysAccountRoleRepository {
 		SysAccountRoleMapper mapper = sqlSession.getMapper(SysAccountRoleMapper.class);
 		SysAccountRoleExample xp = new SysAccountRoleExample();
 		Criteria criteria = xp.createCriteria();
-		if (StringUtils.isNotBlank(model.getUserId())) {
-			criteria.andUserIdEqualTo(model.getUserId());
+		if (StringUtils.isNotBlank(model.getAkaId())) {
+			criteria.andAkaIdEqualTo(model.getAkaId());
 		}
 		if (StringUtils.isNotBlank(model.getUserRole())) {
 			criteria.andUserRoleEqualTo(model.getUserRole());

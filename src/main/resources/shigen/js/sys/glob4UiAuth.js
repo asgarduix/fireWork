@@ -19,27 +19,25 @@ $(function() {
 
 
 	/* ajax jquery include html */
-	
 	loadBackground();
-	//	$(".ajax-aside-nav").load("../../shigen/layout/ajax-aside-nav.html");
-	//	$(".ajax-section-main").load("../../shigen/layout/ajax-section-main.html");
-	
+	//	$(".ajax-aside-nav").load(concatHref("../../shigen/layout/ajax-aside-nav.html"));
+	//	$(".ajax-section-main").load(concatHref("../../shigen/layout/ajax-section-main.html"));
+
 	/* ajax jquery include html */
-	$(".ajax-aside-nav").load("../../shigen/layout/ajax-aside-nav.html");
-	$(".ajax-section-main").load("../../shigen/layout/ajax-section-main.html");
-	$(".ajax-aside-navFIRE").load("../../shigen/layout/ajax-aside-navFIRE.html");
-	$(".ajax-aside-navSYS").load("../../shigen/layout/ajax-aside-navSYS.html");
-	return;
-	
+	$(".ajax-aside-nav").load(concatHref("../../shigen/layout/ajax-aside-nav.html"));
+	$(".ajax-section-main").load(concatHref("../../shigen/layout/ajax-section-main.html"));
+	$(".ajax-aside-navFIRE").load(concatHref("../../shigen/layout/ajax-aside-navFIRE.html"));
+	$(".ajax-aside-navSYS").load(concatHref("../../shigen/layout/ajax-aside-navSYS.html"));
+
 	recycleDo(0);
-	recycleProgressFunc(checkLoginTimeAndAuth, 1 * 60 / 3 * 1000, false);// 每半鐘檢查登入時間，如果超過50分鐘，使用refresh token重新取得access token
+	recycleProgressFunc(checkLoginTimeAndAuth, 1 * 60 / 3 * 1000, false); // 每半鐘檢查登入時間，如果超過50分鐘，使用refresh token重新取得access token
 	//recycleProgressFunc(checkToken, 10 * 60 * 1000, false);// 每10分鐘重新確認token
 	// fetchPreviousPageJson();
 	cleanPrevInInit();
 });
 
 // ...
-var isuix = false;// uix模式切換
+var isuix = false; // uix模式切換
 var previouskey = "_prev";
 // prevJson = null;
 // prevJosnArray = [];
@@ -69,13 +67,12 @@ function loadBackground() {
 	//	}
 
 	if (checkIsNullSpace(pageBgLocal) == true) {
-		document.getElementById("active-stylesheet").setAttribute('href', "colorful");//如果有問題則預設為colorful
+		document.getElementById("active-stylesheet").setAttribute('href', "colorful"); //如果有問題則預設為colorful
 		return;
 	}
 
-//	document.getElementById("active-stylesheet").setAttribute('href', pageBgLocal);
+	//	document.getElementById("active-stylesheet").setAttribute('href', concatHref(pageBgLocal));
 }
-
 
 /**
  *
@@ -83,11 +80,10 @@ function loadBackground() {
  */
 function cleanPrevInInit() {
 	var url = location.href;
-	var temp = url.replace("http://", "");
-	var uArray = temp.split("/");
-
+	var uArray = url.split("/");
 	var funcNm = uArray[uArray.length - 1];
 
+	var funcNm = url.substring(url.lastIndexOf("/") + 1);
 	if (funcNm == "login" || funcNm == "loading" || funcNm == "index") {
 		cleanPrev();
 	}
@@ -117,12 +113,12 @@ function locationHrefKeepDataFetch() {
 
 	if (ks.length > 1) {
 		console.log("no prev data size is bigger then 1");
-		sessionStorage.removeItem(previouskey);// 取走即刪除資料
-		return stojson[ks[0]];// TODO 待處理多筆的
+		sessionStorage.removeItem(previouskey); // 取走即刪除資料
+		return stojson[ks[0]]; // TODO 待處理多筆的
 	}
 
 	// size == 1
-	sessionStorage.removeItem(previouskey);// 取走即刪除資料
+	sessionStorage.removeItem(previouskey); // 取走即刪除資料
 	return stojson[ks[0]];
 }
 
@@ -137,15 +133,15 @@ function locationHref(url) {
 	}
 };
 
-function windowOpen(url) {
-	if (isuix == true) {
-		url = url + ".html";
-	} else {
-		url = url + "?" + "token=" + fetchToken();
-	}
-	var childWin = window.open(url, 'newwindow', config = 'height=900,width=1000,toolbar=no');
-	return childWin;
-};
+//function windowOpen(url) {
+//	if (isuix == true) {
+//		url = url + ".html";
+//	} else {
+//		url = url + "?" + "token=" + fetchToken();
+//	}
+//	var childWin = window.open(url, 'newwindow', config = 'height=900,width=1000,toolbar=no');
+//	return childWin;
+//};
 
 /**
  * 蒐集html內標籤資料(標籤內必須存在name屬性，無則略過該資料)
@@ -229,44 +225,44 @@ function locationHrefKeepData(funcUrl, tmpkey, tmpjson) {
 	locationHref(funcUrl);
 };
 
-/**
-*
-* @param funcUrl
-* @param tmpkey
-*            此function會自動產生key，大多時候放空值或null即可
-* @param tmpjson
-*            可自行帶入JSON格式資料，帶入須自訂變數或方法。null或空字串:自動蒐集畫面input等輸入框資料
-* @returns
-*/
-function windowOpenKeepData(funcUrl, tmpkey, tmpjson) {
-	if (isuix == true) {
-		funcUrl = funcUrl + ".html";
-		window.open(funcUrl, 'newwindow', config = 'height=900,width=1000,toolbar=no');
-		return;
-	}
-
-	var data = null;
-
-	if (checkIsNullSpace(tmpjson) == true) {
-		data = sortOutAllFiled();
-	} else {
-		data = tmpjson;
-	}
-
-	// 設定儲存的資料
-	var k = tmpkey;
-
-	if (checkIsNullSpace(k) == true) {
-		var t = fetchToken();
-		k = t.substring(t.length - 10, t.length);
-	}
-
-	var sto = {};
-	sto[k] = data;
-
-	sessionStorage.setItem(previouskey, JSON.stringify(sto));
-	windowOpen(funcUrl);
-};
+///**
+// * 
+// * @param funcUrl
+// * @param tmpkey
+// *            此function會自動產生key，大多時候放空值或null即可
+// * @param tmpjson
+// *            可自行帶入JSON格式資料，帶入須自訂變數或方法。null或空字串:自動蒐集畫面input等輸入框資料
+// * @returns
+// */
+//function windowOpenKeepData(funcUrl, tmpkey, tmpjson) {
+//	if (isuix == true) {
+//		funcUrl = funcUrl + ".html";
+//		window.open(funcUrl, 'newwindow', config = 'height=900,width=1000,toolbar=no');
+//		return;
+//	}
+//
+//	var data = null;
+//
+//	if (checkIsNullSpace(tmpjson) == true) {
+//		data = sortOutAllFiled();
+//	} else {
+//		data = tmpjson;
+//	}
+//
+//	// 設定儲存的資料
+//	var k = tmpkey;
+//
+//	if (checkIsNullSpace(k) == true) {
+//		var t = fetchToken();
+//		k = t.substring(t.length - 10, t.length);
+//	}
+//
+//	var sto = {};
+//	sto[k] = data;
+//
+//	sessionStorage.setItem(previouskey, JSON.stringify(sto));
+//	windowOpen(funcUrl);
+//};
 
 /**
  *
@@ -307,96 +303,98 @@ function locationHrefKeepDataType2(funcUrl, tmpkey, tmpjsonstr) {
 	locationHref(funcUrl);
 };
 
-/**
- * window.open
- * @param funcUrl
- * @param tmpkey
- * 				此function會自動產生key，大多時候放空值或null即可
- * @param tmpjson
- * 				可自行帶入JSON格式資料，帶入須自訂變數或方法。null或空字串:自動蒐集畫面input等輸入框資料
- * @param height
- * @param width
- * @returns
- */
-function locationHrefWindowKeepData(funcUrl, tmpkey, tmpjson, height, width) {
-	var config = 'height=' + height + ',width=' + width;
-	if (isuix == true) {
-		window.open(funcUrl + ".html", funcUrl, config = config);
-		return;
-	}
+///**
+// *
+// * window.open
+// * @param funcUrl
+// * @param tmpkey
+// * 				此function會自動產生key，大多時候放空值或null即可
+// * @param tmpjson
+// * 				可自行帶入JSON格式資料，帶入須自訂變數或方法。null或空字串:自動蒐集畫面input等輸入框資料
+// * @param height
+// * @param width
+// * @returns
+// */
+//function locationHrefWindowKeepData(funcUrl, tmpkey, tmpjson, height, width) {
+//	var config = 'height=' + height + ',width=' + width;
+//	if (isuix == true) {
+//	 	window.open(funcUrl + ".html", funcUrl, config);
+//		return;
+//	}
+//
+//	var data = null;
+//
+//	if (checkIsNullSpace(tmpjson) == true) {
+//		data = sortOutAllFiled();
+//	} else {
+//		data = tmpjson;
+//	}
+//
+//	// 設定儲存的資料
+//	var k = tmpkey;
+//
+//	if (checkIsNullSpace(k) == true) {
+//		var t = fetchToken();
+//		k = t.substring(t.length - 10, t.length);
+//	}
+//
+//	var sto = {};
+//	sto[k] = data;
+//
+//	sessionStorage.setItem(previouskey, JSON.stringify(sto));
+//	window.open(funcUrl + ".html?" + 'token=' + fetchToken(), funcUrl, config);
+//};
 
-	var data = null;
-
-	if (checkIsNullSpace(tmpjson) == true) {
-		data = sortOutAllFiled();
-	} else {
-		data = tmpjson;
-	}
-
-	// 設定儲存的資料
-	var k = tmpkey;
-
-	if (checkIsNullSpace(k) == true) {
-		var t = fetchToken();
-		k = t.substring(t.length - 10, t.length);
-	}
-
-	var sto = {};
-	sto[k] = data;
-
-	sessionStorage.setItem(previouskey, JSON.stringify(sto));
-	window.open(funcUrl + ".html?" + 'token=' + fetchToken(), funcUrl, config = config);
-};
-
-/**
- * 開新分頁
- * @param funcUrl
- * @param tmpkey
- * 				此function會自動產生key，大多時候放空值或null即可
- * @param tmpjson
- * 				可自行帶入JSON格式資料，帶入須自訂變數或方法。null或空字串:自動蒐集畫面input等輸入框資料
- * @returns
- */
-function locationHrefWindowBlankKeepData(funcUrl, tmpkey, tmpjson) {
-	if (isuix == true) {
-		window.open(funcUrl + ".html", '_blank');
-		return;
-	}
-
-	var data = null;
-
-	if (checkIsNullSpace(tmpjson) == true) {
-		data = sortOutAllFiled();
-	} else {
-		data = tmpjson;
-	}
-
-	// 設定儲存的資料
-	var k = tmpkey;
-
-	if (checkIsNullSpace(k) == true) {
-		var t = fetchToken();
-		k = t.substring(t.length - 10, t.length);
-	}
-
-	var sto = {};
-	sto[k] = data;
-
-	sessionStorage.setItem(previouskey, JSON.stringify(sto));
-	window.open(funcUrl + ".html?" + 'token=' + fetchToken(), '_blank');
-};
+///**
+// * 開新分頁
+// * @param funcUrl
+// * @param tmpkey
+// * 				此function會自動產生key，大多時候放空值或null即可
+// * @param tmpjson
+// * 				可自行帶入JSON格式資料，帶入須自訂變數或方法。null或空字串:自動蒐集畫面input等輸入框資料
+// * @returns
+// */
+//function locationHrefWindowBlankKeepData(funcUrl, tmpkey, tmpjson) {
+//	if (isuix == true) {
+//		window.open(funcUrl + ".html", '_blank');
+//		return;
+//	}
+//
+//	var data = null;
+//
+//	if (checkIsNullSpace(tmpjson) == true) {
+//		data = sortOutAllFiled();
+//	} else {
+//		data = tmpjson;
+//	}
+//
+//	// 設定儲存的資料
+//	var k = tmpkey;
+//
+//	if (checkIsNullSpace(k) == true) {
+//		var t = fetchToken();
+//		k = t.substring(t.length - 10, t.length);
+//	}
+//
+//	var sto = {};
+//	sto[k] = data;
+//
+//	sessionStorage.setItem(previouskey, JSON.stringify(sto));
+//	window.open(funcUrl + ".html?" + 'token=' + fetchToken(), '_blank');
+//};
 
 /**
  *
  */
+
 var checkToken = function() {
 	var url = location.href;
-	var temp = url.replace("http://", "");
-	var uArray = temp.split("/");
+	var uArray = url.split("/");
 
 	if (uArray[uArray.length - 1] == "login") {
 		return;
 	}
+
 
 	var res = ajaxPost(domain4Springboot(true) + "/authorization/checktoken", {
 		"token": localStorage.getItem("token")
@@ -424,7 +422,7 @@ var checkLoginTimeAndAuth = function() {
 	//如超過50分鐘，使用refresh token重新取得access token，並重新設定localStorage的access token和登入時間
 	var lt = localStorage.getItem("loginTime");
 	// var timeUp = new Number(lt) + new Number(10 * 1000);//10s，僅供測試
-	var timeUp = new Number(lt) + new Number(50 * 60 * 1000);//50m
+	var timeUp = new Number(lt) + new Number(50 * 60 * 1000); //50m
 	var nowTime = new Date().getTime();
 
 	if (new Number(nowTime) < new Number(timeUp)) {
@@ -453,7 +451,7 @@ var checkLoginTimeAndAuth = function() {
 		localStorage.setItem("loginTime", new Date().getTime());
 		// console.log("new token expired:" + localStorage.getItem("token"));
 
-		settingUi();//重新設定相關連結
+		settingUi(); //重新設定相關連結
 	} else {
 		//refreshToken失效(預設為24小後失效)，重新登入
 		console.log("refresh token is expired! pls re login");
@@ -481,6 +479,17 @@ function recycleDo(count) {
 
 		return recycleDo(++count);
 	}, 1000);
+}
+
+/**
+ * 網址拼接
+ * @param value url
+ * @returns {string}
+ */
+function concatHref(value) {
+	let div = document.createElement('div');
+	div.innerText = value;
+	return div.textContent;
 }
 
 /**
@@ -540,7 +549,8 @@ function settingUi() {
 	}
 
 	// 設定index link
-	$("#_menu_side_up").find("a").attr("href", "index?" + "token=" + localStorage.getItem("token"));
+	//	$("#_menu_side_up").find("a").attr("href", "index?" + "token=" + localStorage.getItem("token"));
+	$("#_menu_side_up").find("a").attr("href", "#"); //火再沒有index頁面
 
 	//更改使用者名稱
 	let displayUserId = localStorage.getItem("displayUserId");
@@ -597,8 +607,8 @@ function showLoginDialog() {
 	var target = $("script").eq(iteno - 1);
 	target.append("<script type='text/javascript' src='../../shigen/js/app/login.js'></script>");
 
-	//顯示dialog
-	$(document.body).append(showfooContext);
+	//顯示dialog	
+	$(document.body)[0].appendChild($(showfooContext)[0]);
 	$('#myselfDialog').modal('show');
 
 	//設定置中
@@ -615,7 +625,8 @@ function showLoginDialog() {
  *
  */
 function doLoginDialog() {
-	var res = doLogin(false);//執行login，注意!此function會自行跳錯誤視窗
+
+	var res = doLogin(false); //執行login，注意!此function會自行跳錯誤視窗
 
 	if (res == false) {
 		alert("登入發生錯誤");
@@ -627,7 +638,7 @@ function doLoginDialog() {
 		$('.modal-backdrop').remove();
 
 		//顯示dialog
-		$(document.body).append(showfooContext);
+		$(document.body)[0].appendChild($(showfooContext)[0]);
 		$('#myselfDialog').modal('show');
 
 		//設定置中
@@ -662,5 +673,5 @@ function doLoginDialog() {
 		window.location = caseUrl + "?" + token + fetchToken();
 	}
 
-	settingUi();//重新設定相關連結
+	settingUi(); //重新設定相關連結
 }

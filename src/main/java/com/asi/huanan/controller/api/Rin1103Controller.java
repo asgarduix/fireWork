@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.asi.huanan.service.FriTreatyCommService;
 import com.asi.huanan.service.dao.mybatis.model.FriTreatyComm;
-import com.asi.huanan.vo.DeleteTreatyVo;
-import com.asi.huanan.vo.InsertTreatyCommVo;
-import com.asi.huanan.vo.QueryTreatyCommListVo;
-import com.asi.huanan.vo.Rin1103Vo;
-import com.asi.huanan.vo.UpdateTreatyCommVo;
+import com.asi.huanan.vo.Rin1103DeleteTreatyVOReq;
+import com.asi.huanan.vo.Rin1103InsertTreatyCommVOReq;
+import com.asi.huanan.vo.Rin1103QueryTreatyCommListVOReq;
+import com.asi.huanan.vo.Rin1103VOResp;
+import com.asi.huanan.vo.Rin1103UpdateTreatyCommVOReq;
 import com.asi.json.model.root.JsonBean;
 import com.asi.mechanism.common.SysEnum;
 
@@ -35,7 +34,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @Lazy
-@CrossOrigin(origins = "http://localhost:10127", maxAge = 3600)
 @RequestMapping("rin1103api")
 @RestController
 @Api(tags = { "Rin1103api" })
@@ -62,14 +60,14 @@ public class Rin1103Controller {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(value = "/querytreatylist")
 	@ResponseBody
-	public ResponseEntity<?> queryTreatyList(@ApiParam(value = "合約內容") @RequestBody QueryTreatyCommListVo parJson)
+	public ResponseEntity<Object> queryTreatyList(@ApiParam(value = "合約內容") @RequestBody Rin1103QueryTreatyCommListVOReq parJson)
 			throws Exception {
 
 		log.debug(">>> Rin1103Controller.queryTreatyList(搜尋「梯次佣金資料」)");
 
 		JsonBean jsonBean = new JsonBean();
 
-		List<Rin1103Vo> res = new ArrayList<Rin1103Vo>();
+		List<Rin1103VOResp> res = new ArrayList<>();
 
 		try {
 
@@ -111,14 +109,14 @@ public class Rin1103Controller {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(value = "/inserttreaty")
 	@ResponseBody
-	public ResponseEntity<?> insertTreaty(@ApiParam(value = "梯次佣金資料") @RequestBody InsertTreatyCommVo parJson)
+	public ResponseEntity<Object> insertTreaty(@ApiParam(value = "梯次佣金資料") @RequestBody Rin1103InsertTreatyCommVOReq parJson)
 			throws Exception {
 
 		log.debug(">>> Rin1103Controller.insertTreaty(新增「梯次佣金資料」)");
 
 		JsonBean jsonBean = new JsonBean();
 
-		List<FriTreatyComm> resModel = new ArrayList<FriTreatyComm>();
+		List<FriTreatyComm> resModel = new ArrayList<>();
 		short serial = 0;
 
 		try {
@@ -128,7 +126,7 @@ public class Rin1103Controller {
 			
 			
 			//若有取得資料則進行檢核，若無資料則直接新增
-			if(resModel.size() > 0) {
+			if(!resModel.isEmpty()) {
 				
 				//檢核上下限是否重疊
 				for (FriTreatyComm model : resModel) {
@@ -191,14 +189,14 @@ public class Rin1103Controller {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(value = "/updatetreaty")
 	@ResponseBody
-	public ResponseEntity<?> updateTreaty(@ApiParam(value = "梯次佣金資料的新、舊資料") @RequestBody UpdateTreatyCommVo parJson)
+	public ResponseEntity<Object> updateTreaty(@ApiParam(value = "梯次佣金資料的新、舊資料") @RequestBody Rin1103UpdateTreatyCommVOReq parJson)
 			throws Exception {
 
 		log.debug(">>> Rin1103Controller.updateTreaty(修改「梯次佣金資料」)");
 
 		JsonBean jsonBean = new JsonBean();
 
-		List<FriTreatyComm> resModel = new ArrayList<FriTreatyComm>();
+		List<FriTreatyComm> resModel = new ArrayList<>();
 		int res = 0;
 
 		try {
@@ -208,7 +206,7 @@ public class Rin1103Controller {
 			
 			
 			//若有取得資料則進行檢核，若無資料則直接修改
-			if (resModel.size() > 0) {
+			if (!resModel.isEmpty()) {
 
 				//檢核上下限是否重疊
 				for (FriTreatyComm model : resModel) {
@@ -266,7 +264,7 @@ public class Rin1103Controller {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(value = "/deletetreaty")
 	@ResponseBody
-	public ResponseEntity<?> deleteTreaty(@ApiParam(value = "梯次佣金資料主鍵") @RequestBody List<DeleteTreatyVo> parJson)
+	public ResponseEntity<Object> deleteTreaty(@ApiParam(value = "梯次佣金資料主鍵") @RequestBody List<Rin1103DeleteTreatyVOReq> parJson)
 			throws Exception {
 
 		log.debug(">>> Rin1103Controller.deleteTreaty(刪除梯次佣金資料)");
@@ -277,7 +275,7 @@ public class Rin1103Controller {
 
 		try {
 			//有資料才進行刪除
-			if (parJson.size() > 0) {
+			if (!parJson.isEmpty()) {
 				res = friTreatyCommService.deleteTreadysByPkList(parJson);
 			}
 

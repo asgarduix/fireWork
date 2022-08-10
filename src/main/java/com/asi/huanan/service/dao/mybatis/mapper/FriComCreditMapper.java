@@ -99,13 +99,13 @@ public interface FriComCreditMapper {
     int updateByPrimaryKey(FriComCredit record);
     
 	// =====針對使用自訂SQL=====
-    @Select("<script>"+ 
-    		"select credit_organ as creditOrgan, credit_level as creditLevel , " + 
-    		" 	CONVERT (varchar(12), credit_date ,111) as txtCreditDate " + 
-    		" 	from fri_com_credit " + 
-    		" 	where rin_com_id = #{rinComId,jdbcType=VARCHAR} " + 
-    		" 	order by credit_date desc"+ 
-    		"</script>")
+    @Select({"<script>"+ 
+    		"select credit_organ as creditOrgan, credit_level as creditLevel , " , 
+    		" CONVERT (varchar(12), credit_date ,111) as txtCreditDate " ,
+    		" from fri_com_credit " , 
+    		" where rin_com_id = #{rinComId,jdbcType=VARCHAR} " , 
+    		" order by credit_date desc ",
+    		"</script>"})
     
     List<FriComCredit> queryCredit(@Param("rinComId") String rinComId);
 }

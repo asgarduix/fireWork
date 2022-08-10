@@ -1,12 +1,12 @@
 //tabulator欄位設置
 let columns1103 = [
 	["checkbox", { showBtn: true }],
-	["txttreaty_year", "合約年度", "input", { width: "25%" }],
-    ["txttreaty_no", "合約編號", "input", { width: "25%" }],
-    ["txtcomm_type", "梯次佣金類別", "select1", {"1.再保佣金":"1","2.盈餘佣金":"2"},{ width: "12.5%" }],
-    ["numlower_limit", "損失率下限百分比", "number", { width: "12.5%" }],
-    ["numupper_limit", "損失率上限百分比", "number", { width: "12.5%" }],
-    ["numcomm_rate", "佣金百分比", "number",{ width: "10%" }]
+	["txttreaty_year", "合約年度", "input"],
+    ["txttreaty_no", "合約編號", "input"],
+    ["txtcomm_type", "梯次佣金類別", "select1", {"1.再保佣金":"1","2.盈餘佣金":"2"}],
+    ["numlower_limit", "損失率下限百分比", "number"],
+    ["numupper_limit", "損失率上限百分比", "number"],
+    ["numcomm_rate", "佣金百分比", "number"]
 ];
 
 //tabulator欄位格式製作
@@ -19,9 +19,9 @@ let tableConfigs = {}
 let tableRelatedBtns = [
     {
         type: "add",
-        name: "新增",
-        class: "class-name",
-        position: "#table1103-btn",
+        name: "",
+        class: "add-btn-custom",
+        position: "#table1103addBtn",
         getDefaultData: function () {
 
             return {
@@ -41,19 +41,19 @@ let tableRelatedBtns = [
     {
         type: "edit",
         name: "修改",
-        class: "class-name",
+        class: "btn btn-oneE",
         position: "#table1103-btn",
     },
     {
         type: "copy",
         name: "複製",
-        class: "class-name",
+        class: "btn btn-oneA",
         position: "#table1103-btn",
     },
     {
         type: "del",
         name: "刪除",
-        class: "class-name",
+        class: "btn btn-oneG",
         position: "#table1103-btn",
         delApi: function (rowsDataArry) {
         	
@@ -76,7 +76,7 @@ let tableRelatedBtns = [
     {
         type: "save",
         name: "儲存",
-        class: "class-name",
+        class: "btn btn-oneD",
         position: "#table1103-btn",
         nullSpaceCheck: true,rules:{},
         addSaveApi: function (rowData) {
@@ -84,10 +84,21 @@ let tableRelatedBtns = [
             // 回傳值：Object格式資料 { isSuccess: true} or { isSuccess: false, fields: ["a","b"], errMsg: "欄位驗證失敗" }
             //rowData為所選資料{...}
             //call api here
+        	
+        	let lower = rowData.numlower_limit*1;			//損失率下限百分比
+        	let upper = rowData.numupper_limit*1;			//損失率上限百分比
+
         	//檢核下限是否大於上限
-        	if(rowData.numlower_limit > rowData.numupper_limit){
+        	if(lower > upper){
         		return{ isSuccess: false, fields: ["numlower_limit","numupper_limit"], errMsg: "損失率百分比下限應小於上限" }
         	}
+        	
+        	//檢核佣金百分率只能在100以下
+        	let commRate = Number(rowData.numcomm_rate);	//佣金百分率
+        	if(commRate >= 100){
+        		return{ isSuccess: false, fields: ["numcomm_rate"], errMsg: "佣金百分率為100以內" }
+        	}
+        	
         	let parJson = JSON.stringify(rowData);
         	let res = ajaxPostByJsonParam("../../rin1103api/inserttreaty", parJson, false);
 
@@ -103,20 +114,32 @@ let tableRelatedBtns = [
         	}
 
         },
-        editSaveApi: function (oldData, newData, newDataJson) {
+        editSaveApi: function (oldData, newData) {
+        	let newDataJson = table1103.getSelectedData()[0];		//取得選擇的資料
 
         	//比對新舊資料，若一樣則不做任何事情   	
-        	if(isSameArray(oldData, newData)){
-        		
+        	if(isSameArray(oldData, newData)){       		
         		return { isSuccess: true }
         		
         	//不同才執行更新	
         	}else{
+
+        		let lower = newDataJson.numlower_limit*1;			//損失率下限百分比
+            	let upper = newDataJson.numupper_limit*1;			//損失率上限百分比
+
         		//檢核下限是否大於上限
-        		if(newDataJson.numlower_limit > newDataJson.numupper_limit){
+        		if(lower > upper){
             		return{ isSuccess: false, fields: ["numlower_limit","numupper_limit"], errMsg: "損失率百分比下限應小於上限" }
             	}
-        		//將更新需要的條件加入參數物件中
+        		
+        		//檢核佣金百分率只能在100以下
+            	let commRate = Number(newDataJson.numcomm_rate);	//佣金百分率
+
+            	if(commRate >= 100){
+            		return{ isSuccess: false, fields: ["numcomm_rate"], errMsg: "佣金百分率為100以內" }
+            	}
+            	
+        		//將更新需要的條件加入參數物件中(合約年度、合約編號、梯次佣金類別)
         		newDataJson.conditionYear = oldData[0];
         		newDataJson.conditionNo = oldData[1];
         		newDataJson.conditionType = oldData[2];
@@ -135,7 +158,7 @@ let tableRelatedBtns = [
         		
         	}
 
-        }
+        },
     },
 
 ]
@@ -154,7 +177,7 @@ let table1103 = createTable("table1103", colsFormat, tableConfigs, tableRelatedB
 
 
 
-//查詢
+//查詢鈕
 function btnQueryRin1103(){
 	
 	//搜尋時，結束目前tabulator的編輯狀態
@@ -173,7 +196,7 @@ function btnQueryRin1103(){
 	
 	if('000' === res.status){
 		
-		loadData("table1103", res.data, {type:"dataCount", value:15})
+		loadData("table1103", res.data, {type:"dataCount", value:6})
 
 	}else{
 		alert("「梯次佣金查詢」失敗!!!請聯絡管理人員!!!");

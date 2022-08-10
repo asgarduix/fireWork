@@ -3,9 +3,10 @@
  */
 $(function() {
 	setTimeout(function() {
-		if (true) {
-			return;
-		}
+
+//		if (true) {
+//			return;
+//		}
 
 		var funcs = document.URL.split("/");
 		var nowfunc = funcs[funcs.length - 1];
@@ -20,30 +21,30 @@ $(function() {
 			localStorage.setItem("loginTime", new Date().getTime());
 
 			try {
-				var url1 = domain4Springboot(true) + "/settingApi/fetchSetting";
-				var userId1 = { "userId": localStorage.getItem("account") };
-				var result1 = ajaxGetTokenReady(url1, userId1, true);
-				var pageBg = result1.data["pageBg"];
-				localStorage.setItem("pageBg", pageBg);
+//				var url1 = domain4Springboot(true) + "/settingApi/fetchSetting";
+//				var userId1 = { "userId": localStorage.getItem("account") };
+//				var result1 = ajaxGetTokenReady(url1, userId1, true);
+//				var pageBg = result1.data["pageBg"];
+//				localStorage.setItem("pageBg", pageBg);
 
-				let url2 = domain4Springboot(true) + "/sysgrant/fetchSysFuuction";
-				let userId2 = {
-					"userId": localStorage.getItem("account")
-				};
-				let res2 = ajaxGetTokenReady(url2, userId2, true);
-				sessionStorage.setItem("permissionSetting", JSON.stringify(res2.data));
+//				let url2 = domain4Springboot(true) + "/sysgrant/fetchSysFuuction";
+//				let userId2 = {
+//					"userId": localStorage.getItem("account")
+//				};
+//				let res2 = ajaxGetTokenReady(url2, userId2, true);
+//				sessionStorage.setItem("permissionSetting", JSON.stringify(res2.data));
 
-				let url3 = domain4Springboot(true) + "/sysgrant/fetchUserInfo";
+				let url3 = domain4Springboot(true) + "/sysgrant/fetchAccountInfo";
 				let userId3 = {
 					"userId": localStorage.getItem("account")
 				};
 				let res3 = ajaxGetTokenReady(url3, userId3, true);
 				let displayUserId = res3.data.userId
 				localStorage.setItem("displayUserId", displayUserId);
-
+				
 				// 使用者員編&姓名
-				var userInfo = fetchUserInfo(localStorage.getItem("account"));
-				console.log("5500userInfo", userInfo);
+//				var userInfo = fetchUserInfo(localStorage.getItem("account"));
+//				console.log("5500userInfo", userInfo);
 				//				sessionStorage.setItem("emplno", userInfo[0].emplno);
 				//				sessionStorage.setItem("emname", userInfo[0].emname.trim());
 				// TODO 因 uat 環境尚未設定帳號密碼，這裡會出錯，故先寫死
@@ -51,8 +52,8 @@ $(function() {
 				sessionStorage.setItem("emname", "測試記得改");
 
 				// 將承作地區存入 localStorage
-				debugger;
-				setDoareaToLocalStorage();
+//				debugger;
+//				setDoareaToLocalStorage();
 
 				// jump to index
 				location.href = "./index" + "?" + "token=" + localStorage.getItem("token");
@@ -83,44 +84,44 @@ function jump() {
 
 		try {
 			//multi thread mechanism to load ddl data, then process main flow for login
-			//			setTimeout(function() {
-			//				preLoadDdlDataBlock1();
-			//			}, 0);
-			//			
-			//			setTimeout(function() {
-			//				preLoadDdlDataBlock2();
-			//			}, 0);
+//						setTimeout(function() {
+//							preLoadDdlDataBlock1();
+//						}, 0);
+//						
+//						setTimeout(function() {
+//							preLoadDdlDataBlock2();
+//						}, 0);
 
 			setTimeout(function() {
-				//				var url1 = domain4Springboot(true) + "/settingApi/fetchSetting";
-				//				var userId1 = { "userId": localStorage.getItem("account") };
-				//				var result1 = ajaxGetTokenReady(url1, userId1, true);
-				//				var pageBg = result1.data["pageBg"];
-				//				localStorage.setItem("pageBg", pageBg);
-				//
-				//				let url2 = domain4Springboot(true) + "/sysgrant/fetchSysFuuction";
-				//				let userId2 = { "userId": localStorage.getItem("account") };
-				//				let res2 = ajaxGetTokenReady(url2, userId2, true);
-				//				sessionStorage.setItem("permissionSetting", JSON.stringify(res2.data));
-				//
-				//				let url3 = domain4Springboot(true) + "/sysgrant/fetchUserInfo";
-				//				let userId3 = { "userId": localStorage.getItem("account") };
-				//				let res3 = ajaxGetTokenReady(url3, userId3, true);
-				//				let displayUserId = res3.data.userId
-				//				localStorage.setItem("displayUserId", displayUserId);
-				//
-				//				// 使用者員編&姓名
-				//				var userInfo = fetchUserInfo(localStorage.getItem("account"));
-				//				console.log("5500userInfo", userInfo);
-				//				//				sessionStorage.setItem("emplno", userInfo[0].emplno);
-				//				//				sessionStorage.setItem("emname", userInfo[0].emname.trim());
-				//				// TODO 因 uat 環境尚未設定帳號密碼，這裡會出錯，故先寫死
-				//				sessionStorage.setItem("emplno", "123456");
-				//				sessionStorage.setItem("emname", "測試記得改");
-				//
-				//				// 將承作地區存入 localStorage
-				//				debugger;
-				//				setDoareaToLocalStorage();
+//								var url1 = domain4Springboot(true) + "/settingApi/fetchSetting";
+//								var userId1 = { "userId": localStorage.getItem("account") };
+//								var result1 = ajaxGetTokenReady(url1, userId1, true);
+//								var pageBg = result1.data["pageBg"];
+//								localStorage.setItem("pageBg", pageBg);
+//				
+//								let url2 = domain4Springboot(true) + "/sysgrant/fetchSysFuuction";
+//								let userId2 = { "userId": localStorage.getItem("account") };
+//								let res2 = ajaxGetTokenReady(url2, userId2, true);
+//								sessionStorage.setItem("permissionSetting", JSON.stringify(res2.data));
+//				
+//								let url3 = domain4Springboot(true) + "/sysgrant/fetchAccountInfo";
+//								let userId3 = { "userId": localStorage.getItem("account") };
+//								let res3 = ajaxGetTokenReady(url3, userId3, true);
+//								let displayUserId = res3.data.userId
+//								localStorage.setItem("displayUserId", displayUserId);
+//			
+//								// 使用者員編&姓名
+//								var userInfo = fetchUserInfo(localStorage.getItem("account"));
+//								console.log("5500userInfo", userInfo);
+//								//				sessionStorage.setItem("emplno", userInfo[0].emplno);
+//								//				sessionStorage.setItem("emname", userInfo[0].emname.trim());
+//								// TODO 因 uat 環境尚未設定帳號密碼，這裡會出錯，故先寫死
+//								sessionStorage.setItem("emplno", "123456");
+//								sessionStorage.setItem("emname", "測試記得改");
+//				
+//								// 將承作地區存入 localStorage
+//								debugger;
+//								setDoareaToLocalStorage();
 
 				//			alert();
 				// jump to index

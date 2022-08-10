@@ -11,19 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.asi.huanan.service.FriComService;
 import com.asi.huanan.service.dao.mybatis.model.FriCom;
-import com.asi.huanan.service.dao.mybatis.model.customerize.FricomJoinRicmpf1;
-import com.asi.huanan.vo.AutoTenRcidVo;
-import com.asi.huanan.vo.QueryReinersVo;
+import com.asi.huanan.service.dao.mybatis.model.customerize.Rin1101FricomJoinRicmpf1;
+import com.asi.huanan.vo.Rin1101AutoTenRcidVOReq;
+import com.asi.huanan.vo.Rin1101QueryReinersVOReq;
 import com.asi.json.model.root.JsonBean;
 import com.asi.mechanism.common.SysEnum;
 
@@ -34,7 +32,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @Lazy
-@CrossOrigin(origins = "http://localhost:10127", maxAge = 3600)
 @RequestMapping("rin1101api")
 @RestController
 @Api(tags= {"Rin1101api"})
@@ -59,13 +56,13 @@ public class Rin1101Controller {
 	@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(value = "/queryreiners")
 	@ResponseBody
-	public ResponseEntity<?> queryReiners(@ApiParam(value ="再保人代號")@RequestBody QueryReinersVo parJson) throws Exception {
+	public ResponseEntity<Object> queryReiners(@ApiParam(value ="再保人代號")@RequestBody Rin1101QueryReinersVOReq parJson) throws Exception {
 		log.debug(">>> Rin1101Controller.queryReiners(用「再保人代號」搜尋)");
-		log.debug(">>> (用「再保人代號」搜尋) rinComId = " + parJson.getRinComId());
+		log.debug(">>> (用「再保人代號」搜尋) rinComId = {}", parJson.getRinComId());
 
 		JsonBean jsonBean = new JsonBean();
 		
-		List<FricomJoinRicmpf1> res = new ArrayList<FricomJoinRicmpf1>();
+		List<Rin1101FricomJoinRicmpf1> res = new ArrayList<>();
 
 		try {
 			
@@ -113,14 +110,14 @@ public class Rin1101Controller {
 	@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(value = "/autotenrcid")
 	@ResponseBody
-	public ResponseEntity<?> autoTenRcid(@ApiParam(value ="再保人代號")@RequestBody AutoTenRcidVo parJson) throws Exception {
+	public ResponseEntity<Object> autoTenRcid(@ApiParam(value ="再保人代號")@RequestBody Rin1101AutoTenRcidVOReq parJson) throws Exception {
 
 		log.debug(">>> Rin1101Controller.autoTenRcid(用「再保人代號」autocomplete");
-		log.debug(">>> (用「再保人代號」autocomplete) rinComId = " + parJson.getRinComId());
+		log.debug(">>> (用「再保人代號」autocomplete) rinComId = {}", parJson.getRinComId());
 
 		JsonBean jsonBean = new JsonBean();
 		
-		List<FriCom> res = new ArrayList<FriCom>();
+		List<FriCom> res = new ArrayList<>();
 
 		try {
 			

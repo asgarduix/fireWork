@@ -281,4 +281,69 @@ public class SpringProperty {
 		return mailStarttlsEnable;
 	}
 
+	/**
+	 * 報表檔案輸出設定位置(local)
+	 * localFileSetting
+	 */
+	public static String localFilePath;
+	public static String localFileForPdf;
+	public static String localFileForExcel;
+
+	public static String getLocalFilePath() {
+		return localFilePath;
+	}
+
+	@Value("${localFileSetting.uploadPath}")
+	public void setLocalFilePath(String localFilePath) {
+		SpringProperty.localFilePath = localFilePath;
+	}
+
+	public static String getLocalFileForPdf() {
+		return localFileForPdf;
+	}
+
+	@Value("${localFileSetting.uploadPathForPdf}")
+	public void setLocalFileForPdf(String localFileForPdf) {
+		SpringProperty.localFileForPdf = localFileForPdf;
+	}
+
+	public static String getLocalFileForExcel() {
+		return localFileForExcel;
+	}
+
+	@Value("${localFileSetting.uploadPathForExcel}")
+	public void setLocalFileForExcel(String localFileForExcel) {
+		SpringProperty.localFileForExcel = localFileForExcel;
+	}
+
+	
+	/**
+	 * Rin1203同險設定_每日增刪FriTemparea時間設定
+	 * 
+	 */
+	public static Integer SetYear;
+	public static String SetRunTime;
+
+	public static Integer getSetYear() {
+		return SetYear;
+	}
+
+	
+	@Value("${environments.schedule.func.rin1203_var_year}")
+//	@Value("${environments.schedule.rin1203.friTempareaSetting.year}")
+	public void setSetYear(Integer setYear) {
+		SpringProperty.SetYear = setYear;
+	}
+
+	public static String getSetRunTime() {
+		return SetRunTime;
+	}
+
+	@Value("${environments.schedule.func.rin1203_var_runtime}")
+	public void setSetRunTime(String setRunTime) {
+		SpringProperty.SetRunTime = setRunTime;
+	}
+
+
+	
 }

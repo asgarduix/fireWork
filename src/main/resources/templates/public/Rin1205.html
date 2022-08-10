@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="../../shigen/plugin/bootstrap/bootstrap-grid-customizing.css">
 <!-- table tabulator -->
 <script type="text/javascript" src="../../shigen/plugin/tabulator.min.js"></script>
+<script src="../../shigen/js/loadingoverlay.min.js"></script>
 <!-- fontawsome -->
 <script defer src="../../shigen/fonts/js/all.min.js"></script>
 <link href="../../shigen/fonts/css/all.css" rel="stylesheet">
@@ -34,7 +35,29 @@
 <script src="../../shigen/js/common.js"></script>
 <script src="../../shigen/js/appglobal.js"></script>
 <script src="../../shigen/js/sys/glob4UiAuth.js"></script>
-<!-- <script type="text/javascript" src="../../shigen/js/app/policyChangeAppl.js"></script> -->
+<script src="../../shigen/js/yf/fireTableColumns.js"></script>
+<script src="../../shigen/js/yf/fireTable.js"></script>
+<link rel="stylesheet" href="../../shigen/css/fireTableCustom.css">
+<link rel="stylesheet" href="../../shigen/css/fireTablePaginator.css">
+<script src="../../shigen/plugin/numeral.js"></script>
+
+  <style>
+        .table-subtable-container {
+        	width: 85vw;
+            padding: 10px 15px;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            background-color: #ddd;
+        }
+
+        .table-btn-switch {
+            height: 20px;
+            width: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -43,125 +66,48 @@
 		<div class="ajax-section-main"></div>
 		<div class="container-fluid">
 			<div class="content">
-				<div class="bread-crumbs">
-					<a href="">火險作業</a>
+				 <div class="big_title title s1">Rin1205分保調整同險</div> 
+				 <div class="row-group">
+					<div class="row">
+						<div class="col-12 content_function_bar">
+							<button class="btn btn-titBlue" onclick="btnQueryRin1205();">查詢</button>
+						</div>
+					</div>
 				</div>
-				<div class="big_title title s1">Rin1205分保調整同險</div>
-
-				<table class="tblDataArea tblInquireArea" cellspacing="0" cellpadding="0" width="100%">
-					<tbody>
-						<tr>
-							<td class="tdDataCaption">同險編號</td>
-							<td class="tdDataField">
-								<input type="text" style="width: 40%;" value="12345678901" id="">
-							</td>
-							<td class="tdDataCaption">合約年度</td>
-							<td class="tdDataField">
-								<input type="text" style="width: 40%;" value="2020" id="">
-							</td>
-							<td class="tdDataCaption">有效日期</td>
-							<td class="tdDataField">
-								<input type="text" style="width: 40%;" value="2020/12/31" id="">
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="divspace"></div>
-				<div class="row justify-content-center">
-					<button class="btn btn-oneC">查詢</button>
-				</div>
+				<div class="Greybg">
+						<div class="redClu">
+							<table class="tblDataArea" cellspacing="0" cellpadding="0" width="100%">
+								<tbody>
+									<tr>
+										<td class="tdDataCaption">同險編號</td>
+										<td class="tdDataField">
+											<input type="text" style="width: 80%;" id="txtrisk_no" maxlength="11" oninput = "value=value.replace(/[^\d]/g,'')">
+										</td>
+										<td class="tdDataCaption">合約年度</td>
+										<td class="tdDataField">
+											<input type="text" style="width: 80%;" id="txttreaty_year">
+										</td>
+										<td class="tdDataCaption">有效日期</td>
+										<td class="tdDataField">
+											<input type="text" style="width: 80%;" id="dta">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+				
+         
 				<div class="divspace"></div>
 				<table class="tblCssDataGrid">
-					<tbody>
-						<tr class="cssDataGridHeader">
-							<th>
-								<a href="">
-									<input type="checkbox" name="Check" checked="checked">
-								</a>
-							</th>
-							<th>
-								<a href="">保單號</a>
-							</th>
-							<th>
-								<a href="">批單號</a>
-							</th>
-							<th>
-								<a href="">序號</a>
-							</th>
-							<th>
-								<a href="">生效日期起</a>
-							</th>
-							<th>
-								<a href="">生效日期迄</a>
-							</th>
-							<th>
-								<a href="">使用性質</a>
-							</th>
-							<th>
-								<a href="">印單日</a>
-							</th>
-							<th>
-								<a href="">總保額</a>
-							</th>
-							<th>
-								<a href="">總保費</a>
-							</th>
-							<th>
-								<a href="">保單費率</a>
-							</th>
-							<th>
-								<a href="">分保費率</a>
-							</th>
-							<th>
-								<a href="">保單限額</a>
-							</th>
-						</tr>
-						<tr>
-							<td>
-								<input type="checkbox" name="Check" checked="checked">
-							</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</tbody>
+					<div id="table1205"></div>
 				</table>
+			    </div>
 				<div class="divspace"></div>
 				<div class="row justify-content-center">
-					<button class="btn btn-oneD">分保明細調整</button>
-					<button class="btn btn-oneE">修改</button>
-					<button class="btn btn-oneB">儲存</button>
-					<button class="btn btn-oneF">刪除</button>
+					<button class="btn btn-oneD" onclick="saveDetail();" id="btnSaveDetail">分保明細調整</button>
+					<div id="table1205-btn"></div>
 				</div>
-				<table class="tblDataArea tblInquireArea" cellspacing="0" cellpadding="0" width="100%">
-					<tbody>
-						<tr>
-							<td class="tdDataAnther">保單號碼</td>
-							<td class="tdDataTrip" colspan="3">
-								<input type="text" value="" id="" style="width: 20%;" placeholder="2004/06/30">
-							</td>
-							<td class="tdDataAnther">批單號碼</td>
-							<td class="tdDataTrip" colspan="3">
-								<input type="text" value="" id="" style="width: 20%;" placeholder="2004">
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="divspace"></div>
-				<div class="row justify-content-center">
-					<button class="btn btn-oneE">分保明細調整</button>
-					<button class="btn btn-oneB">新增調整批單</button>
-					<button class="btn btn-oneF">修改限額代號</button>
-				</div>
+			    
 			</div>
 			<!-- content end  -->
 		</div>
@@ -189,5 +135,6 @@
 	</div>
 </body>
 <!-- 功能使用的js，建議放置在html最尾 -->
+<script type="text/javascript" src="../../shigen/js/app/Rin1205.js"></script>
 <script type="text/javascript"></script>
 </html>

@@ -105,21 +105,21 @@
 			changeCSS(value);
 		});
 
-		function changeCSS(cssFile) {
-			//set theme of this page to cssFile
-			document.getElementById("active-stylesheet").setAttribute('href', cssFile);
-			//save theme to db
-			var userId = localStorage.getItem("account");
-			var pageBg = cssFile.split('/')[4].split('-')[1].split('.')[0];
-			var param = {
-				"userId" : userId,
-				"pageBg" : pageBg
-			}
-			var res = ajaxPostTokenReady("../../settingApi/updateSetting", param, false);
-			//save theme to localStorage
-			localStorage.setItem("pageBg", pageBg);
+// 		function changeCSS(cssFile) {
+// 			//set theme of this page to cssFile
+// 			document.getElementById("active-stylesheet").setAttribute('href', cssFile);
+// 			//save theme to db
+// 			var userId = localStorage.getItem("account");
+// 			var pageBg = cssFile.split('/')[4].split('-')[1].split('.')[0];
+// 			var param = {
+// 				"userId" : userId,
+// 				"pageBg" : pageBg
+// 			}
+// 			var res = ajaxPostTokenReady("../../settingApi/updateSetting", param, false);
+// 			//save theme to localStorage
+// 			localStorage.setItem("pageBg", pageBg);
 
-		}
+// 		}
 	</script>
 
 </body>

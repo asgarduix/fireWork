@@ -13,8 +13,8 @@ import com.asi.huanan.service.dao.mybatis.mapper.FriTreatyShareOrderMapper;
 import com.asi.huanan.service.dao.mybatis.model.FriTreatyShareOrder;
 import com.asi.huanan.service.dao.mybatis.model.FriTreatyShareOrderExample;
 import com.asi.huanan.service.dao.mybatis.model.FriTreatyShareOrderExample.Criteria;
-import com.asi.huanan.vo.DeleteTreatyShareOrderVo;
-import com.asi.huanan.vo.Rin1108Vo;
+import com.asi.huanan.vo.Rin1108DeleteTreatyShareOrderVOReq;
+import com.asi.huanan.vo.Rin1108VOResp;
 import com.asi.mechanism.service.connector.MyBatisConnector;
 
 @Repository
@@ -33,7 +33,7 @@ public class FriTreatyShareOrderRepository {
 	 * @return int
 	 * @throws Exception
 	 */
-	public int deleteTreadyShareOrdersByPkList(final List<DeleteTreatyShareOrderVo> model) throws Exception {
+	public int deleteTreadyShareOrdersByPkList(final List<Rin1108DeleteTreatyShareOrderVOReq> model) throws Exception {
 		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
 		int count = 0;
 
@@ -56,10 +56,10 @@ public class FriTreatyShareOrderRepository {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Rin1108Vo> queryTreatyShareOrderList(final String treatyYear, final String policyType)
+	public List<Rin1108VOResp> queryTreatyShareOrderList(final String treatyYear, final String policyType)
 			throws Exception {
 		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
-		List<Rin1108Vo> returnList = null;
+		List<Rin1108VOResp> returnList = null;
 		try {
 			FriTreatyShareOrderMapper mapper = sqlSession.getMapper(FriTreatyShareOrderMapper.class);
 
@@ -74,35 +74,7 @@ public class FriTreatyShareOrderRepository {
 		return returnList;
 	}
 
-	/**
-	 * 
-	 */
-	public List<FriTreatyShareOrder> queryByModelBetweenSize(final FriTreatyShareOrder model, String orderByColNm1,
-			String ascOrDesc, int pageSize, int pageNum) throws Exception {
-		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
-		List<FriTreatyShareOrder> returnList = null;
-
-		try {
-			// Integer[] a = CalculatorUtil.caculatorPageStartEndNum(pageSize, pageNum);
-
-			FriTreatyShareOrderMapper mapper = sqlSession.getMapper(FriTreatyShareOrderMapper.class);
-
-			// if (model.{GET} != null & !"".equals(model.{GET})) {
-			// model.{SET}(model.{GET} + "%");
-			// }
-
-			// returnList = mapper.selectByParamBetweenSize(model.{GET}..., "CRT_TIME",
-			// "DESC", a[0], a[1]);
-
-			log.debug(returnList == null ? "returnList is null" : "筆數:" + returnList.size());
-		} catch (Exception e) {
-			sqlSession.rollback();
-			throw e;
-		} finally {
-			sqlSession.close();
-		}
-		return returnList;
-	}
+	
 
 	/**
 	 * @param model

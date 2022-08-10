@@ -1,16 +1,16 @@
 package com.asi.huanan.service.dao.mybatis.mapper;
 
-import com.asi.huanan.service.dao.mybatis.model.FriRisk;
-import com.asi.huanan.service.dao.mybatis.model.FriRiskExample;
-import com.asi.huanan.service.dao.mybatis.model.customerize.FricomJoinRicmpf1;
-import com.asi.huanan.vo.Rin1107Vo;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+
+import com.asi.huanan.service.dao.mybatis.model.FriRisk;
+import com.asi.huanan.service.dao.mybatis.model.FriRiskExample;
+import com.asi.huanan.vo.QueryRiskListVo;
+import com.asi.huanan.vo.Rin1107Vo;
 
 public interface FriRiskMapper {
     /**
@@ -104,12 +104,13 @@ public interface FriRiskMapper {
     
  // =====針對使用自訂SQL=====
     
-    @Select("<script>"+ 
-    		"select risk_no as txtrisk_no_1, risk_name as txtrisk_name, area_code as txtarea_code " + 
-    		"from fri_risk " + 
-    		"where risk_no like concat(#{riskNo,jdbcType=VARCHAR},'%') " + 
-    		"order by risk_no"+ 
-    		"</script>")
+//    @Select("<script>"+ 
+//    		"select risk_no as txtrisk_no_1, risk_name as txtrisk_name, area_code as txtarea_code " + 
+//    		"from fri_risk " + 
+//    		"where risk_no like concat(#{riskNo,jdbcType=VARCHAR},'%') " + 
+//    		"order by risk_no"+ 
+//    		"</script>")
+    @Select("<script> select risk_no as txtrisk_no_1, risk_name as txtrisk_name, area_code as txtarea_code from fri_risk where risk_no like concat(#{riskNo,jdbcType=VARCHAR},'%') order by risk_no </script>")
  
     List<Rin1107Vo> queryRiskList(@Param("riskNo") String riskNo);
     
@@ -117,8 +118,6 @@ public interface FriRiskMapper {
     @Insert("<script> insert into fri_risk (risk_no, risk_name, area_code) "
     		+ "values(#{record.riskNo,jdbcType=VARCHAR},#{record.riskName,jdbcType=VARCHAR},#{record.areaCode,jdbcType=VARCHAR} )"
     		+ "</script>")
-    
-    
     int insertByPk(@Param("record") FriRisk record);
     
     
@@ -129,4 +128,36 @@ public interface FriRiskMapper {
     
     int deletePkList(@Param("pkList") String[] pkList);
     
+    
+    @Select("<script> select risk_no as txtrisk_no_1, risk_name as txtrisk_name from fri_risk \n"+
+    		"where area_code = #{areaCode,jdbcType=VARCHAR} \n"+
+    		" order by risk_name \n" +
+    		"</script>")
+    List<Rin1107Vo> queryAreaCodeList(@Param("areaCode") String areaCode);
+
+    
+    
+    /**
+     * Rin1203_同險設定，新增同險
+     * @param txtrisk_no
+     * @param txtrisk_name
+     * @param txtarea_code
+     * @return
+     */
+    @Insert("<script> insert into fri_risk (risk_no, risk_name, area_code) "
+    		+ "values(#{riskNo,jdbcType=VARCHAR},#{riskName,jdbcType=VARCHAR},#{areaCode,jdbcType=VARCHAR} )"
+    		+ "</script>")
+	int insertRiskNoByPk(@Param("riskNo") String riskNo,@Param("riskName")  String riskName, @Param("areaCode") String areaCode);
+
+    
+    /**
+     * Rin1203_同險設定，取得同險代號和同險名稱(下拉選單)
+     * @param txtarea_code
+     * @return
+     */
+    @Select("<script> select risk_no as txtrisk_no, risk_name as txtrisk_name from fri_risk \n"+
+    		"where area_code = #{areaCode,jdbcType=VARCHAR} \n"+
+    		" order by risk_name \n" +
+    		"</script>")
+	List<QueryRiskListVo> queryDdlRiskList(@Param("areaCode")String areaCode);
 }

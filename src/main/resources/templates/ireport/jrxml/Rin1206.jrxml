@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rin1206" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.4641000000000048"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="294"/>
+	<parameter name="today" class="java.lang.String"/>
+	<parameter name="period" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\iReport相關\\Rin1206_jrxml\\"]]></defaultValueExpression>
+	</parameter>
+	<field name="rinComSname" class="java.lang.String"/>
+	<field name="billNo" class="java.lang.String"/>
+	<field name="treatyName" class="java.lang.String"/>
+	<field name="rinComShare" class="java.lang.String"/>
+	<field name="treatyRate" class="java.lang.String"/>
+	<field name="pMonth1" class="java.lang.String"/>
+	<field name="pMonth2" class="java.lang.String"/>
+	<field name="pMonth3" class="java.lang.String"/>
+	<field name="pTotalPrem1" class="java.lang.String"/>
+	<field name="pTotalPrem2" class="java.lang.String"/>
+	<field name="pTotalPrem3" class="java.lang.String"/>
+	<field name="pSharePrem1" class="java.lang.String"/>
+	<field name="pSharePrem2" class="java.lang.String"/>
+	<field name="pSharePrem3" class="java.lang.String"/>
+	<field name="pSum" class="java.lang.String"/>
+	<field name="eTotalPrem1" class="java.lang.String"/>
+	<field name="eTotalPrem2" class="java.lang.String"/>
+	<field name="eTotalPrem3" class="java.lang.String"/>
+	<field name="eSharePrem1" class="java.lang.String"/>
+	<field name="eSharePrem2" class="java.lang.String"/>
+	<field name="eSharePrem3" class="java.lang.String"/>
+	<field name="eSum" class="java.lang.String"/>
+	<field name="businesstaxRate" class="java.lang.String"/>
+	<field name="busstax" class="java.lang.String"/>
+	<field name="commRate" class="java.lang.String"/>
+	<field name="comm" class="java.lang.String"/>
+	<field name="totalLoss" class="java.lang.String"/>
+	<field name="loss" class="java.lang.String"/>
+	<field name="duetoYou" class="java.lang.String"/>
+	<field name="duetoUs" class="java.lang.String"/>
+	<field name="debitTotalSum" class="java.lang.String"/>
+	<field name="creditTotalSum" class="java.lang.String"/>
+	<field name="duetoYouLong" class="java.lang.Long"/>
+	<field name="brokerdetailList" class="java.util.List"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="802" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="186" width="555" height="414"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="12" width="555" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SOUTH CHINA INSURANCE CO., LTD.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="55" width="152" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[In Account with Messrs.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="117" width="248" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REINSURANCE ACCOUNT for the Month of ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="391" y="55" width="64" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Your Ref :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="391" y="75" width="64" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Our Ref :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="391" y="95" width="64" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="487" y="165" width="56" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Currency]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="208" width="84" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[R/I Premium :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="444" width="106" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[R/I Commission :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="424" width="84" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Business Tax :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="570" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="207" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="423" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="314" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="247" y="185" width="1" height="415"/>
+			</line>
+			<line>
+				<reportElement x="401" y="186" width="1" height="414"/>
+			</line>
+			<staticText>
+				<reportElement mode="Transparent" x="247" y="185" width="154" height="22" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Debit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="185" width="154" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Credit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="718" width="152" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reinsurance Accept by]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="375" y="718" width="152" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Yours Faithfully]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="363" y="737" width="208" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SOUTH CHINA INSURANCE CO., LT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="776" width="152" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[(Signature)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="363" y="776" width="152" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Manager]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="165" width="72" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Your share :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="72" y="165" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{rinComShare}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="116" y="228" width="31" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="182" y="228" width="46" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[R/I Share]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="315" width="237" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Endorsement R/I Premium :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="335" width="31" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="182" y="335" width="46" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[R/I Share]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="464" width="106" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Loss Paid :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="504" width="111" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cash Call Refund :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="11" y="550" width="160" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{duetoYouLong}.intValue() > 0 ? "Balance due to you" : "Balance due To Us"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="32" width="555" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[5F, NO.560, Chung Hsiao East Road, Sec.4, Taipei, R.O.C]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="454" y="95" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{today}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="391" y="115" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{period}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="16" y="75" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rinComSname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="454" y="75" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{billNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="135" width="278" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{treatyName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="431" y="165" width="56" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N.T.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="7" y="228" width="65" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{treatyRate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="335" width="65" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{treatyRate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="7" y="248" width="65" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pMonth1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="7" y="268" width="65" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pMonth2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="7" y="288" width="65" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pMonth3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="93" y="248" width="62" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pTotalPrem1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="93" y="268" width="62" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pTotalPrem2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="93" y="288" width="62" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pTotalPrem3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="182" y="248" width="56" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pSharePrem1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="182" y="270" width="56" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pSharePrem2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="182" y="290" width="56" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pSharePrem3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="456" y="294" width="87" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pSum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="355" width="65" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pMonth1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="375" width="65" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pMonth2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="395" width="65" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pMonth3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="93" y="355" width="62" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{eTotalPrem1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="93" y="375" width="62" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{eTotalPrem2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="93" y="395" width="62" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{eTotalPrem3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="182" y="355" width="56" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{eSharePrem1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="182" y="375" width="56" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{eSharePrem2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="182" y="395" width="56" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{eSharePrem3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="443" y="404" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{eSum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="146" y="424" width="56" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{businesstaxRate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="146" y="444" width="56" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{commRate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="9" y="484" width="65" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{treatyRate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="11" y="524" width="65" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{treatyRate}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="85" y="484" width="70" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totalLoss}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="182" y="484" width="56" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{loss}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="288" y="551" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{duetoYou}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="443" y="551" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{duetoUs}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="288" y="424" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{busstax}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="288" y="444" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{comm}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="288" y="484" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{loss}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="288" y="580" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{debitTotalSum}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="443" y="580" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{creditTotalSum}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="600" width="555" height="118"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{brokerdetailList})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Rin1206_supReport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -10,7 +10,7 @@ $(function() {
 	$(".datepicker").datepicker({
 		changeYear: true,
 		changeMonth: true,
-		dateFormat: "y/mm/dd",
+		dateFormat: "yy/mm/dd",
 		showButtonPanel:false
 	});
 });

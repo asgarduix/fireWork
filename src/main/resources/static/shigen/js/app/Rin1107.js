@@ -13,9 +13,9 @@ $(function(){
 //tabulator欄位設置
 let fieldName1107 = [
 	["checkbox", { showBtn: true }],
-	["txtrisk_no_1", "同險編號", "custom", { validator: ["minLength:11", "maxLength:20"] } ],
-    ["txtrisk_name", "同險名稱", "custom", { validator: ["required"] } ],
-    ["txtarea_code", "地段代碼", "custom", { validator: ["required"] } ]
+	["txtrisk_no_1", "同險編號", "display", { validator: ["minLength:11", "maxLength:20"],widthGrow:1 } ],
+    ["txtrisk_name", "同險名稱", "input", { validator: ["required"], widthGrow:2 } ],
+    ["txtarea_code", "地段代碼", "input", { validator: ["required"], widthGrow:1  } ]
 ];
 
 //tabulator欄位格式製作
@@ -58,6 +58,7 @@ let tableConfigs = {
 		cellEditing: function (cell) {
 			let field = cell.getField();
 			if (field === "txtrisk_no_1") {
+				//修改時，不可修改同險編號
 				if(tableMode === "edit"){
 					alert("同險編號不可修改")
 				}
@@ -69,6 +70,7 @@ let tableConfigs = {
 		},
 		cellEdited: function (cell) {
 			let field = cell.getField()
+			//將同險編號的前七碼帶到地段代碼
 			if (field === "txtrisk_no_1") {
                 	
 				let sevenStr = cell.getValue().slice(0, 7);
@@ -120,10 +122,10 @@ function cancel() {
 	}
     elementsChangeClass("#add, #edit, #del, #copy", "remove", "btn-hide")
     elementsChangeClass("#save, #cancel", "add", "btn-hide")
-    let editableDatas = table1107.getRows().filter(row => { return row.getData().edit })
+    let editableDatas = table1107.getRows().filter(row => { return row.getData()._edit })
     editableDatas.forEach(row => {
     	let rowData = row.getData()
-    	rowData.edit = false
+    	rowData._edit = false
     	$(row.getElement()).removeClass("table-editable")
 
     	row.getCells().map(cell => {
@@ -183,7 +185,7 @@ function edit(cell) {
 	selectRows.forEach(row => {
 		editableRowIndex = row.getIndex()
 		let rowData = row.getData()
-		row.getData().edit = true
+		row.getData()._edit = true
 		$(row.getElement()).addClass("table-editable")
                 
 		editableRawData = row.getCells().map(cell => {
@@ -204,14 +206,14 @@ function edit(cell) {
 // 儲存鈕
 function save() {
     
-	//檢核欄位是否為空與是否處於警告狀態
+	//檢核欄位是否為空與是否處於警告狀態(檢核未過)
 	let validation = table1107.getSelectedRows()[0].getCells().every((cell,index) => {
      			
 		if(/[0]/g.test(index)){
 			return true;
 		}
 		
-		let flag = !checkIsNullSpace(cell.getValue()) && cell.isValid();
+		let flag = !checkIsNullSpace(cell.getValue().trim()) && cell.isValid();
 		
 		if(!flag){
 			cell.getElement().click()
@@ -262,9 +264,9 @@ function save() {
 	if (dataEdited) {
 
 		let param = {
-				"riskNo" 	:	table1107.getSelectedData()[0].txtrisk_no_1,
-				"riskName" 	:	table1107.getSelectedData()[0].txtrisk_name,
-				"areaCode" 	:	table1107.getSelectedData()[0].txtarea_code
+				"riskNo" 	:	table1107.getSelectedData()[0].txtrisk_no_1,	//同險編號
+				"riskName" 	:	table1107.getSelectedData()[0].txtrisk_name,	//同險名稱
+				"areaCode" 	:	table1107.getSelectedData()[0].txtarea_code		//地段代碼
 		}
 
 		let res = ajaxPostTokenReady("../../rin1107api/updaterisk", param, false);
@@ -280,7 +282,7 @@ function save() {
 	// save success
 	selectRows.forEach(row => {
 		let rowData = row.getData()
-		rowData.edit = false
+		rowData._edit = false
 		$(row.getElement()).removeClass("table-editable")
 		row.getCells().map(cell => {
 			let editable = !!cell.getColumn().getDefinition().editable;
@@ -365,7 +367,7 @@ function copy() {
 
 	table1107.getSelectedRows().forEach(row => {
 		let rowData = row.getData()
-		row.getData().edit = true
+		row.getData()._edit = true
 		$(row.getElement()).addClass("table-editable")
 
 		row.getCells().map(cell => {
@@ -406,6 +408,7 @@ function elementsChangeClass(elements, behavior, classNames) {
  */
 function btnQueryRin1107(){
 
+	//判別表格是否在編輯狀態
 	if (tableMode !== "add" && tableMode !== "edit") {
 		// 1-參數
 		let param = {
@@ -413,35 +416,38 @@ function btnQueryRin1107(){
 		}
 	
 		// 2-執行查詢
-		let res = ajaxPostTokenReady("../../rin1107api/queryrisklist", param, false);
-	
-		if("000" === res.status){
-			table1107.setData(res.data);
-			
-			table1107.getRows().forEach((row, index) => {
-                let rowData = row.getData()
-                rowData.edit = false
-                rowData.id = index  // table定位需使用id
-            });
-
-            elementsChangeClass("#edit, #del, #copy", "remove", "btn-hide")
-
-
-            let displayRowsNum = 15
-            if (res.data.length > displayRowsNum) {
-                // 資料有15筆以上時，固定表格高度
-                let headerHeight = table1107.element.children[0].offsetHeight
-                let rowHeight = table1107.getRows()[0].getElement().offsetHeight
-                let newHeight = headerHeight + rowHeight * displayRowsNum
-                table1107.setHeight(`${newHeight}px`)
-            } else {
-            	//
-            	table1107.setHeight(`100%`)
-            }
-		
-		}else{
-			alert("「同顯編號查詢」失敗!!!請聯絡管理人員!!!");
-		}
+		ajaxRequestIsAsyncDynimicBytoken("../../rin1107api/queryrisklist", true, false, param,     
+				(res) => {
+							if (res != null && "000" === res.status) {
+//								table1107.setData(res.data);
+								loadData("table1107", res.data, {type:"dataCount", value:7})
+								table1107.getRows().forEach((row, index) => {
+					                let rowData = row.getData()
+					                rowData._edit = false
+					                rowData.id = index  // table定位需使用id
+					            });
+					
+					            elementsChangeClass("#edit, #del, #copy", "remove", "btn-hide")
+					
+					
+					            let displayRowsNum = 15
+					            if (res.data.length > displayRowsNum) {
+					                // 資料有15筆以上時，固定表格高度
+					                let headerHeight = table1107.element.children[0].offsetHeight
+					                let rowHeight = table1107.getRows()[0].getElement().offsetHeight
+					                let newHeight = headerHeight + rowHeight * displayRowsNum
+					                table1107.setHeight(`${newHeight}px`)
+					            } else {
+					            	//
+					            	table1107.setHeight(`100%`)
+					            }
+							}else{
+								alert("「同顯編號查詢」失敗!!!請聯絡管理人員!!!");
+							}
+				}, (error) => {
+								console.log(error);
+								alert("「同顯編號查詢」失敗!!!請聯絡管理人員!!!");
+				})
 	}else{
 		 rowSelectionChangeCheck = false
          alert("請完成編輯")
@@ -452,3 +458,34 @@ function btnQueryRin1107(){
 	}
 }
 
+//將資料放入表格中
+function loadData(tableId, data, heightConfig) {
+	let table = Tabulator.prototype.findTable(`#${tableId}`)[0];
+	let tableSorter = table.getSorters()
+	table.clearSort()
+	//載入資料
+	return table.setData(data).then(()=>{
+
+		elementsChangeClass(`#${tableId}-add, #${tableId}-edit, #${tableId}-copy, #${tableId}-del`, "remove", "btn-hide")
+	
+		let heightType = heightConfig.type
+		if (heightType === "height") {
+			table.setHeight(heightConfig.value)
+		} else if (heightType === "dataCount") {
+			let displayRowsNum = heightConfig.value
+			if (data.length > displayRowsNum) {
+				//根據載入資料數量調整table高度, 無資料(length===0)時建議 height="100%"
+	
+				//假設行高是固定的
+				let headerHeight = table.element.children[0].offsetHeight
+				let rowHeight = table.getRows()[0].getElement().offsetHeight
+				let newHeight = headerHeight + rowHeight * displayRowsNum
+				table.setHeight(`${newHeight}px`)
+				table.setSort(tableSorter)
+			} else {
+				table.setHeight("100%")
+			}
+	
+		}
+	})
+}

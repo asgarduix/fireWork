@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" lang="zh-Hant-TW">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="icon" type="image/png" href="../../shigen/images/general/favicon.ico">
+<title>華南產物保險-火險再保系統</title>
+<!-- jQuery -->
+<script src="../../shigen/plugin/jquery.min.js"></script>
+<!-- jQuery UI -->
+<link href="../../shigen/plugin/jquery_ui/jquery-ui.min.css" rel="stylesheet">
+<script src="../../shigen/plugin/jquery_ui/jquery-ui.min.js"></script>
+<!-- 日期選擇器_民國年或西元年：支援 jQuery UI -->
+<script src="../../shigen/plugin/datepicker_globe_tw.js"></script>
+<!-- bootstrap -->
+<script src="../../shigen/plugin/bootstrap/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../../shigen/plugin/bootstrap/bootstrap.css">
+<link rel="stylesheet" href="../../shigen/plugin/bootstrap/bootstrap-grid-customizing.css">
+<!-- table tabulator -->
+<script type="text/javascript" src="../../shigen/plugin/tabulator.min.js"></script>
+<script src="../../shigen/js/loadingoverlay.min.js"></script>
+<!-- fontawsome -->
+<script defer src="../../shigen/fonts/js/all.min.js"></script>
+<link href="../../shigen/fonts/css/all.css" rel="stylesheet">
+<!--load all styles -->
+<!-- Plug CSS樣式 -->
+<link rel="stylesheet" href="../../shigen/css/type_plug.css">
+<!-- 共用樣式 -->
+<link rel="stylesheet" href="../../shigen/css/type.css">
+<link href="../../shigen/css/colorful-tabulator.css" rel="stylesheet">
+
+<!-- 自訂JS樣式 -->
+<!-- <script src="../../shigen/js/type.js"></script> -->
+<script src="../../shigen/js/common.js"></script> 
+<!-- <script src="../../shigen/js/appglobal.js"></script> -->
+<script src="../../shigen/js/sys/glob4UiAuth.js"></script> 
+<!-- <script type="text/javascript" src="../../shigen/js/app/policyChangeAppl.js"></script> -->
+<!-- <script src="../../shigen/js/yf/fireTableColumns.js"></script>
+<script src="../../shigen/js/yf/fireTable.js"></script>
+<link rel="stylesheet" href="../../shigen/css/fireTableCustom.css">
+<link rel="stylesheet" href="../../shigen/css/fireTablePaginator.css">
+<script src="../../shigen/plugin/numeral.js"></script>
+<script type="text/javascript" src="../../shigen/js/uiapis4app/ddls.js"></script> -->
+
+</head>
+
+<body>
+	<div class="ajax-aside-navFIRE"></div>
+	<section>
+		<div class="ajax-section-main"></div>
+		<div class="container-fluid">
+			<div class="content">
+				<div class="big_title title s1">Hsfe750 分出入合約維護作業</div>
+				<div class="row-group">
+					<div class="row">
+						<div class="col-12 content_function_bar">
+							<button class="btn btn-titBlue"><i class="fas fa-undo" style="padding-right: 5px; font-size:1.2rem;"></i>回上頁</button>
+							<button class="btn btn-titBlue"><i class="fal fa-save" style="padding-right: 5px; font-size:1.2rem;"></i>存檔</button>
+							<button class="btn btn-titBlue"><i class="fas fa-print" style="padding-right: 5px; font-size:1.2rem;"></i>列印</button>
+						</div>
+					</div>
+				</div>
+				<!-- tab開始 -->
+				<div class="row-group">
+					<ul class="row nav nav-pills" id="pills-tab" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active" id="pills-1-tab" data-toggle="pill" href="#pills-1" role="tab" aria-controls="pills-1" aria-selected="true">查詢</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" id="pills-2-tab" data-toggle="pill" href="#pills-2" role="tab" aria-controls="pills-2" aria-selected="false">合約資料</a>
+						</li>
+					</ul>
+				</div>
+                <!-- tab開始 -->
+				<div style="border: 2px solid #9C9B96; margin: 15px 0; padding: 7px 10px; background-color: #f8f8f8;">
+					<div class="tab-content" id="pills-tabContent">
+						<div class="row-group tab-pane fade show active" id="pills-1" role="tabpanel" aria-labelledby="pills-1-tab">
+                            <div class="redClu">
+							<table class="tblDataArea" cellspacing="0" cellpadding="0" width="100%">
+								<tbody>
+									<tr>
+										<td class="tdDataCaption">類別</td>
+										<td class="tdDataField">
+											<select name="" id="">
+                                                <option value="1">全部</option>
+                                                <option value="2">分入</option>
+                                                <option value="3">分出</option>
+                                            </select>
+										</td>
+                                        <td class="tdDataCaption">境外公司註記</td>
+										<td class="tdDataField">
+											<select name="" id="">
+                                                <option value="1">全部</option>
+                                                <option value="2">境內</option>
+                                                <option value="3">境外</option>
+                                            </select>
+										</td>
+									</tr>
+                                    <tr>
+                                        <td class="tdDataCaption">合約年度</td>
+										<td class="tdDataField">
+											<input type="text"
+											value="" id="" placeholder="必填" maxlength="4">
+										</td>
+                                        <td class="tdDataCaption">合約編號</td>
+										<td class="tdDataField">
+											<input type="text"
+											value="" id="" placeholder="必填" maxlength="">
+                                            <button class="btn btn-oneD" id="exportData">查詢</button>
+										</td>
+                                    </tr>
+								</tbody>
+							</table>
+                            </div>
+                            <div class="divspace"></div>
+                            <div class="x_scroll">
+                                <table class="tblCssDataGrid"> 
+                                    <tbody> 
+                                        <tr class="cssDataGridHeader">
+                                            <th></th>
+                                            <th>類別</th> 
+                                            <th>合約年度</th> 
+                                            <th>合約代號</th> 
+                                            <th>序號</th> 
+                                            <th>合約名稱</th> 
+                                        </tr>
+                                        <tr class="Ainfo">
+                                            <td>
+                                                <input id="check1" type="radio" name="radio" value="1">
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr> 
+                                    </tbody>
+                                </table>
+                                </div>
+                            <!-- 不知道會不會用到表格 先隱藏 -->
+                            <!-- <table class="tblCssDataGrid"> 
+                                <tbody> 
+                                    <tr class="cssDataGridHeader">
+                           				<th><a href="">合約年度</a></th>
+                              			<th><a href="">合約代號</a></th> 
+                              			<th><a href="">序號</a></th> 
+                              			<th><a href="">合約名稱</a></th> 
+                                		<th><a href="">合約起日</a></th>
+                                		<th><a href="">合約迄日</a></th>
+                                		<th><a href="">合約型態</a></th>
+                                    </tr>
+                             		<tr class="Ainfo">
+                          			    <td>
+                                            <span class="checkbox_box ml-2">
+                                                <input id="" type="radio" name="" value="1" >
+                                                <label for="optSlipNew">2021</label>
+                                            </span>
+                                        </td>
+                          				<td><a href="">FEXL</a></td> 
+                             			<td>0</td>
+                            			<td><a href="">ThisisContracName</a></td> 
+                             			<td>2021/01/01</td>
+                                        <td>2021/12/31</td>
+                                        <td>年</td>
+                                    </tr> 
+                                </tbody>
+                            </table> -->
+						</div>
+						<!-- pills-1 end -->
+						<div class="row-group tab-pane fade show" id="pills-2"
+							role="tabpanel" aria-labelledby="pills-2-tab">
+                            <table class="tblDataArea tblInquireArea" cellspacing="0"
+								cellpadding="0" width="100%">
+								<tbody>
+									<tr>
+										
+										<td class="tdDataBorde">
+                                            <button class="btn btn-oneF">新增</button>
+                                            <button class="btn btn-oneF">存檔</button>
+                                            <button class="btn btn-oneF">刪除</button>
+                                            <button class="btn btn-oneF">清空</button>
+                                            <button class="btn btn-oneF" data-toggle="modal" data-target="#ListModal">險種明細</button>
+                                            <button class="btn btn-oneF"  data-toggle="modal" data-target="#secondModal">第二再保人明細</button>
+                                            <button class="btn btn-oneF">新序號</button>
+                                        </td>
+										<td class="tdDataBorde">
+                                            <p class="showN">*本合約已經產生帳單，部分欄位不可修改!!</p> 
+                                        </td>
+									</tr>
+								</tbody>
+							</table>
+							<table class="tblDataArea" cellspacing="0"
+								cellpadding="0" width="100%">
+								<tbody>
+									<tr>
+										<td class="tdDataThree">類別</td>
+										<td class="tdDataBorde">
+                                            <select name="" id="">
+                                                <option value="1">全部</option>
+                                                <option value="2">分入</option>
+                                                <option value="3">分出</option>
+                                            </select>
+                                        </td>
+                                        <td class="tdDataThree">境外公司註記</td>
+										<td class="tdDataBorde">
+                                            <select name="" id="">
+                                                <option value="1">全部</option>
+                                                <option value="2" selected>境內</option>
+                                                <option value="3">境外</option>
+                                            </select>
+                                        </td>
+									</tr>
+									<tr>
+										<td class="tdDataThree">合約年度</td>
+										<td class="tdDataBorde"><input type="text"
+											value="" id="" placeholder="必填" maxlength="4"></td>
+										<td class="tdDataThree">合約代號</td>
+										<td class="tdDataBorde">
+                                            <select name="" id="">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                            </select>
+                                        </td>
+									</tr>
+									<tr>
+										<td class="tdDataThree">序號</td>
+										<td class="tdDataBorde">
+                                            <input type="text"
+											value="" id="" maxlength="9" placeholder="必填">
+                                        </td>
+                                        <td class="tdDataThree">經紀人/再保人</td>
+										<td class="tdDataBorde"><input type="text"
+											value="" id="" placeholder="必填" maxlength="4">
+                                        </td>
+									</tr>
+                                    <tr>
+                                        <td class="tdDataThree">合約名稱</td>
+										<td class="tdDataBorde" colspan="3">
+                                            <input type="text"
+											value="" id="" maxlength="9" placeholder="必填">
+                                        </td>
+                                    </tr>
+									<tr>
+										<td class="tdDataThree">合約號/Our reference</td>
+										<td class="tdDataBorde">
+                                            <input type="text"
+											value="" id="" placeholder="必填" maxlength="4">
+                                        </td>
+                                        <td class="tdDataThree">合約號/You reference</td>
+										<td class="tdDataBorde">
+                                            <input type="text"
+											value="" id="" placeholder="必填" maxlength="4">
+                                        </td>
+									</tr>
+									<tr>
+										<td class="tdDataThree">合約期間</td>
+										<td class="tdDataBorde">
+                                            <input type="text"
+											value="" id="" maxlength="9" style="width:37%;" >～<input type="text"
+											value="" id="" maxlength="9" style="width:37%;" >
+                                        </td>
+                                        <td class="tdDataThree">幣別</td>
+                                        <td class="tdDataBorde">
+                                            <select name="" id="">
+                                                    <option value="1" selected>NTD</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+										<td class="tdDataThree">結清方式</td>
+										<td class="tdDataBorde">
+                                            <select name="" id="">
+                                                    <option value="1" selected>NTD</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                            </select>
+                                        </td>
+                                        <td class="tdDataThree">結清日期</td>
+                                        <td class="tdDataBorde">
+                                            <input type="text"
+											value="" id="" maxlength="9" style="width:37%;" >～<input type="text"
+											value="" id="" maxlength="9" style="width:37%;" >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdDataThree">特殊事項</td>
+                                        <td class="tdDataBorde" colspan="3">
+                                            <div class="textnote">
+                                                特殊事項。特殊事項。特殊事項。特殊事項。特殊事項。特殊事項。特殊事項。特殊事項。特殊事項。特殊事項。特殊事項。特殊事項。特殊事項。特殊事項。特殊事項。特殊事項。特殊事項。特殊事項。特殊事項。特殊事項。特殊事項。
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+										<td class="tdDataThree">帳務期間</td>
+										<td class="tdDataBorde">
+                                            <select name="" id="">
+                                                <option value="1" selected>月</option>
+                                                <option value="2">季</option>
+                                                <option value="3">半年</option>
+                                                <option value="4">年</option>
+                                        </select>
+                                        </td>
+                                        <td class="tdDataThree">承接比例</td>
+                                        <td class="tdDataBorde">
+                                            <input type="text"
+											value="" id="" placeholder="必填">％
+                                        </td>
+                                    </tr>
+                                    <tr>
+										<td class="tdDataThree">承接險種</td>
+										<td class="tdDataBorde">
+                                            <input type="text"
+											value="" id="" placeholder="必填">
+                                        </td>
+                                        <td class="tdDataThree">承接區域</td>
+                                        <td class="tdDataBorde">
+                                            <input type="text"
+											value="" id="" placeholder="必填">
+                                        </td>
+                                    </tr>
+                                    <tr>
+										<td class="tdDataThree">合約首席</td>
+										<td class="tdDataBorde" colspan="3">
+                                            <input type="text"
+											value="" id="" placeholder="必填">
+                                        </td>
+                                    </tr>
+                                    <tr>
+										<td class="tdDataThree">EIP(100%)</td>
+										<td class="tdDataBorde">
+                                            <input type="text"
+											value="" id="" placeholder="">
+                                        </td>
+                                        <td class="tdDataThree">Our EIP</td>
+                                        <td class="tdDataBorde">
+                                            <input type="text"
+											value="" id="" placeholder="必填">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdDataThree">備註</td>
+                                        <td class="tdDataBorde" colspan="3">
+                                            <div class="textnote">
+                                                備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。備註欄。
+                                            </div>
+                                        </td>
+                                    </tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- pills-2 end -->
+					</div>
+				</div>
+				<!-- tab結束 -->
+			</div>
+			<!-- content end  -->
+		</div>
+	</section>
+	<!-- dialog -->
+	<!-- Modal -->
+    <!-- 險種明細 -->
+	<div class="modal fade" id="ListModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">
+                        分出入合約險種分攤比率維護
+                    </h5>
+					<button id="_close_dialog" type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="foo">
+					<div id="example-table">
+                        <table class="tblCssDataGrid">
+                            <tbody>
+                                <tr class="cssDataGridHeader">
+                                <th>
+                                    <input id="check1" type="radio" name="radio" value="1">
+                                </th>
+                                <th>大險種</th>
+                                <th>30險種</th>
+                                <th>分攤比率(%)</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input id="check1" type="radio" name="radio" value="1">
+                                </td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value=""></option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value=""></option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" value="" placeholder="%">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+				</div>
+				<div class="modal-footer">
+                    <button type="button" class="btn btn-oneE">新增</button>
+                    <button type="button" class="btn btn-oneB">刪除</button>
+                    <button type="button" class="btn btn-oneF">儲存</button>
+					<button type="button" class="btn btn-oneG" data-dismiss="modal">放棄</button>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+    <!-- 第二再保人明細 -->
+    <div class="modal fade" id="secondModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">
+                        分出入合約險種分攤比率維護
+                    </h5>
+					<button id="_close_dialog" type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="foo">
+					<div id="example-table">
+                        <table class="tblCssDataGrid">
+                            <tbody>
+                                <tr class="cssDataGridHeader">
+                                <th>
+                                    <input id="check1" type="radio" name="radio" value="1">
+                                </th>
+                                <th>第二再保人</th>
+                                <th>分保率(%)</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input id="check1" type="radio" name="radio" value="1">
+                                </td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value=""></option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text"
+                                    value="" id="" placeholder="必填" >
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+				</div>
+				<div class="modal-footer">
+                    <button type="button" class="btn btn-oneE">新增</button>
+                    <button type="button" class="btn btn-oneB">刪除</button>
+                    <button type="button" class="btn btn-oneF">儲存</button>
+					<button type="button" class="btn btn-oneG" data-dismiss="modal">放棄</button>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+<!-- 功能使用的js，建議放置在html最尾 -->
+</html>

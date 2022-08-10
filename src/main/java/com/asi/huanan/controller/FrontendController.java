@@ -39,7 +39,7 @@ public class FrontendController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/login")
+	@RequestMapping(path = "/login", method = RequestMethod.GET)
 	public String login() {
 		log.info("---initail login page---");
 		return "public/login";
@@ -51,7 +51,7 @@ public class FrontendController {
 	 * @param directUrl
 	 * @return
 	 */
-	@RequestMapping("/{directUrl}")
+	@RequestMapping(path = "/{directUrl}", method = RequestMethod.GET)
 	public String directUrl(@PathVariable(value = "directUrl", required = true) String directUrl) {
 		return "public/" + directUrl;
 	}

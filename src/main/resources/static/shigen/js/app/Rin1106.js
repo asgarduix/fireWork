@@ -8,6 +8,9 @@ $(function(){
 function queryRin1106(){
 	
 	//搜尋時，結束目前tabulator的編輯狀態
+	if(table1106.tableMode){
+		$("#table1106-cancel").click();
+	}
 	let param = {}
 	
 	let parJson = JSON.stringify(param);
@@ -16,11 +19,12 @@ function queryRin1106(){
 	
 	if('000' === res.status){
 		
-		loadData("table1106", res.data, {type:"dataCount", value:15})
+		loadData("table1106", res.data, {type:"dataCount", value:7})
 
 	}else{
 		alert("「慕尼黑地區設定資料」失敗!!!請聯絡管理人員!!!");
 	}
+
 
 	
 }
@@ -29,10 +33,10 @@ function queryRin1106(){
 //tabulator欄位設置
 let columns1106 = [
 	["checkbox", { showBtn: true }],
-	["txtnatural_id", "天災區域代號", "input", { width: "20%" }],
-    ["txtcity_name", "縣市名稱", "input", { width: "30%" }],
-    ["txtmunich_id", "慕尼黑地區代號", "input", { width: "20%" }],
-    ["txtmunich_desc", "慕尼黑地區說明", "input",{ width: "30%"}]
+	["txtnatural_id", "天災區域代號", "input"],
+    ["txtcity_name", "縣市名稱", "input"],
+    ["txtmunich_id", "慕尼黑地區代號", "input"],
+    ["txtmunich_desc", "慕尼黑地區說明", "input"]
 ];
 
 //tabulator欄位格式製作
@@ -45,9 +49,9 @@ let tableConfigs = {}
 let tableRelatedBtns = [
     {
         type: "add",
-        name: "新增",
-        class: "class-name",
-        position: "#table1106-btn",
+        name: "",
+        class: "add-btn-custom",
+        position: "#table1106addBtn",
         getDefaultData: function () {
 
             return {
@@ -66,13 +70,13 @@ let tableRelatedBtns = [
     {
         type: "edit",
         name: "修改",
-        class: "class-name",
+        class: "btn btn-oneE",
         position: "#table1106-btn",
     },
     {
         type: "del",
         name: "刪除",
-        class: "class-name",
+        class: "btn btn-oneG",
         position: "#table1106-btn",
         delApi: function (rowsDataArry) {
         	
@@ -95,7 +99,7 @@ let tableRelatedBtns = [
     {
         type: "save",
         name: "儲存",
-        class: "class-name",
+        class: "btn btn-oneD",
         position: "#table1106-btn",
         nullSpaceCheck: true,rules:{},
         addSaveApi: function (rowData) {
@@ -118,7 +122,7 @@ let tableRelatedBtns = [
         },
         editSaveApi: function (oldData, newData, newDataJson) {
 
-        	//比對新舊資料，若一樣則不做任何事情   	
+        	//比對新舊資料，若資料沒有變更則不做任何事情   	
         	if(isSameArray(oldData, newData)){
         		
         		return { isSuccess: true }

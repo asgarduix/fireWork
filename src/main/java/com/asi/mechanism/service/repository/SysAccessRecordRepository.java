@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.asi.mechanism.service.connector.MyBatisConnector;
 import com.asi.mechanism.service.dao.mybatis.mapper.SysAccessRecordMapper;
 import com.asi.mechanism.service.dao.mybatis.model.SysAccessRecord;
+import com.asi.mechanism.service.dao.mybatis.model.SysAccessRecordExample;
 
 @Repository
 public class SysAccessRecordRepository {
@@ -300,20 +301,20 @@ public class SysAccessRecordRepository {
 		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
 		List<SysAccessRecord> returnList = null;
 		try {
-//            SysAccessRecordMapper mapper = sqlSession.getMapper(SysAccessRecordMapper.class);
-//            SysAccessRecordExample xp = new SysAccessRecordExample();
+			SysAccessRecordMapper mapper = sqlSession.getMapper(SysAccessRecordMapper.class);
+			SysAccessRecordExample xp = new SysAccessRecordExample();
 //            Criteria criteria = xp.createCriteria();
 //            if (StringUtils.isNotBlank(model.get{VAR_NAME}()))
 //            {
 //            criteria.and{VAR_NAME}EqualTo(model.get{VAR_NAME}());
 //            }
-//			
-//            // if (StringUtils.isNotBlank(model.getJobName()))
-//            // {
-//            // criteria.andJobNameEqualTo(model.getJobName());
-//            // }
-//            // returnList = mapper.selectByExample(xp);
-//            log.debug(returnList == null ? "returnList is null" : "筆數:" + returnList.size());
+
+			// if (StringUtils.isNotBlank(model.getJobName()))
+			// {
+			// criteria.andJobNameEqualTo(model.getJobName());
+			// }
+			returnList = mapper.selectByExample(xp);
+			log.debug(returnList == null ? "returnList is null" : "筆數:" + returnList.size());
 		} catch (Exception e) {
 			sqlSession.rollback();
 			throw e;
@@ -329,20 +330,20 @@ public class SysAccessRecordRepository {
 	public List<SysAccessRecord> queryBySysAccessRecord(final SysAccessRecord model, SqlSession sqlSession)
 			throws Exception {
 		List<SysAccessRecord> returnList = null;
-//            SysAccessRecordMapper mapper = sqlSession.getMapper(SysAccessRecordMapper.class);
-//            SysAccessRecordExample xp = new SysAccessRecordExample();
+		SysAccessRecordMapper mapper = sqlSession.getMapper(SysAccessRecordMapper.class);
+		SysAccessRecordExample xp = new SysAccessRecordExample();
 //            Criteria criteria = xp.createCriteria();
 //            if (StringUtils.isNotBlank(model.get{VAR_NAME}()))
 //            {
 //            criteria.and{VAR_NAME}EqualTo(model.get{VAR_NAME}());
 //            }
-//			
-//            // if (StringUtils.isNotBlank(model.getJobName()))
-//            // {
-//            // criteria.andJobNameEqualTo(model.getJobName());
-//            // }
-//            // returnList = mapper.selectByExample(xp);
-//            log.debug(returnList == null ? "returnList is null" : "筆數:" + returnList.size());
+
+		// if (StringUtils.isNotBlank(model.getJobName()))
+		// {
+		// criteria.andJobNameEqualTo(model.getJobName());
+		// }
+		returnList = mapper.selectByExample(xp);
+		log.debug(returnList == null ? "returnList is null" : "筆數:" + returnList.size());
 		return returnList;
 	}
 

@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="../../shigen/plugin/bootstrap/bootstrap-grid-customizing.css">
 <!-- table tabulator -->
 <script type="text/javascript" src="../../shigen/plugin/tabulator.min.js"></script>
+<script src="../../shigen/js/loadingoverlay.min.js"></script>
 <!-- fontawsome -->
 <script defer src="../../shigen/fonts/js/all.min.js"></script>
 <link href="../../shigen/fonts/css/all.css" rel="stylesheet">
@@ -34,7 +35,12 @@
 <script src="../../shigen/js/common.js"></script>
 <script src="../../shigen/js/appglobal.js"></script>
 <script src="../../shigen/js/sys/glob4UiAuth.js"></script>
-<!-- <script type="text/javascript" src="../../shigen/js/app/policyChangeAppl.js"></script> -->
+
+<script src="../../shigen/js/yf/fireTableColumns.js"></script>
+<script src="../../shigen/js/yf/fireTable.js"></script>
+<link rel="stylesheet" href="../../shigen/css/fireTableCustom.css">
+<link rel="stylesheet" href="../../shigen/css/fireTablePaginator.css">
+<script src="../../shigen/plugin/numeral.js"></script>
 </head>
 
 <body>
@@ -43,18 +49,21 @@
 		<div class="ajax-section-main"></div>
 		<div class="container-fluid">
 			<div class="content">
-				<div class="bread-crumbs">
-					<a href="">火險作業</a>
-				</div>
 				<div class="big_title title s1">Rin1204自動分保</div>
-
-				<table class="tblDataArea tblInquireArea" cellspacing="0" cellpadding="0" width="100%">
+				<div class="row-group">
+					<div class="row">
+						<div class="col-12 content_function_bar"></div>
+					</div>
+				</div>
+				<div class="Greybg">
+					<div class="redClu">
+				<table class="tblDataArea" cellspacing="0" cellpadding="0" width="100%">
 					<tbody>
 						<tr>
 							<td class="tdDataCaption" rowspan="2">啟動狀態</td>
 							<td class="tdDataField">
 								<span class="checkbox_box ml-2">
-									<input id="check1" type="radio" name="radio">
+									<input id="check1" type="radio" name="radio" value="1">
 									<label for="check1">立即執行</label>
 								</span>
 							</td>
@@ -62,44 +71,44 @@
 						<tr>
 							<td class="tdDataField">
 								<span class="checkbox_box ml-2">
-									<input id="check2" type="radio" name="radio">
+									<input id="check2" type="radio" name="radio" value="2">
 									<label for="check2">排程執行</label>
 								</span>
 								開始日期
-								<input type="text" value="" id="" style="width: 10%;" placeholder="">
+								<input type="text" value="" id="submitTime" style="width: 10%;" autocomplete="off" maxlength="10">
 								開始時間
-								<select name="" style="width: 80px;" id="">
+								<select name="" style="width: 80px;" id="ddl_HH">
 									<option value="">24</option>
 								</select>
-								<select name="" style="width: 80px;" id="">
+								<select name="" style="width: 80px;" id="ddl_mm">
 									<option value="">30</option>
 								</select>
-								<select name="" style="width: 80px;" id="">
+								<select name="" style="width: 80px;" id="ddl_ss">
 									<option value="">59</option>
 								</select>
 							</td>
 						</tr>
 					</tbody>
-				</table>
+				</table></div>
 				<div class="divspace"></div>
 				<table class="tblDataArea tblInquireArea" cellspacing="0" cellpadding="0" width="100%">
 					<tbody>
 						<tr>
 							<td class="tdDataAnther">合約年度</td>
 							<td class="tdDataTrip" colspan="3">
-								<input type="text" value="" id="" style="width: 20%;" placeholder="2004">
+								<input type="text" value="" id="txt_treaty_year" style="width: 20%;" maxlength="4" >
 							</td>
 						</tr>
 						<tr>
 							<td class="tdDataAnther">本次分保日期區間</td>
 							<td class="tdDataTrip">
-								<input class="mingo data_time" name="" type="text" style="width: 20%;" maxlength="10" size="10" id="UcRocDbgn">
+								<input name="" type="text" style="width: 20%;" maxlength="10" size="10" id="UcRocDbgn" autocomplete="off">
 								<!-- <button title="選擇日期" class="" >...</button> -->
 								<input name="" id="" style="width: 20%;" type="hidden" value="true">
 								<span id="UcRocDbgn_txtDate" style="color: Red; display: none;">日期格式錯誤</span>
 								<span id="" style="color: Red; display: none;"></span>
 								~
-								<input class="mingo data_time" name="" style="width: 20%;" type="text" maxlength="10" size="10" id="UcRocDend">
+								<input name="" style="width: 20%;" type="text" maxlength="10" size="10" id="UcRocDend" autocomplete="off">
 								<!-- <button title="選擇日期" class="" >...</button> -->
 								<input name="" id="" type="hidden" value="true">
 								<span id="UcRocDend_txtDate" style="color: Red; display: none;">日期格式錯誤</span>
@@ -109,61 +118,65 @@
 						<tr>
 							<td class="tdDataAnther">同險代號</td>
 							<td class="tdDataTrip">
-								<input type="text" value="" id="" style="width: 20%;" placeholder="5231000004">
+								<input type="text" value="" id="txt_risk_no" style="width: 20%;" maxlength="11">
 								<span>(全部：99999999999)</span>
 							</td>
 						</tr>
 					</tbody>
 				</table>
+                </div> 
 				<div class="divspace"></div>
 				<div class="row justify-content-center">
-					<button class="btn btn-oneC">執行自動分保</button>
+					<button class="btn btn-oneC" id="autoReinsurance">執行自動分保</button>
 				</div>
 				<h3>
 					同險未處理保單
 					<span>
-						<button class="btn btn-oneD">匯出資料</button>
+						<button class="btn btn-oneD" id="exportData">匯出資料</button>
 					</span>
 				</h3>
-				<div class="divspace"></div>
-				<table class="tblCssDataGrid">
-					<tbody>
-						<tr class="cssDataGridHeader">
-							<th>
-								<a href="">地段代號</a>
-							</th>
-							<th>
-								<a href="">保單號碼</a>
-							</th>
-							<th>
-								<a href="">批單號碼</a>
-							</th>
-							<th>
-								<a href="">明細</a>
-							</th>
-							<th>
-								<a href="">地址</a>
-							</th>
-							<th>
-								<a href="">郵遞區號</a>
-							</th>
-							<th>
-								<a href="">文字</a>
-							</th>
-							<th></th>
-						</tr>
-						<tr>
-							<td>0090FA9000033</td>
-							<td>1</td>
-							<td></td>
-							<td>305</td>
-							<td>新竹縣新埔鎮亞東路100號、12...</td>
-							<td>0092E0F0131</td>
-							<td></td>
-						</tr>
-					</tbody>
-				</table>
+<!-- 				<div class="divspace"></div> -->
+<!-- 				<table class="tblCssDataGrid"> -->
+<!-- 					<tbody> -->
+<!-- 						<tr class="cssDataGridHeader"> -->
+<!-- 							<th> -->
+<!-- 								<a href="">地段代號</a> -->
+<!-- 							</th> -->
+<!-- 							<th> -->
+<!-- 								<a href="">保單號碼</a> -->
+<!-- 							</th> -->
+<!-- 							<th> -->
+<!-- 								<a href="">批單號碼</a> -->
+<!-- 							</th> -->
+<!-- 							<th> -->
+<!-- 								<a href="">明細</a> -->
+<!-- 							</th> -->
+<!-- 							<th> -->
+<!-- 								<a href="">地址</a> -->
+<!-- 							</th> -->
+<!-- 							<th> -->
+<!-- 								<a href="">郵遞區號</a> -->
+<!-- 							</th> -->
+<!-- 							<th> -->
+<!-- 								<a href="">文字</a> -->
+<!-- 							</th> -->
+<!-- 							<th></th> -->
+<!-- 						</tr> -->
+<!-- 						<tr> -->
+<!-- 							<td>0090FA9000033</td> -->
+<!-- 							<td>1</td> -->
+<!-- 							<td></td> -->
+<!-- 							<td>305</td> -->
+<!-- 							<td>新竹縣新埔鎮亞東路100號、12...</td> -->
+<!-- 							<td>0092E0F0131</td> -->
+<!-- 							<td></td> -->
+<!-- 						</tr> -->
+<!-- 					</tbody> -->
+<!-- 				</table> -->
 			</div>
+			<div class="Greybg">
+			<div id="table1204"></div>
+		    </div>
 			<!-- content end  -->
 		</div>
 	</section>
@@ -190,5 +203,5 @@
 	</div>
 </body>
 <!-- 功能使用的js，建議放置在html最尾 -->
-<script type="text/javascript"></script>
+<script type="text/javascript" src="../../shigen/js/app/Rin1204.js"></script>
 </html>

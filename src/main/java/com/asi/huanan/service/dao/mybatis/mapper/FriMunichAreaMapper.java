@@ -8,8 +8,8 @@ import org.apache.ibatis.annotations.Select;
 
 import com.asi.huanan.service.dao.mybatis.model.FriMunichArea;
 import com.asi.huanan.service.dao.mybatis.model.FriMunichAreaExample;
-import com.asi.huanan.vo.DeleteMunichVo;
-import com.asi.huanan.vo.Rin1106Vo;
+import com.asi.huanan.vo.Rin1106DeleteMunichVOReq;
+import com.asi.huanan.vo.Rin1106VOReq;
 
 public interface FriMunichAreaMapper {
     /**
@@ -105,7 +105,7 @@ public interface FriMunichAreaMapper {
     		+ "munich_id as txtmunich_id, munich_desc as txtmunich_desc "
     		+ "from fri_munich_area</script>")
     
-    List<Rin1106Vo> queryAllFor1106();
+    List<Rin1106VOReq> queryAllFor1106();
     
     
     @Delete("<script> delete from fri_munich_area where "
@@ -114,5 +114,5 @@ public interface FriMunichAreaMapper {
     		+ "</foreach>"  
     		+ "</script>")
     
-    int deleteMunichsByPkList(@Param("record") List<DeleteMunichVo> record);
+    int deleteMunichsByPkList(@Param("record") List<Rin1106DeleteMunichVOReq> record);
 }

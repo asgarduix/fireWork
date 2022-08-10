@@ -1,9 +1,9 @@
 //tabulator欄位設置
 let columns1105 = [
 	["checkbox", { showBtn: true }],
-	["txttreaty_year", "合約年度", "input", { width: "30%" }],
-    ["txtlimit_id", "限額代號", "input", { width: "30%" }],
-    ["numlimit_amount", "限額", "money1",{ width: "35%"}]
+	["txttreaty_year", "合約年度", "input"],
+    ["txtlimit_id", "限額代號", "input"],
+    ["numlimit_amount", "限額", "money1"]
 ];
 
 //tabulator欄位格式製作
@@ -16,9 +16,9 @@ let tableConfigs = {}
 let tableRelatedBtns = [
     {
         type: "add",
-        name: "新增",
-        class: "class-name",
-        position: "#table1105-btn",
+        name: "",
+        class: "add-btn-custom",
+        position: "#table1105addBtn",
         getDefaultData: function () {
 
             return {
@@ -37,19 +37,19 @@ let tableRelatedBtns = [
     {
         type: "edit",
         name: "修改",
-        class: "class-name",
+        class: "btn btn-oneE",
         position: "#table1105-btn",
     },
     {
         type: "copy",
         name: "複製",
-        class: "class-name",
+        class: "btn btn-oneF",
         position: "#table1105-btn",
     },
     {
         type: "del",
         name: "刪除",
-        class: "class-name",
+        class: "btn btn-oneG",
         position: "#table1105-btn",
         delApi: function (rowsDataArry) {
         	
@@ -72,7 +72,7 @@ let tableRelatedBtns = [
     {
         type: "save",
         name: "儲存",
-        class: "class-name",
+        class: "btn btn-oneD",
         position: "#table1105-btn",
         nullSpaceCheck: true,rules:{},
         addSaveApi: function (rowData) {
@@ -134,7 +134,7 @@ let table1105 = createTable("table1105", colsFormat, tableConfigs, tableRelatedB
 
 
 
-//查詢
+//查詢鈕
 function btnQueryRin1105(){
 	
 	//搜尋時，結束目前tabulator的編輯狀態
@@ -153,7 +153,7 @@ function btnQueryRin1105(){
 	
 	if('000' === res.status){
 		
-		loadData("table1105", res.data, {type:"dataCount", value:15})
+		loadData("table1105", res.data, {type:"dataCount", value:6})
 
 	}else{
 		alert("「限額資料查詢」失敗!!!請聯絡管理人員!!!");

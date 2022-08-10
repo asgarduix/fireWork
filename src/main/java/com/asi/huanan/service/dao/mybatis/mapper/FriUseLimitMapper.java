@@ -1,15 +1,14 @@
 package com.asi.huanan.service.dao.mybatis.mapper;
 
-import com.asi.huanan.service.dao.mybatis.model.FriUseLimit;
-import com.asi.huanan.service.dao.mybatis.model.FriUseLimitExample;
-import com.asi.huanan.vo.DeleteTreatyVo;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+
+import com.asi.huanan.service.dao.mybatis.model.FriUseLimit;
+import com.asi.huanan.service.dao.mybatis.model.FriUseLimitExample;
 
 public interface FriUseLimitMapper {
     /**

@@ -9,8 +9,8 @@ import org.apache.ibatis.annotations.Select;
 import com.asi.huanan.service.dao.mybatis.model.FriTreatyShareOrder;
 import com.asi.huanan.service.dao.mybatis.model.FriTreatyShareOrderExample;
 import com.asi.huanan.service.dao.mybatis.model.FriTreatyShareOrderKey;
-import com.asi.huanan.vo.DeleteTreatyShareOrderVo;
-import com.asi.huanan.vo.Rin1108Vo;
+import com.asi.huanan.vo.Rin1108DeleteTreatyShareOrderVOReq;
+import com.asi.huanan.vo.Rin1108VOResp;
 
 public interface FriTreatyShareOrderMapper {
     /**
@@ -110,7 +110,7 @@ public interface FriTreatyShareOrderMapper {
     		+ "and policy_type like concat(#{policyType,jdbcType=VARCHAR},'%')"
     		+ "</script>")
     
-    List<Rin1108Vo> queryTreatyShareOrderList(@Param("treatyYear") String treatyYear, @Param("policyType") String policyType);
+    List<Rin1108VOResp> queryTreatyShareOrderList(@Param("treatyYear") String treatyYear, @Param("policyType") String policyType);
     
     
     @Delete("<script> delete from fri_treaty_share_order where "
@@ -120,7 +120,7 @@ public interface FriTreatyShareOrderMapper {
     		+ "</foreach>"  
     		+ "</script>")    
     
-    int deleteTreadyShareOrdersByPkList(@Param("record") List<DeleteTreatyShareOrderVo> record);
+    int deleteTreadyShareOrdersByPkList(@Param("record") List<Rin1108DeleteTreatyShareOrderVOReq> record);
     
     
     

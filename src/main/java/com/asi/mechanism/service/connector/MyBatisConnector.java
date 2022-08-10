@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -16,6 +17,8 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import com.asi.huanan.service.dao.mybatis.mapper.customerize.Rin1304Mapper;
+
 @Configuration
 public class MyBatisConnector {
 
@@ -24,7 +27,14 @@ public class MyBatisConnector {
 	// @Autowired
 	// @Qualifier("seccondDataSource")
 	// private DataSource dataSource;
-
+	
+	@Value("${spring.datasource.first.username}")
+	private String firstDBUserName;
+	
+	@Value("${spring.datasource.first.password}")
+	private String firstDBPassword;
+	
+	
 	@Bean
 	@Primary
 	@ConfigurationProperties("spring.datasource.first")
@@ -36,7 +46,10 @@ public class MyBatisConnector {
 	@Primary
 	@ConfigurationProperties("spring.datasource.first.hikari")
 	public DataSource dataSource() {
-		return dataSourceProperties().initializeDataSourceBuilder().build();
+		DataSourceProperties dsp= dataSourceProperties();
+		dsp.setUsername(firstDBUserName);
+		dsp.setPassword(firstDBPassword);
+		return dsp.initializeDataSourceBuilder().build();
 	}
 
 	/**
@@ -56,6 +69,11 @@ public class MyBatisConnector {
 		sqlSessionFactoryBean.setDataSource(this.dataSource());
 		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 		sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:" + "mapper" + "/*.xml"));
+
+		// 註冊customer（客製化SQL）的Mapper
+		org.apache.ibatis.session.Configuration config = sqlSessionFactoryBean.getObject().getConfiguration();
+		config.addMapper(Rin1304Mapper.class);
+
 		return sqlSessionFactoryBean.getObject();
 	}
 

@@ -321,20 +321,20 @@ public class SysFuncUiButtonRoleRepository {
 		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
 		List<SysFuncUiButtonRole> returnList = null;
 		try {
-//            SysFuncUiButtonRoleMapper mapper = sqlSession.getMapper(SysFuncUiButtonRoleMapper.class);
-//            SysFuncUiButtonRoleExample xp = new SysFuncUiButtonRoleExample();
+			SysFuncUiButtonRoleMapper mapper = sqlSession.getMapper(SysFuncUiButtonRoleMapper.class);
+			SysFuncUiButtonRoleExample xp = new SysFuncUiButtonRoleExample();
 //            Criteria criteria = xp.createCriteria();
 //            if (StringUtils.isNotBlank(model.get{VAR_NAME}()))
 //            {
 //            criteria.and{VAR_NAME}EqualTo(model.get{VAR_NAME}());
 //            }
-//			
-//            // if (StringUtils.isNotBlank(model.getJobName()))
-//            // {
-//            // criteria.andJobNameEqualTo(model.getJobName());
-//            // }
-//            // returnList = mapper.selectByExample(xp);
-//            log.debug(returnList == null ? "returnList is null" : "筆數:" + returnList.size());
+
+			// if (StringUtils.isNotBlank(model.getJobName()))
+			// {
+			// criteria.andJobNameEqualTo(model.getJobName());
+			// }
+			returnList = mapper.selectByExample(xp);
+			log.debug(returnList == null ? "returnList is null" : "筆數:" + returnList.size());
 		} catch (Exception e) {
 			sqlSession.rollback();
 			throw e;

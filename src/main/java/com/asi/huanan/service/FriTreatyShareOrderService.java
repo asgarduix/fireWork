@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import com.asi.huanan.service.dao.mybatis.mapper.FriTreatyShareOrderMapper;
 import com.asi.huanan.service.dao.mybatis.model.FriTreatyShareOrder;
 import com.asi.huanan.service.repository.FriTreatyShareOrderRepository;
-import com.asi.huanan.vo.DeleteTreatyShareOrderVo;
-import com.asi.huanan.vo.Rin1108Vo;
+import com.asi.huanan.vo.Rin1108DeleteTreatyShareOrderVOReq;
+import com.asi.huanan.vo.Rin1108VOResp;
 
 @Service
 public class FriTreatyShareOrderService {
@@ -31,7 +31,7 @@ public class FriTreatyShareOrderService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteTreadyShareOrdersByPkList(final List<DeleteTreatyShareOrderVo> model) throws Exception {
+	public int deleteTreadyShareOrdersByPkList(final List<Rin1108DeleteTreatyShareOrderVOReq> model) throws Exception {
 		return repository.deleteTreadyShareOrdersByPkList(model);
 	}
 
@@ -42,7 +42,7 @@ public class FriTreatyShareOrderService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Rin1108Vo> queryTreatyShareOrderList(final String treatyYear, final String policyType)
+	public List<Rin1108VOResp> queryTreatyShareOrderList(final String treatyYear, final String policyType)
 			throws Exception {
 		return repository.queryTreatyShareOrderList(treatyYear, policyType);
 	}

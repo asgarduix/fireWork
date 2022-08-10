@@ -11,8 +11,9 @@ import org.springframework.stereotype.Service;
 import com.asi.huanan.service.dao.mybatis.mapper.FriRetainLimitMapper;
 import com.asi.huanan.service.dao.mybatis.model.FriRetainLimit;
 import com.asi.huanan.service.repository.FriRetainLimitRepository;
-import com.asi.huanan.vo.DeleteRetainVo;
-import com.asi.huanan.vo.Rin1105Vo;
+import com.asi.huanan.vo.Rin1105DeleteRetainVOReq;
+import com.asi.huanan.vo.Rin1105VOResp;
+import com.asi.huanan.vo.Rin1304QueryLimitVO;
 
 @Service
 public class FriRetainLimitService {
@@ -30,7 +31,7 @@ public class FriRetainLimitService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteRetainsByPkList(final List<DeleteRetainVo> modelList) throws Exception {
+	public int deleteRetainsByPkList(final List<Rin1105DeleteRetainVOReq> modelList) throws Exception {
 		return repository.deleteRetainsByPkList(modelList);
 	}
 	//...
@@ -41,7 +42,7 @@ public class FriRetainLimitService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Rin1105Vo> queryRetainList(final String treatyYear, final String limitId) throws Exception {
+	public List<Rin1105VOResp> queryRetainList(final String treatyYear, final String limitId) throws Exception {
 		return repository.queryRetainList(treatyYear, limitId);
 	}
 	//==========
@@ -288,5 +289,16 @@ public class FriRetainLimitService {
 	 */
 	public long queryCount(FriRetainLimit model, SqlSession sqlSession) throws Exception {
 		return repository.queryCount(model, sqlSession);
+	}
+	/**
+	 * Rin1304_保批單明細畫面_查詢保單限額、限額代號、限額
+	 * @param policyYear
+	 * @param propCode
+	 * @param constClass
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Rin1304QueryLimitVO> queryLimit(String policyYear, String propCode, String constClass)throws Exception {
+		return repository.queryLimit(policyYear,propCode,constClass);
 	}
 }

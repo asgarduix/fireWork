@@ -1,90 +1,105 @@
 spring:
-   #此設定檔之設定可視為sit、uat、prod為同一環境，因均使用k8s或ocp等雲端平台，可使用環境變數切換設定
-   config:
+  config:
     activate:
       on-profile: k8s
-   datasource:
-      first:
-         url: ${DB1_URL}
-         username: ${DB1_USERNAME}
-         password: ${DB1_PASSWORD}
-         driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-         hikari:
-            minimum-idle: 10
-            maximum-pool-size: 25
-            auto-commit: true
-            idle-timeout: 35000
-            pool-name: ExpendHikariCP
-            max-lifetime: 288000000
-            connection-timeout: 60000
-            connection-test-query: SELECT 1
-            keepaliveTime: 30000
-      second:
-         url: ${DB2_URL}
-         username: ${DB2_USERNAME}
-         password: ${DB2_PASSWORD}
-         driver-class-name: com.informix.jdbc.IfxDriver
-         hikari:
-            minimum-idle: 10
-            maximum-pool-size: 25
-            auto-commit: true
-            idle-timeout: 235000
-            pool-name: ExpendHikariCP2
-            max-lifetime: 288000000
-            connection-timeout: 120000
-            connection-test-query: select count(*) from (select FIRST 1 owner_id from tapo)
-            keepaliveTime: 990000
-      third:
-         url: 'jdbc:sqlite::memory:'
-         #url: 'jdbc:sqlite:litedb.db'
-         username: 
-         password: 
-         driver-class-name: org.sqlite.JDBC
-         hikari:
-            minimum-idle: 10
-            maximum-pool-size: 25
-            auto-commit: true
-            idle-timeout: 35000
-            pool-name: ExpendHikariCP3
-            max-lifetime: 288000000
-            connection-timeout: 30000
-            connection-test-query: select 1
-            keepaliveTime: 30000
+  datasource:
+    first:
+      url: jdbc:sqlserver://192.168.5.205:1433;databaseName=SC_RIN; catalogName=life
+      username: sa
+      password: "!@34QWerASdf"
+      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      hikari:
+        minimum-idle: 10
+        maximum-pool-size: 25
+        auto-commit: false
+        idle-timeout: 35000
+        pool-name: ExpendHikariCP
+        max-lifetime: 288000000
+        connection-timeout: 60000
+        connection-test-query: SELECT 1
+        keepaliveTime: 30000
+#      second:
+#         url: jdbc:sqlserver://192.168.51.15:1433;databaseName=life; catalogName=life
+#         username: sa
+#         password: P@ssw0rd
+#         driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#         hikari:
+#            minimum-idle: 10
+#            maximum-pool-size: 25
+#            auto-commit: false
+#            idle-timeout: 35000
+#            pool-name: ExpendHikariCP
+#            max-lifetime: 288000000
+#            connection-timeout: 60000
+#            connection-test-query: SELECT 1
+#            keepaliveTime: 30000
+#      third:
+#         url: 'jdbc:sqlite::memory:'
+#         #url: 'jdbc:sqlite:litedb.db'
+#         username:
+#         password:
+#         driver-class-name: org.sqlite.JDBC
+#         hikari:
+#            minimum-idle: 10
+#            maximum-pool-size: 25
+#            auto-commit: true
+#            idle-timeout: 35000
+#            pool-name: ExpendHikariCP3
+#            max-lifetime: 288000000
+#            connection-timeout: 30000
+#            connection-test-query: select 1
+#            keepaliveTime: 30000
 #   devtools:
 #      livereload:
 #         port:  35731
 environments:
-   security:
-      #CORS開關，注意正式環境需關閉，true:關閉CORS阻擋的問題
-      allowCors:
-         switcher: ${ALLOW_CORS}
-         #switcher: false
-   project:
-      name: qrysys
-      url: ${PROJECT_DOMAIN}
-      protocol: ${PROTOCOL}
-      serviceType: frontend
-      #authorization的內容均為空，則專案將會自我產生token並自我檢查token
-      authorization:
-         server: 
-            domain: 
-            authen: 
-            checktoken: 
-            refreshtoken: 
-            refreshtokenchecktime: 
-            #種類:空-須加密密碼、ldap-無須加密密碼
-            type: 
-         #server: 
-         #   domain: ${AUTH_DOMAIN}
-         #   #domain: http://asiauthah-south-china.apps.ocp45.asgard.com.tw
-         #   authen: /authorization/authen
-         #   checktoken: /authorization/checktoken
-         #   refreshtoken: /authorization/authen/refresh
-         v   refreshtokenchecktime: /authorization/authen/refresh/checktime
-         #   #種類:空-須加密密碼、ldap-無須加密密碼
-         #   type: ldap
-server: 
-   port: 10127
+  security:
+    #CORS開關，注意正式環境需關閉，true:關閉CORS阻擋的問題
+    allowCors:
+      switcher: false
+  frontend_sep:
+    protocol: http://
+    url: localhost
+    port: 8080
+  project:
+    name: frontendfirereins
+    url: localhost
+    protocol: https://
+    serviceType: frontend
+    #authorization的內容均為空，則專案將會自我產生token並自我檢查token
+    authorization:
+      server:
+        domain: http://localhost:10999
+        #domain: http://asiauthah-south-china.apps.ocp45.asgard.com.tw
+        authen: /authorization/authen
+        checktoken: /authorization/checktoken
+        refreshtoken: /authorization/authen/refresh
+        refreshtokenchecktime: /authorization/authen/refresh/checktime
+        #種類:空-須加密密碼、ldap-無須加密密碼
+        type: ldap
+  schedule:
+    func:
+      #Rin1203_同險設定排程(使用cron語法)
+      rin1203: "0 0 11 * * ?"
+      #rin1203排程中使用的參數(注意!僅一個變數，並無參與排程時間的設定)
+      rin1203_var_year: "2"
+      rin1203_var_runtime: "11"
+      #Rin1204 自動分保排程器(每多少毫秒執行一次)
+      rin1204: 600000
+      #Rin1206 合約帳單/合約明細列印排程(每多少毫秒執行一次)
+      rin1206: 600000
+      #Rin1302 臨分到期通知列印_排程執行(每多少毫秒執行一次)
+      rin1302: 600000
+server:
+  port: 10127
+#  憑證，此僅供本機憑證使用
+#  port: 10433
+#  httpPort: 10127
+#  ssl:
+#    enabled: true
+#    key-store: classpath:freinsUAT.south-china.com.tw.p12
+#    key-store-password: fire
+#    key-store-type: PKCS12
 authentication:
   #category: tradition
   category: spring_security
@@ -95,9 +110,24 @@ authentication:
 ldap:
   base:
     dn:
-    - dc=asgard,dc=test,dc=com
-    - ou=Users_Java,dc=asgard,dc=test,dc=com
+      - dc=asgard,dc=test,dc=com
+      - ou=Users_Java,dc=asgard,dc=test,dc=com
     server:
       domainName: asgard.test.com
-  factory: com.sun.jndi.ldap.LdapCtxFactory
-  urls: ldap://192.168.5.209:389/
+  fac:
+  urls:
+smbSetting:
+  host: 192.168.51.15
+  username: ah
+  password: P@ssw0rd
+  uploadPath: smb://192.168.51.15/ah_sharefolder/
+  uploadPathForPdf: smb://192.168.51.15/ah_sharefolder/pdf/
+  uploadPathForTxt: smb://192.168.51.15/ah_sharefolder/txt/
+  uploadPathForExcel: smb://192.168.51.15/ah_sharefolder/xls/
+  #host: 192.168.220.62
+  #username: wtdomain\ah_sys
+  #password: Files@123
+  #uploadPath: smb://192.168.220.62/AHFiles/
+  #uploadPathForPdf: smb://192.168.220.62/AHFiles/pdf/
+  #uploadPathForTxt: smb://192.168.220.62/AHFiles/txt/
+  #uploadPathForExcel: smb://192.168.220.62/AHFiles/xls/

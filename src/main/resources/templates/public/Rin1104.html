@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="../../shigen/plugin/bootstrap/bootstrap-grid-customizing.css">
 <!-- table tabulator -->
 <script type="text/javascript" src="../../shigen/plugin/tabulator.min.js"></script>
+<script src="../../shigen/js/loadingoverlay.min.js"></script>
 <!-- fontawsome -->
 <script defer src="../../shigen/fonts/js/all.min.js"></script>
 <link href="../../shigen/fonts/css/all.css" rel="stylesheet">
@@ -42,22 +43,11 @@
 <script src="../../shigen/plugin/numeral.js"></script>
 
 <style>
-* {
-	box-sizing: border-box;
-}
 
-.tabulator-row.table-editable {
-	background-color: burlywood;
-}
+	#table1104addBtn{
+		height:30px;
+	}
 
-.cell-editable {
-	border: 2px solid black;
-	background-color: white;
-}
-
-.btn-hide {
-	display: none;
-}
 </style>
 </head>
 
@@ -67,19 +57,17 @@
 		<div class="ajax-section-main"></div>
 		<div class="container-fluid">
 			<div class="content">
-				<div class="bread-crumbs">
-					<a href="">火險作業</a>
-				</div>
 				<div class="big_title title s1">Rin1104-自留限額維護</div>
 				<div class="row-group">
 					<div class="row">
 						<div class="col-12 content_function_bar">
 							<button class="btn btn-titBlue" onclick="btnQueryRin1104();">查詢</button>
-<!-- 							<button class="btn btn-titBlue">新增</button> -->
 						</div>
 					</div>
 				</div>
-				<table class="tblDataArea tblInquireArea" cellspacing="0" cellpadding="0" width="100%">
+				<div class="Greybg">
+					<div class="redClu">
+				<table class="tblDataArear" cellspacing="0" cellpadding="0" width="100%">
 					<tbody>
 						<tr>
 							<td class="tdDataCaption">使用性質代碼</td>
@@ -89,107 +77,19 @@
 								<input type="text" value="" id="txtuse_prop_id">
 							</td>
 						</tr>
-						<!-- <tr>
-                            <td class="tdDataCaption">建築等級限額代號</td>
-                            <td class="tdDataField">
-                                特一<input type="text" style="width: 10%;" value="00" id="">
-                                特二<input type="text" style="width: 10%;" value="00" id="">
-                                頭等<input type="text" style="width: 10%;" value="00" id="">
-                                二等<input type="text" style="width: 10%;" value="00" id="">
-                                三等<input type="text" style="width: 10%;" value="00" id="">
-                            </td>
-                        </tr> -->
 					</tbody>
 				</table>
+			    </div>
 				<div class="divspace"></div>
-				<button class="TBo" onclick="add()">
-					<i class="fas fa-plus-square TFo"></i>
-				</button>
+				<div id="table1104addBtn"></div>
 				<div id="table1104-errMsg"></div>
 				<table class="tblCssDataGrid">
-<!-- 					<tbody> -->
-<!-- 						<tr class="cssDataGridHeader"> -->
-<!-- 							<th style="width: 40px;"> -->
-<!-- 								<a href=""> -->
-<!-- 									<input type="checkbox" name="Check" checked="checked"> -->
-<!-- 								</a> -->
-<!-- 							</th> -->
-<!-- 							<th> -->
-<!-- 								<a href="">使用性質代碼</a> -->
-<!-- 							</th> -->
-<!-- 							<th> -->
-<!-- 								<a href="">特一</a> -->
-<!-- 							</th> -->
-<!-- 							<th> -->
-<!-- 								<a href="">特二</a> -->
-<!-- 							</th> -->
-<!-- 							<th> -->
-<!-- 								<a href="">頭等</a> -->
-<!-- 							</th> -->
-<!-- 							<th> -->
-<!-- 								<a href="">二等</a> -->
-<!-- 							</th> -->
-<!-- 							<th> -->
-<!-- 								<a href="">三等</a> -->
-<!-- 							</th> -->
-<!-- 							<th> -->
-<!-- 								<a href="">露天</a> -->
-<!-- 							</th> -->
-<!-- 							<th></th> -->
-<!-- 						</tr> -->
-<!-- 						按下新增鈕會出先一行input -->
-<!-- 						<tr> -->
-<!-- 							<td> -->
-<!-- 								<a href=""> -->
-<!-- 									<input type="checkbox" value="" id=""> -->
-<!-- 								</a> -->
-<!-- 							</td> -->
-<!-- 							<td> -->
-<!-- 								<input type="text" value="" id=""placeholder="必填" class="addInp"> -->
-<!-- 							</td> -->
-<!-- 							<td> -->
-<!-- 								<input type="text" value="" id=""  class="addInp"> -->
-<!-- 							</td> -->
-<!-- 							<td> -->
-<!-- 								<input type="text" value="" id="" class="addInp"> -->
-<!-- 							</td> -->
-<!-- 							<td> -->
-<!-- 								<input type="text" value="" id=""  class="addInp"> -->
-<!-- 							</td> -->
-<!-- 							<td> -->
-<!-- 								<input type="text" value="" id="" class="addInp"> -->
-<!-- 							</td> -->
-<!-- 							<td> -->
-<!-- 								<input type="text" value="" id="" class="addInp"> -->
-<!-- 							</td> -->
-<!-- 							<td> -->
-<!-- 								<input type="text" value="" id=""  class="addInp"> -->
-<!-- 							</td> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<td> -->
-<!-- 								<input type="checkbox" name="Check" checked="checked"> -->
-<!-- 							</td> -->
-<!-- 							<td>A000108</td> -->
-<!-- 							<td>LA</td> -->
-<!-- 							<td>1B</td> -->
-<!-- 							<td>1C</td> -->
-<!-- 							<td>1D</td> -->
-<!-- 							<td>1D</td> -->
-<!-- 							<td>1D</td> -->
-<!-- 						</tr> -->
-<!-- 					</tbody> -->
 						<div id="table1104"></div>
 				</table>
-				<div class="divspace"></div>
-				<div id="example-table"></div>
-				<div class="divspace"></div>				
+				<div class="divspace"></div>			
 				<div class="row justify-content-center">
 				<div id="table1104-btn"></div>
-<!-- 					<button class="btn btn-oneD btn-hide" id="cancel" onclick="cancel()">取消</button> -->
-<!-- 					<button class="btn btn-oneE btn-hide" id="edit" onclick="edit()">修改</button> -->
-<!-- 					<button class="btn btn-oneB btn-hide" id="save" onclick="save()">儲存</button> -->
-<!-- 					<button class="btn btn-oneF btn-hide" id="del" onclick="del()">刪除</button> -->
+				</div>
 				</div>
 			</div>
 			<!-- content end  -->

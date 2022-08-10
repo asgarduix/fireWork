@@ -3,22 +3,18 @@ package com.asi.huanan.service.repository;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.asi.huanan.service.dao.mybatis.mapper.FriRiskMapper;
 import com.asi.huanan.service.dao.mybatis.mapper.FriUseLimitMapper;
-import com.asi.huanan.service.dao.mybatis.model.FriRiskExample;
 import com.asi.huanan.service.dao.mybatis.model.FriUseLimit;
 import com.asi.huanan.service.dao.mybatis.model.FriUseLimitExample;
 import com.asi.huanan.service.dao.mybatis.model.FriUseLimitExample.Criteria;
-import com.asi.huanan.vo.Rin1107Vo;
 import com.asi.mechanism.service.connector.MyBatisConnector;
-
-import org.apache.commons.lang3.StringUtils;
 
 @Repository
 public class FriUseLimitRepository {
@@ -117,34 +113,6 @@ public class FriUseLimitRepository {
 	}
 	
 	
-	/**
-	 * 
-	 */
-	public List<FriUseLimit> queryByModelBetweenSize(final FriUseLimit model, String orderByColNm1, String ascOrDesc, int pageSize, int pageNum)
-			throws Exception {
-		SqlSession sqlSession = mybatis.createSqlSessionFactory().openSession();
-		List<FriUseLimit> returnList = null;
-
-		try {
-			//Integer[] a = CalculatorUtil.caculatorPageStartEndNum(pageSize, pageNum);
-
-			FriUseLimitMapper mapper = sqlSession.getMapper(FriUseLimitMapper.class);
-
-			//if (model.{GET} != null & !"".equals(model.{GET})) {
-			//	model.{SET}(model.{GET} + "%");
-			//}
-
-			//returnList = mapper.selectByParamBetweenSize(model.{GET}..., "CRT_TIME", "DESC", a[0], a[1]);
-
-			log.debug(returnList == null ? "returnList is null" : "筆數:" + returnList.size());
-		} catch(Exception e){
-			sqlSession.rollback();
-			throw e;
-		} finally {
-			sqlSession.close();
-		}
-		return returnList;
-	}
 	
 			/**
 	 * @param model

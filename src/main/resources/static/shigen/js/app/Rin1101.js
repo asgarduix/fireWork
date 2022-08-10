@@ -10,16 +10,18 @@ $(function(){
 				"rinComId":RINCOMID_1101A.searchHistory   //再保人代號	
 		}
 		
-		let parJson = JSON.stringify(param);
-		
 		//2-執行查詢
-		let res = ajaxPostByJsonParam("../../rin1101api/queryreiners", parJson, false);
-		
-		if("000" === res.status){
-			loadData("table1101", res.data, {type:"dataCount", value:15})
-		}else{
-			alert("「再保人代號查詢」失敗!!!請聯絡管理人員!!!");
-		}
+		ajaxRequestIsAsyncDynimicBytoken("../../rin1101api/queryreiners", true, false, param,     
+				(res) => {
+							if (res != null && "000" === res.status) {
+								loadData("table1101", res.data, {type:"dataCount", value:7})
+							}else{
+								alert("「再保人代號查詢」失敗!!!請聯絡管理人員!!!");
+							}
+				}, (error) => {
+								console.log(error);
+								alert("「再保人代號查詢」失敗!!!請聯絡管理人員!!!");
+				})
 		
 		//3-寫回再保人查詢input
 		$('#txtrin_com_id').val(RINCOMID_1101A.searchHistory);
@@ -32,6 +34,7 @@ $(function(){
 //明細按鈕設定
 let detailBtn = [{
 	name:"明細", 
+	class:"btn btn-oneA",
 	func:function(row){
 		let data = {
 				"rinComId" : row.getData().rinComId,					//再保人代號
@@ -44,11 +47,11 @@ let detailBtn = [{
 
 //tabulator欄位設置
 let columns1101 = [
-	[ "button","",detailBtn,{ width: "10%" }],
-	[ "rinComId", "再保人代號", "display",{ width: "25%" }],
-	[ "cname", "再保人中文名稱", "display",{ width: "25%" }],
-	[ "ename", "再保人英文名稱", "display",{ width: "25%" }],
-	[ "usemrk", "註銷日", "display",{ width: "15%" }]
+	[ "button","",detailBtn],
+	[ "rinComId", "再保人代號", "display"],
+	[ "cname", "再保人中文名稱", "display"],
+	[ "ename", "再保人英文名稱", "display"],
+	[ "usemrk", "註銷日", "display"]
 	
 ]
 
@@ -80,17 +83,19 @@ function btnQueryRin1101(){
 	let param = {
 		"rinComId":$('#txtrin_com_id').val().trim()   //再保人代號	
 	}
-	
-	let parJson = JSON.stringify(param);
-	
+
 	//2-執行查詢
-	let res = ajaxPostByJsonParam("../../rin1101api/queryreiners", parJson, false);
-	
-	if("000" === res.status){
-		loadData("table1101", res.data, {type:"dataCount", value:15})
-	}else{
-		alert("「再保人代號查詢」失敗!!!請聯絡管理人員!!!");
-	}
+	ajaxRequestIsAsyncDynimicBytoken("../../rin1101api/queryreiners", true, false, param,     
+			(res) => {
+						if (res != null && "000" === res.status) {
+							loadData("table1101", res.data, {type:"dataCount", value:7})
+						}else{
+							alert("「再保人代號查詢」失敗!!!請聯絡管理人員!!!");
+						}
+			}, (error) => {
+							console.log(error);
+							alert("「再保人代號查詢」失敗!!!請聯絡管理人員!!!");
+			})
 
 }
 
@@ -107,25 +112,27 @@ $("#txtrin_com_id").autocomplete({
     		"rinComId":$('#txtrin_com_id').val().trim()   //再保人代號	
     	}
     	
-    	let parJson = JSON.stringify(param);
-    	
     	//2-執行查詢
-    	let res = ajaxPostByJsonParam("../../rin1101api/autotenrcid", parJson, false);
-    	
-    	if("000" === res.status){
-    		
-    		//將查詢結果顯示在列表中
-    		response($.map(res.data, function (item) {
-    			return {
-    				
-    				label: item.rinComId, 	//列表所顯示的文字
-    				value: item.rinComId 	//列表選項的值
-    				
-    			};
-    		}));
-    	}else{
-    		alert("「再保人代號查詢」失敗!!!請聯絡管理人員!!!");
-    	}
+    	ajaxRequestIsAsyncDynimicBytoken("../../rin1101api/autotenrcid", true, false, param,     
+    			(res) => {
+    						if (res != null && "000" === res.status) {
+    							//將查詢結果顯示在列表中
+    				    		response($.map(res.data, function (item) {
+    				    			return {
+    				    				
+    				    				label: item.rinComId, 	//列表所顯示的文字
+    				    				value: item.rinComId 	//列表選項的值
+    				    				
+    				    			};
+    				    		}));
+    						}else{
+    							alert("「再保人代號查詢」失敗!!!請聯絡管理人員!!!");
+    						}
+    			}, (error) => {
+    							console.log(error);
+    							alert("「再保人代號查詢」失敗!!!請聯絡管理人員!!!");
+    			}, false)
+
     },
 //	focus參數事件介紹 : 在下拉選單匹配時如果滑鼠有焦點到會觸發事件
 //	下方是指當使用者只是焦點到某個選項就將名子帶#name輸入框中

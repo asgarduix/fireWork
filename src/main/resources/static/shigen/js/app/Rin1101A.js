@@ -27,18 +27,18 @@ function queryRin1101A(){
 		"rinComId" : RINCOMID_1101.rinComId	 //再保人代號		
 	} 
 	
-	let parJson = JSON.stringify(param);
-	
 	//2-執行查詢
-	let res = ajaxPostByJsonParam("../../rin1101aapi/queryonereiner", parJson, false);
-	
-	if("000" === res.status){
-		//3-顯示
-		writeFieldForRin1101A(res.data[0]);
-		
-	}else{
-		alert("「再保人代號」單筆查詢失敗!!!請聯絡管理人員!!!");
-	}
+	ajaxRequestIsAsyncDynimicBytoken("../../rin1101aapi/queryonereiner", true, false, param,     
+			(res) => {
+						if (res != null && "000" === res.status) {
+							writeFieldForRin1101A(res.data[0]);
+						}else{
+							alert("「再保人代號」單筆查詢失敗!!!請聯絡管理人員!!!");
+						}
+			}, (error) => {
+							console.log(error);
+							alert("「再保人代號」單筆查詢失敗!!!請聯絡管理人員!!!");
+			})
 		
 }
 
@@ -52,53 +52,57 @@ function writeFieldForRin1101A(cell){
 	$('#txtcname').val(cell.cname);						//再保人中文名稱
 	$('#txtacct_area').val(cell.acctArea);				//國別
 	//業務往來型態-1
-	switch(cell.favtyp){
-	case 'F':
-		$('#txtfavtyp').val("F:臨分");
-		break;
-	case 'T':
-		$('#txtfavtyp').val("T:合約");
-		break;
-	case 'B':
-		$('#txtfavtyp').val("B:合約及臨分");
-		break;
-	default:
-		$('#txtfavtyp').val("");
+	if(cell.favtyp){		
+		switch(cell.favtyp.trim()){
+		case 'F':
+			$('#txtfavtyp').val("F:臨分");
+			break;
+		case 'T':
+			$('#txtfavtyp').val("T:合約");
+			break;
+		case 'B':
+			$('#txtfavtyp').val("B:合約及臨分");
+			break;
+		default:
+			$('#txtfavtyp').val("");
+		}
 	}
 	
 	//業務往來型態-2
-	switch(cell.inout){
-	case 'A':
-		$('#txtinout').val("A:分入");
-		break;
-	case 'C':
-		$('#txtinout').val("C:分出");
-		break;
-	case 'B':
-		$('#txtinout').val("B:中性業務(中止使用)");
-		break;
-	case 'T':
-		$('#txtinout').val("T:分出及分入");
-		break;
-	default:
-		$('#txtinout').val("");
+	if(cell.inout){		
+		switch(cell.inout.trim()){
+		case 'A':
+			$('#txtinout').val("A:分入");
+			break;
+		case 'C':
+			$('#txtinout').val("C:分出");
+			break;
+		case 'B':
+			$('#txtinout').val("B:中性業務(中止使用)");
+			break;
+		case 'T':
+			$('#txtinout').val("T:分出及分入");
+			break;
+		default:
+			$('#txtinout').val("");
+		}
 	}
 	
 
 	//業務往來部門
-	if("Y" == cell.carmrk){		
+	if(cell.carmrk && "Y" == cell.carmrk.trim()){		
 		$('#ChkCheckbox_carmrk').prop("checked", true);	//車險
 	}
-	if("Y" == cell.marmrk){		
+	if(cell.marmrk && "Y" == cell.marmrk.trim()){		
 		$('#ChkCheckbox_marmrk').prop("checked", true);	//水險
 	}
-	if("Y" == cell.firmrk){		
+	if(cell.firmrk && "Y" == cell.firmrk.trim()){		
 		$('#ChkCheckbox_firmrk').prop("checked", true);	//火險
 	}
-	if("Y" == cell.accmrk){		
+	if(cell.accmrk && "Y" == cell.accmrk.trim()){		
 		$('#ChkCheckbox_accmrk').prop("checked", true);	//意外險
 	}
-	if("Y" == cell.ahmrk){		
+	if(cell.ahmrk && "Y" == cell.ahmrk.trim()){		
 		$('#ChkCheckbox_ahmrk').prop("checked", true);	//健康險
 	}
 	
@@ -161,23 +165,61 @@ function queryFriComCredit(){
  */
 function writeFieldForTable(cell){
 	
-	var creditTable = "<tr class='cssDataGridHeader'>" +
-			"<th><a>信評機構</a></th><th><a>評等日期</a></th><th><a>信評等級</a></th></tr>"
+//	var creditTable = "<tr class='cssDataGridHeader'>" +
+//			"<th>信評機構</th><th>評等日期</th><th>信評等級</th></tr>"
+//	
+//	for(let i = 0; i < cell.length; i++){
+//		
+//		creditTable +="<tr><td>"+cell[i].creditOrgan+"</td>"+
+//						"<td>"+cell[i].txtCreditDate+"</td>"+
+//						"<td>"+cell[i].creditLevel+"</td></tr>"
+//		
+//	}
+//	
+//	$('#creditTable').html(creditTable);
 	
+//========================================================================
+
+	//產生表頭
+	let headTr = document.createElement('tr');	
+	let headTh1 = document.createElement('th');
+	headTh1.textContent="信評機構";
+	let headTh2 = document.createElement('th');
+	headTh2.textContent="評等日期";
+	let headTh3 = document.createElement('th');
+	headTh3.textContent="信評等級";
+	
+	document.querySelector('#creditTable').appendChild(headTr);
+	headTr.appendChild(headTh1);
+	headTr.appendChild(headTh2);
+	headTr.appendChild(headTh3);
+	
+	headTr.style.height = '25px'
+	headTr.style.lineHeight = '25px'
+	headTr.style.borderBottom = '1.2px solid  #E4D7C1'
+	
+	//產生表格內容
 	for(let i = 0; i < cell.length; i++){
+		let contentTr = document.createElement('tr');
+		let contentTd1 = document.createElement('td');
+		contentTd1.textContent = cell[i].creditOrgan;
+		let contentTd2 = document.createElement('td');
+		contentTd2.textContent = cell[i].txtCreditDate;
+		let contentTd3 = document.createElement('td');
+		contentTd3.textContent = cell[i].creditLevel;
 		
-		creditTable +="<tr><td>"+cell[i].creditOrgan+"</td>"+
-						"<td>"+cell[i].txtCreditDate+"</td>"+
-						"<td>"+cell[i].creditLevel+"</td></tr>"
+		document.querySelector('#creditTable').appendChild(contentTr);
+		contentTr.appendChild(contentTd1);
+		contentTr.appendChild(contentTd2);
+		contentTr.appendChild(contentTd3);
 		
+		contentTr.style.borderBottom = '1.2px solid  #E4D7C1'
 	}
-	
-	$('#creditTable').html(creditTable);
 	
 }
 
 
-
+//回上一頁
 function backTo1101(){
 	
 	let data = {
