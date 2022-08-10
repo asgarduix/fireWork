@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HAS308000_fPrint" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" isIgnorePagination="true" uuid="58a507ad-79b5-4f58-b8db-7b251e9a3bf4">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="17"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="today" class="java.lang.String"/>
+	<parameter name="ipolicy" class="java.lang.String"/>
+	<parameter name="nins" class="java.lang.String"/>
+	<parameter name="groupsn" class="java.lang.String"/>
+	<parameter name="iproject" class="java.lang.String"/>
+	<parameter name="dply_bgn" class="java.lang.String"/>
+	<parameter name="dply_end" class="java.lang.String"/>
+	<parameter name="unarm" class="java.lang.Integer"/>
+	<parameter name="ires" class="java.lang.String"/>
+	<field name="oid" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="5a0fcf95-c506-45e5-b874-7658425c3951" x="221" y="26" width="96" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[列印團件續保評估表 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8b7e9668-b213-4011-9903-7db8cf6a70b5" x="0" y="24" width="69" height="15"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[(HAS308000)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="391bf33c-e624-4aa5-8e1e-cc9fb7bc30dd" x="205" y="4" width="127" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[華南產物保險股份有限公司]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="500" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="2a07c845-b2a8-4e32-9b85-fe5d2b189ee0" x="449" y="0" width="47" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[列印日期 :]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b7b6bed5-933a-43bd-848b-4b333efb3914" x="495" y="-2" width="59" height="20"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$P{today}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9212f8be-ab77-4451-bef1-49831fc20629" x="0" y="19" width="59" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[保單號碼 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="528e6fa3-f5cb-4a7f-abb9-725f3bd10a61" x="0" y="37" width="59" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[要保單位 :]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="c1926541-ab85-4cde-84e1-cc72c33cdbfa" x="58" y="16" width="83" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{ipolicy}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f6922b4d-ffb1-453c-9bb8-53ef71c9f9d4" x="0" y="55" width="59" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[團代號 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a96b606d-46ba-4e2d-ac5d-45e683c8ccd6" x="141" y="56" width="58" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[專案代號 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="337e3f2e-143a-4668-86bc-abeee0f32d9b" x="0" y="74" width="59" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[保單始期 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="db37cb6f-9525-433f-8e4a-c473c904b390" x="141" y="74" width="58" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[續保日期 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c4f37219-d66e-4a15-a1df-e16ba215df5d" x="0" y="92" width="59" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[繳別 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6e96bf8a-ba87-4033-af9e-f588c4c84033" x="0" y="110" width="59" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[保源代號 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4a4893ac-9bbe-42b9-b097-601af450706f" x="141" y="111" width="58" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[保源名稱 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8b70bbc3-a384-49cf-a252-79aec116608a" x="276" y="111" width="76" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[洽攬人代號一 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b027e6e4-9003-419d-92ed-c42cddefb7fe" x="426" y="110" width="79" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[洽攬人一名稱 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a67d09bb-1981-43a3-9b17-0a942c58b228" x="276" y="129" width="76" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[洽攬人代號二 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fb0aaf95-4d21-4762-9d75-bee098567a35" x="426" y="128" width="79" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[洽攬人二名稱 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3c24d706-a99b-49bf-a1c9-0db7d35e02cb" x="0" y="148" width="59" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[出單單位 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e8295776-498f-42e6-b0cd-def20cdcb5ac" x="141" y="148" width="76" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[經手人代號 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8f1d585c-4668-48dd-a6d9-f9e78aa3c06c" x="276" y="147" width="59" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[佣金一 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b8b1c031-6820-4886-8cb0-4172834ea89c" x="426" y="146" width="59" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[佣金二 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1147fe0c-a01a-4457-b7eb-a28dcb72b6c3" x="0" y="166" width="59" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[業績歸屬 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="686b87db-71d0-44ab-b32c-70600c077c73" x="141" y="166" width="76" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[經手人姓名 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="861fc9ef-0669-45ce-a4cb-d083807227aa" x="276" y="165" width="59" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[業專否 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0220e9ee-aec2-4fa1-af0e-115c1bb1b57f" x="426" y="164" width="59" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[臨分 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="40b29ed0-d5fb-4139-bee0-f6e17e7d7cc0" x="0" y="193" width="69" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[【理賠分析】]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4bd84798-62f0-4188-a1ca-8ab50d1a1bdd" x="1" y="211" width="59" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[年度 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3e5076b9-9f7a-4d5f-9ae7-a84a7a14f2a1" x="59" y="211" width="206" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[險種 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5d334a72-21e0-43ae-9a10-83d105f972dc" x="264" y="211" width="59" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[保費]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a7ca968c-3a92-4808-8749-5dce815ab4d6" x="322" y="211" width="59" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[已決金額 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="927674b4-c071-4cbd-a53f-a9fbad1a1ef4" x="380" y="211" width="59" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[未決金額 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="51639ad2-621f-48b4-9eb2-8e8e63bd7831" x="438" y="211" width="59" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[理賠率 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="02130bc5-7346-458d-b37d-b39dc9a72d3e" x="496" y="211" width="59" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[綜合率 ]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="c7b9fa93-cf8d-47ab-9fc4-081007252110" x="5" y="186" width="544" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="83197c58-cb81-4462-aea0-c80151ca929e" x="5" y="189" width="544" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="e4aeca1f-28e8-4d74-a4de-a565dd7da5bf" x="4" y="254" width="544" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="dfc12391-9f67-4a5b-8e10-81b8774b7f75" x="4" y="257" width="544" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="763f0cc5-3152-4553-97cd-073631d93ea0" x="1" y="261" width="69" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[【保險計劃】]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1363b2a5-48b0-4b14-b080-93f851a43074" x="0" y="279" width="59" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[方案別 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e69583b1-dd01-478a-86be-1759feaefc87" x="58" y="279" width="206" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[險種 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="da91eb72-f3b9-4cf2-a7ac-d25633181a1d" x="263" y="279" width="44" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[承保額度 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5d1e7453-c668-4758-be98-6f1807ee2ddf" x="306" y="279" width="63" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[保額計算方式 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="033d9131-729a-482e-9f9e-02623df5d130" x="369" y="279" width="65" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[最高承保額度]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bbb6ac79-8829-4d05-aac8-e29a8ecbad38" x="433" y="279" width="65" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[最低承保額度]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6d6e695d-90fb-4a2b-b683-07a8baaf6936" x="497" y="279" width="54" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[薪資系數]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="77b85f62-608c-45ce-913d-622444b9afbf" mode="Transparent" x="0" y="327" width="551" height="19" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[HAS308009_D1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="429fba1b-25e0-49c5-81a4-88a2a8d73140" x="0" y="348" width="69" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[【特別事項】]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e341b777-3e7a-4883-b836-adf735aad7b6" x="0" y="418" width="92" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[【行政管理部主管】]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="04d99e7e-52e3-4eb4-85ea-21253f7f808d" x="459" y="418" width="96" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[【經驗退費經辦】]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c05d4a4b-8b7b-4dad-8a2a-1a670fa09288" x="242" y="418" width="90" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[【團險服務科主管】]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="978c6d7f-8819-4bff-8259-25d90957eade" x="0" y="460" width="96" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[行政管理部主管]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d1d685db-5eec-43dc-b901-925a414789d4" x="0" y="478" width="105" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[【團險意外險部主管】]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8a4651e2-276c-4651-942a-1733587cbe18" x="240" y="478" width="92" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[【團險開發科主管】]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="4bb09950-ccde-418f-ba50-f144a6b90630" x="4" y="415" width="544" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="11ae056e-60f0-4401-827c-0ac0f39d8dd8" x="5" y="327" width="544" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="525a2657-95b8-4b3a-9366-2e24b9c32708" x="5" y="345" width="544" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="c0dc0b19-869b-4f83-9600-dfe0378d206d" x="58" y="35" width="83" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{nins}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="dab4be23-85d8-44d5-aa81-a608ffc0a776" x="58" y="53" width="83" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{groupsn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="396f2e82-5b1b-455d-8930-e7b0630bae35" x="198" y="55" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{iproject}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="31d9ffd0-c117-4d3c-9b16-27eec6fb8372" x="58" y="71" width="83" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{dply_bgn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="41d206e4-7d29-48bf-98a0-90d328b07390" x="198" y="73" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{dply_end}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b8ad0954-b9a9-4903-b622-0d54e3726cc4" x="58" y="90" width="82" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{unarm}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1b895ef2-fe75-407d-8079-a76636d796da" x="58" y="108" width="82" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{ires}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<line>
+				<reportElement uuid="13314230-c191-474e-8200-2debe9ce175c" x="5" y="23" width="544" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="8fb3bc60-c660-46e2-9ce4-ea96777847f0" x="5" y="26" width="544" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="403a8872-6470-4545-a9c4-08daf0bd3d59" x="5" y="4" width="32" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[序號]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="797f4a3f-db17-4ddd-91aa-a9029f9b7423" x="36" y="4" width="63" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[起始年齡(年)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bf16832f-5f55-4daa-962f-1941748b5078" x="98" y="4" width="44" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[調整天數]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="87cdc085-b4c7-452b-b1ef-83d7881b4849" x="141" y="4" width="63" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[迄止年齡(年)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4e32110c-d88c-4c5d-a1a2-4540b125313c" x="203" y="4" width="44" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[調整天數]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="beaeaf7f-83ee-495e-8198-b037f96d9c19" x="246" y="4" width="41" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[身份別]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3cb983ed-22c3-47f0-943a-3702b4145048" x="286" y="4" width="32" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[性別]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8852ee2f-3b07-425e-b243-b6c63f16355f" x="317" y="4" width="52" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[職業等級起]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="acf6a52c-80cb-44bc-b6b8-855be3e8e1c5" x="368" y="4" width="52" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[職業等級迄]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4ec7a2dc-481c-4ec0-b747-5c4e2df1e84c" x="420" y="4" width="52" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[新/續保件]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9517f00e-51ba-4238-8b02-803a505fd9e7" x="472" y="4" width="52" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[特殊件註記]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4e926ee1-4e3d-41fa-af9a-a0f978cb75b6" x="524" y="4" width="32" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[保費]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement uuid="1c6d110b-b278-45c6-8633-0f0f77fae053" x="5" y="1" width="94" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{oid}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<line>
+				<reportElement uuid="8396f87c-3abf-4b59-bda1-66ab14ea2945" x="5" y="-40" width="544" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="dca1ed2f-d34d-4030-be8c-1e446788941d" x="5" y="-43" width="544" height="1"/>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

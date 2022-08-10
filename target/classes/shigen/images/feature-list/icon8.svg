@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="130px" height="131px" viewBox="0 0 130 131" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60.1 (88133) - https://sketch.com -->
+    <title>icon8</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="0 0.77302768 129.212195 0.77302768 129.212195 131 0 131"></polygon>
+        <polygon id="path-3" points="0 131 129 131 129 0 0 0"></polygon>
+    </defs>
+    <g id="馬卡龍綠色" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2功能清單頁" transform="translate(-1119.000000, -490.000000)">
+            <g id="icon8" transform="translate(1119.000000, 490.000000)">
+                <g id="编组">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="Clip-2"></g>
+                    <path d="M129.213918,65.8951961 C129.213918,29.9367431 100.291782,0.771291228 64.6043743,0.771291228 C28.927306,0.771291228 -0.00172319688,29.9367431 -0.00172319688,65.8951961 C-0.00172319688,101.850176 28.927306,131.001736 64.6043743,131.001736 C100.291782,131.001736 129.213918,101.850176 129.213918,65.8951961" id="Fill-1" fill="#8BC3FF" mask="url(#mask-2)"></path>
+                </g>
+                <path d="M127,83.9514652 L101.953604,58.5723007 L79.7109099,58.5723007 L77.9836917,57.2994855 L70.3963922,49.6099983 L39.1818545,18 L25.717167,54.0280347 L25.717167,61.3318202 L23,101.648155 L57.7174333,130.638889 C57.7174333,130.638889 109.668974,138.216172 127,83.9514652" id="Fill-3" fill="#4A77A8"></path>
+                <polygon id="Fill-5" fill="#FFFFFF" points="101 59 82.0740085 41 82 59"></polygon>
+                <polygon id="Fill-7" fill="#FFFFFF" points="82 59 63.0773725 41 63 59"></polygon>
+                <polygon id="Fill-9" fill="#FFFFFF" points="62 59 45.1574845 39 43 59"></polygon>
+                <mask id="mask-4" fill="white">
+                    <use xlink:href="#path-3"></use>
+                </mask>
+                <g id="Clip-12"></g>
+                <polygon id="Fill-11" fill="#FFFFFF" mask="url(#mask-4)" points="26 59 39 59 39 18 26 18"></polygon>
+                <path d="M66.7511387,80.4050866 L98.5867081,80.4050866 L98.5867081,70.5033046 L66.7511387,70.5033046 L66.7511387,80.4050866 Z M23,64.8320924 L23,101.167908 C23,102.720991 24.2613251,104 25.7838509,104 L36.8539545,104 L36.8539545,83.9504727 L53.1240166,83.9504727 L53.1240166,104 L103.216149,104 C104.752422,104 106,102.720991 106,101.167908 L106,64.8320924 C106,63.2719819 104.752422,62 103.216149,62 L25.7838509,62 C24.2613251,62 23,63.2719819 23,64.8320924 L23,64.8320924 Z" id="Fill-13" fill="#FFFFFF" mask="url(#mask-4)"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,200 @@
+<aside>
+	<div class="flexbox fjc" id="_menu_side_up">
+		<a href="login.html" class="nav-logo"></a>
+	</div>
+	<div class="scroll-box">
+		<div class="hide-box">
+			<div class="scroll-hidden">
+				<nav id="_menu_side">
+					<div class="list_layer">
+						<ul>
+							<li>
+								<div class="item_title">
+									<i class="fas fa-plus-square"></i>
+									<span>基本資料設定</span>
+								</div>
+							</li>
+							<li class="off">
+								<ul>
+									<li>
+										<a href="Rin1101.html">
+											<div>再保人基本資料設定</div>
+										</a>
+									</li>
+									<li>
+										<a href="Rin1107.html">
+											<div>同險代號維護</div>
+										</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						
+						<ul>
+							<li>
+								<div class="item_title">
+									<i class="fas fa-plus-square"></i>
+									<span>合約分保</span>
+								</div>
+							</li>
+							<li class="off">
+								<ul>
+									<li>
+										<a href="#">
+											<div>登卡資料列印</div>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<div>同險卡冊列印</div>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<div>同險卡冊列印-Batch</div>
+										</a>
+									</li>
+									<li>
+										<a href="Rin1203.html">
+											<div>同險設定</div>
+										</a>
+									</li>
+									<li>
+										<a href="Rin1204.html">
+											<div>自動分保</div>
+										</a>
+									</li>
+									<li>
+										<a href="Rin1205.html">
+											<div>分保調整</div>
+										</a>
+									</li>
+									<li>
+										<a href="Rin1206.html">
+											<div>合約帳單明細列印-Batch</div>
+										</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<ul>
+							<li>
+									<div class="item_title">
+										<i class="fas fa-plus-square"></i>
+										<span>臨時分保</span>
+									</div>
+							</li>
+							<li class="off">
+								<ul>
+									<li>
+										<a href="Rin1301.html">
+											<div>臨分資料維護</div>
+										</a>
+									</li>
+									<li>
+										<a href="Rin1302.html">
+											<div>臨分到期通知單列印-Batch</div>
+										</a>
+									</li>
+									<li>
+										<a href="Rin1303.html">
+											<div>臨分帳單/通知單列印</div>
+										</a>
+									</li>
+									<li>
+										<a href="Rin1304.html">
+											<div>臨分分入</div>
+										</a>
+									</li>
+									
+								</ul>
+							</li>
+						</ul>
+						<ul>
+							<li>
+									<div class="item_title">
+										<i class="fas fa-plus-square"></i>
+										<span>合約資料設定</span>
+									</div>
+							</li>
+							<li class="off">
+								<ul>
+									<li>
+										<a href="Rin1102.html">
+											<div>合約資料設定</div>
+										</a>
+									</li>
+									<li>
+										<a href="Rin1103.html">
+											<div>梯次佣金維護</div>
+										</a>
+									</li>
+									<li>
+										<a href="Rin1104.html">
+											<div>自留限額資料維護</div>
+										</a>
+									</li>
+									<li>
+										<a href="Rin1105.html">
+											<div>限額表資料維護</div>
+										</a>
+									</li>
+									<li>
+										<a href="Rin1106.html">
+											<div>慕尼黑地區</div>
+										</a>
+									</li>
+									<li>
+										<a href="Rin1108.html">
+											<div>合約分保順序維護</div>
+										</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						
+					</div>
+				</nav>
+			</div>
+		</div>
+	</div>
+	<div class="nav-bt-box">
+		<div class="nav-bt-left"></div>
+		<div class="nav-bt-right off"></div>
+	</div>
+</aside>
+<script>
+	$(document).ready(function () {
+
+
+		/* 無限層選單：列表收合 */
+		$(".list_layer .item_title").click(function () {
+			$(this).parent().next().slideToggle(10);
+		});
+
+
+		/* 左側選單：關閉*/
+		$(".nav-bt-left").click(function () {
+			$("aside").animate({ left: "-200px" }, 500);
+			$("section").animate({ paddingLeft: "20px", }, 500);
+			$(this).hide();
+			$(".nav-bt-right").show();
+			$(".main-box").removeClass("mbnoshow");
+			$(".content").removeClass("mbnoshow");
+		});
+
+
+		/* 左側選單：開啟*/
+		$(".nav-bt-right").click(function () {
+			$("aside").animate({ left: "0" }, 500);
+			$("section").animate({ paddingLeft: "220px", }, 500);
+			$(this).hide();
+			$(".nav-bt-left").show();
+			$(".main-box").addClass("mbnoshow");
+			$(".content").addClass("mbnoshow");
+		});
+
+	});
+</script>
+<!-- <script src="../../shigen/js/common.js"></script>
+<script type="text/javascript" src="../../shigen/js/app/menu.js"></script> -->

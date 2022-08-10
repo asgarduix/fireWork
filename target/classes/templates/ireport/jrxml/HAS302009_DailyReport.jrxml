@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HAS302009_DailyReport" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true">
+	<property name="ireport.zoom" value="1.771561000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="icreate" class="java.lang.String"/>
+	<parameter name="dcreate" class="java.lang.String"/>
+	<parameter name="make_name" class="java.lang.String"/>
+	<parameter name="notedate_bgn" class="java.lang.String"/>
+	<parameter name="notedate_end" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<field name="area" class="java.lang.String"/>
+	<field name="areas" class="java.lang.String"/>
+	<field name="iproject" class="java.lang.String"/>
+	<field name="nproject" class="java.lang.String"/>
+	<field name="ireq" class="java.lang.String"/>
+	<field name="nins" class="java.lang.String"/>
+	<field name="nissu" class="java.lang.String"/>
+	<field name="officername" class="java.lang.String"/>
+	<field name="policy" class="java.lang.String"/>
+	<field name="temp7" class="java.lang.String"/>
+	<field name="drecStr" class="java.lang.String"/>
+	<field name="dobjbgnStr" class="java.lang.String"/>
+	<field name="notedateStr" class="java.lang.String"/>
+	<field name="replydate" class="java.util.Date"/>
+	<field name="pagenumber" class="java.lang.Number"/>
+	<sortField name="pagenumber"/>
+	<variable name="count" class="java.lang.Number" resetType="Group" resetGroup="pagenumber" calculation="Sum"/>
+	<group name="pagenumber" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{pagenumber}]]></groupExpression>
+		<groupHeader>
+			<band height="30">
+				<staticText>
+					<reportElement x="9" y="0" width="76" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="全字庫正楷體"/>
+					</textElement>
+					<text><![CDATA[要保號碼]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="89" y="0" width="88" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="全字庫正楷體"/>
+					</textElement>
+					<text><![CDATA[保單號碼]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="176" y="0" width="47" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="全字庫正楷體"/>
+					</textElement>
+					<text><![CDATA[要保人]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="223" y="0" width="64" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="全字庫正楷體"/>
+					</textElement>
+					<text><![CDATA[被保險人]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="287" y="0" width="51" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="全字庫正楷體"/>
+					</textElement>
+					<text><![CDATA[受理日期]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="338" y="0" width="45" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="全字庫正楷體"/>
+					</textElement>
+					<text><![CDATA[生效日]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="383" y="0" width="59" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="全字庫正楷體"/>
+					</textElement>
+					<text><![CDATA[照會日期]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="442" y="0" width="49" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="全字庫正楷體"/>
+					</textElement>
+					<text><![CDATA[回覆日期]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="491" y="0" width="55" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="全字庫正楷體"/>
+					</textElement>
+					<text><![CDATA[核保人員]]></text>
+				</staticText>
+				<line>
+					<reportElement x="5" y="22" width="544" height="1"/>
+				</line>
+				<line>
+					<reportElement x="5" y="25" width="544" height="1"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<staticText>
+					<reportElement x="399" y="14" width="33" height="20"/>
+					<textElement>
+						<font fontName="全字庫正楷體"/>
+					</textElement>
+					<text><![CDATA[總計 : ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="491" y="14" width="28" height="20"/>
+					<textElement>
+						<font fontName="全字庫正楷體"/>
+					</textElement>
+					<text><![CDATA[件]]></text>
+				</staticText>
+				<line>
+					<reportElement x="5" y="5" width="544" height="1"/>
+				</line>
+				<line>
+					<reportElement x="5" y="2" width="544" height="1"/>
+				</line>
+				<textField>
+					<reportElement x="450" y="12" width="41" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="120">
+			<staticText>
+				<reportElement x="225" y="20" width="100" height="20"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[<< 核保照會日報表 >>]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="20" width="69" height="15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[(HAS302009)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="213" y="0" width="127" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[華南產物保險股份有限公司]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="51" width="57" height="20"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[製表日期 : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="71" width="57" height="20"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[照會期間 : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="91" width="57" height="20"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[專案代號 : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="236" y="48" width="34" height="20"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[地區 : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="419" y="49" width="45" height="20"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[製表人 : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="419" y="72" width="45" height="20"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[頁次 : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="81" y="51" width="65" height="20"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dcreate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="71" width="52" height="20"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{notedate_bgn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="147" y="71" width="52" height="20"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{notedate_end}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="464" y="49" width="65" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{make_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="134" y="71" width="12" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[~]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="481" y="74" width="5" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[/]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="491" y="72" width="27" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="48" width="100" height="20"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{areas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="91" width="222" height="20"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nproject}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="464" y="72" width="18" height="20"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pagenumber}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band height="25">
+			<textField>
+				<reportElement x="6" y="0" width="76" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ireq}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="89" y="0" width="87" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{policy}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="176" y="0" width="46" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nins}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="236" y="0" width="46" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nissu}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="287" y="0" width="51" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{drecStr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="383" y="0" width="55" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{notedateStr}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="442" y="0" width="49" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{replydate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="495" y="0" width="55" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{officername}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="338" y="0" width="45" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dobjbgnStr}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fontFamilies>
+    <fontFamily name="全字庫正楷體">
+        <normal>fonts/TW-Kai-98_1.ttf</normal>
+        <bold>fonts/TW-Kai-98_1.ttf</bold>
+        <italic>fonts/TW-Kai-98_1.ttf</italic>
+        <boldItalic>fonts/TW-Kai-98_1.ttf</boldItalic>
+        <pdfEncoding>Identity-H</pdfEncoding>
+        <pdfEmbedded>true</pdfEmbedded>
+        <exportFonts>
+            <export key="net.sf.jasperreports.html">'全字庫正楷體', Arial, Helvetica, sans-serif</export>
+            <export key="net.sf.jasperreports.xhtml">'全字庫正楷體', Arial, Helvetica, sans-serif</export>
+        </exportFonts>
+    </fontFamily>
+</fontFamilies>

@@ -1,0 +1,199 @@
+/* 客製化主要結構 */
+main{
+    background: url(../images/theme/candy_top_menu_bg.svg) bottom left #FFF6F1 no-repeat;
+}
+aside{
+    border-right-color: #d1d1d1;
+    background-color: #F3F5F8;
+}
+
+.checkbox_box input[type=checkbox]:not(old) + label, .checkbox_box input[type=radio]:not(old) + label {
+    background: url('../images/theme/candy_input_icon_checks.svg') no-repeat;
+    display: inline-block;
+    padding-left: 20px;
+    height: 21px;
+    cursor: pointer;
+    background-size: 21px 84px;
+    word-break: break-all;
+    font-size: 12px;
+}
+/* 全局輸入框：核取選項 checkbox 核取方塊 */
+.checkbox_box input[type=checkbox]:not(old) + label {
+    line-height: 22px;
+    background-position: -4px -42px;
+}
+.checkbox_box input[type=checkbox]:not(old):checked + label {
+background-position: -4px -63px;
+}
+/* 全局輸入框：核取選項 radio 選項按鈕 */
+.checkbox_box input[type=radio]:not(old) + label {
+line-height: 22px;
+background-position: -4px -1px;
+}
+.checkbox_box input[type=radio]:not(old):checked + label {
+background-position: -4px -22px;
+}
+/* 全局 button 預設值 */
+button{
+    background-color:#E5ADB5;
+    box-shadow:0px 0px 0px rgba(187,187,187,1);
+}
+
+.button,div.button{
+    color:#fff;
+    border:1px solid #E5ADB5;
+}
+.button:hover{
+    background-color:#C4717D;
+    color:#fff;
+}
+/* 全局 button 配色 */
+.bt_color_off,div.bt_color_off{
+    color:#999999;
+    border-color:#999999;
+    background-color:#fff;
+}
+.bt_color_off:hover{
+    background-color: #999999;
+    color:#fff;
+}
+.btn-disable{
+    background-color: #ccc;
+    color: #ddd;
+    border-color: #ccc;
+    &:hover{
+        background-color: #ccc;
+        color: #ddd;
+    }
+}
+.btn-secondary{
+    border: 1px solid #999999;
+    background-color: #F9F9F9;
+    color: #999;
+    &:hover{
+        color: #999;
+        background-color: #F9F9F9;
+    }
+}
+/* 登入 */
+.login-bg{
+    background: url(../images/theme/candy_login_bg.png) 50% #FFF6F1 ;
+}
+/* 上方選單 */
+.main-box .top_item{
+    color: #9D4545;
+}
+.top_item .icon path{
+    fill: #9D4545;
+}
+/* 左側選單 */
+.nav-bt-box{
+    background-color: #D1D1D1;
+}
+.list_layer ul{
+    border-color: #A885B4;
+}
+.list_layer li div{
+    background-color: #A885B4;
+    border-top-color: #A885B4;
+}
+.list_layer li div:hover{
+    background-color: #E5ADB5;
+    color: #593C63;
+}
+.list_layer li li div:hover {
+    background-color: #E5ADB5;
+    color: #333;
+}
+.list_layer li li li div{background-color:#FCF4FF;}
+/* 主要內容 */
+
+/* 麵包屑 */
+.bread-crumbs{
+    color: #666666;
+}
+.bread-crumbs a{
+    color:#666666;
+}
+/* 輸入框 */
+.content .input-title::before{
+    background-color: #FFE2E6;
+}
+
+/* 標題 */
+.content .item_title{
+    background-color: #A885B4;
+}
+
+/* Table 基本樣式調整 */
+.css_table{border:2px solid #A885B4;}
+.css_table th,.css_table td{
+    padding:5px 10px 0px 10px;
+    border-top:1px solid #A885B4;
+    border-bottom:1px solid #A885B4;
+    font-size:0.7rem;
+    line-height:1.5rem;
+}
+.css_table th{
+    background-color:#FCF4FF;
+    color:#333333;
+}
+.css_table tbody tr:nth-child(odd) td{
+    background-color:#fff;
+}
+.css_table tbody tr:nth-child(even) td{
+    background-color:#FFFBFB;
+}
+.css_table th a,.css_table td a{
+    color:#9D4545;
+}
+.css_table th a,.css_table td a:hover{
+    color:#E5ADB5;
+}
+/* CSS Table 凍結定位_左邊 */
+.freeze_left{
+    border:1px solid #A885B4;
+    border-left:2px solid #A885B4;
+    border-right:2px solid #A885B4;
+}
+/* CSS Table icon變更 */
+.css_table .td_button svg,
+.css_table .td_button i,
+.css_table .td_button .checkbox_box{
+    color:#9D4545;
+}
+.css_table .td_button svg:hover,
+.css_table .td_button i:hover{
+    color:#E5ADB5;
+}
+
+.content .text-color{
+    color:#C00F30;
+}
+
+/* 收合顏色 */
+.collapse_title.light_pink{
+    background-color: #F2ABB5;
+}
+.collapse_title.pink{
+    background-color: #C6808A;
+}
+.collapse_title.d_pink{
+    background-color: #9D4545;
+}
+.collapse_title.purple{
+    background-color: #544490;
+}
+.collapse_title.blue{
+    background-color: #5D78A4;
+}
+.collapse_title.green{
+    background-color: #349A7E;
+}
+.collapse_title.orange{
+    background-color: #BD5E00;
+}
+.collapse_title.red{
+    background-color: #AB1A1A;
+}
+

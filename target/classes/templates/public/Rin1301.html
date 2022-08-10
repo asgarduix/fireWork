@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" lang="zh-Hant-TW">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="icon" type="image/png" href="../../shigen/images/general/favicon.ico">
+<title>華南產物保險-火險再保系統</title>
+<!-- jQuery -->
+<script src="../../shigen/plugin/jquery.min.js"></script>
+<!-- jQuery UI -->
+<link href="../../shigen/plugin/jquery_ui/jquery-ui.min.css" rel="stylesheet">
+<script src="../../shigen/plugin/jquery_ui/jquery-ui.min.js"></script>
+<!-- 日期選擇器_民國年或西元年：支援 jQuery UI -->
+<script src="../../shigen/plugin/datepicker_globe_tw.js"></script>
+<!-- bootstrap -->
+<script src="../../shigen/plugin/bootstrap/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../../shigen/plugin/bootstrap/bootstrap.css">
+<link rel="stylesheet" href="../../shigen/plugin/bootstrap/bootstrap-grid-customizing.css">
+<!-- table tabulator -->
+<script type="text/javascript" src="../../shigen/plugin/tabulator.min.js"></script>
+<!-- fontawsome -->
+<script defer src="../../shigen/fonts/js/all.min.js"></script>
+<link href="../../shigen/fonts/css/all.css" rel="stylesheet">
+<!--load all styles -->
+<!-- Plug CSS樣式 -->
+<link rel="stylesheet" href="../../shigen/css/type_plug.css">
+<!-- 共用樣式 -->
+<link rel="stylesheet" href="../../shigen/css/type.css">
+<link href="../../shigen/css/colorful-tabulator.css" rel="stylesheet">
+
+<!-- 自訂JS樣式 -->
+<script src="../../shigen/js/type.js"></script>
+<script src="../../shigen/js/common.js"></script>
+<script src="../../shigen/js/appglobal.js"></script>
+<script src="../../shigen/js/sys/glob4UiAuth.js"></script>
+<!-- <script type="text/javascript" src="../../shigen/js/app/policyChangeAppl.js"></script> -->
+</head>
+
+<body>
+	<div class="ajax-aside-navFIRE"></div>
+	<section>
+		<div class="ajax-section-main"></div>
+		<div class="container-fluid">
+			<div class="content">
+				<div class="bread-crumbs">
+					<a href="">火險作業</a>
+				</div>
+				<div class="big_title title s1">Rin1301臨分資料之登打及其相關計算</div>
+				<div class="row-group">
+					<div class="row">
+						<div class="col-12 content_function_bar">
+							<button class="btn btn-titBlue">新增</button>
+							<button class="btn btn-titBlue">查詢</button>
+						</div>
+					</div>
+				</div>
+				<table class="tblDataArea tblInquireArea" cellspacing="0" cellpadding="0" width="100%">
+					<tbody>
+						<tr>
+							<td class="tdDataCaption">新增臨分資料</td>
+							<td class="tdDataField">
+								<span class="checkbox_box ml-2">
+									<input id="check1" type="radio" name="radio">
+									<label for="check1">臨分更正</label>
+								</span>
+								<span class="checkbox_box ml-2">
+									<input id="check2" type="radio" name="radio">
+									<label for="check2">臨分批單</label>
+								</span>
+								<span class="checkbox_box ml-2">
+									<input id="check3" type="radio" name="radio">
+									<label for="check3">臨分績保</label>
+								</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="divspace"></div>
+				<table class="tblDataArea tblInquireArea" cellspacing="0" cellpadding="0" width="100%">
+					<tbody>
+						<tr>
+							<td class="tdDataAnther text-left" style="width: 20%;">
+								<span class="checkbox_box ml-2">
+									<input id="check-a1" type="radio" name="radio">
+									<label for="check-a1">保單號碼</label>
+								</span>
+							</td>
+							<td class="tdDataTrip">
+								<input type="text" value="" id="" style="width: 20%;" placeholder="0092A00000002">
+							</td>
+						</tr>
+						<tr>
+							<td class="tdDataAnther text-left">
+								<span class="checkbox_box ml-2">
+									<input id="check-a2" type="radio" name="radio">
+									<label for="check-a2">知會/更正號</label>
+								</span>
+							</td>
+							<td class="tdDataTrip">
+								<input type="text" value="" id="" style="width: 20%;" placeholder="2004">
+							</td>
+						</tr>
+						<tr>
+							<td class="tdDataAnther text-left">
+								<span class="checkbox_box ml-2">
+									<input id="check-a3" type="radio" name="radio">
+									<label for="check-a3">合約號</label>
+								</span>
+							</td>
+							<td class="tdDataTrip">
+								<input type="text" value="" id="" style="width: 20%;" placeholder="2004">
+							</td>
+						</tr>
+						<tr>
+							<td class="tdDataAnther text-left">
+								<span class="checkbox_box ml-2">
+									<input id="check-a4" type="radio" name="radio">
+									<label for="check-a4">查詢未列印及暫緩或不轉之臨分</label>
+								</span>
+							</td>
+							<td class="tdDataTrip">
+								<input class="mingo data_time" name="" type="text" style="width: 40%;" maxlength="10" size="10" id="UcRocDbgn">
+								<!-- <button title="選擇日期" class="" >...</button> -->
+								<input name="" id="" type="hidden" value="true">
+								<span id="UcRocDbgn_txtDate" style="color: Red; display: none;">日期格式錯誤</span>
+								<span id="" style="color: Red; display: none;"></span>
+								~
+								<input class="mingo data_time" name="" style="width: 40%;" type="text" maxlength="10" size="10" id="UcRocDend">
+								<!-- <button title="選擇日期" class="" >...</button> -->
+								<input name="" id="" type="hidden" value="true">
+								<span id="UcRocDend_txtDate" style="color: Red; display: none;">日期格式錯誤</span>
+								<span id="" style="color: Red; display: none;"></span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="divspace"></div>
+				<table class="tblCssDataGrid">
+					<tbody>
+						<tr class="cssDataGridHeader">
+							<th>功能</th>
+							<th>
+								<a href="">保單號碼</a>
+							</th>
+							<th>
+								<a href="">批單號碼</a>
+							</th>
+							<th>
+								<a href="">合約號</a>
+							</th>
+							<th>
+								<a href="">合約名稱</a>
+							</th>
+							<th>
+								<a href="">知會/更正號</a>
+							</th>
+							<th>
+								<a href="">修改註記</a>
+							</th>
+							<th>
+								<a href="">帳單列印</a>
+							</th>
+							<th>
+								<a href="">會計轉檔狀況</a>
+							</th>
+						</tr>
+						<tr>
+							<td>
+								<button class="btn btn-oneB">編輯</button>
+							</td>
+							<td>0092A00000002</td>
+							<td>0092E0F0324</td>
+							<td>2003FF148</td>
+							<td>2203A0001台泥和平</td>
+							<td>2020FAC0621</td>
+							<td>00</td>
+							<td>Y</td>
+							<td>T</td>
+						</tr>
+						<tr>
+							<td>
+								<button class="btn btn-oneB">編輯</button>
+							</td>
+							<td>0092A00000002</td>
+							<td>0092E0F0324</td>
+							<td>2003FF148</td>
+							<td>2203A0001台泥和平</td>
+							<td>2020FAC0621</td>
+							<td>00</td>
+							<td>Y</td>
+							<td>T</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- content end  -->
+		</div>
+	</section>
+	<!-- dialog -->
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">Title</h5>
+					<button id="_close_dialog" type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="foo">
+					<div id="example-table"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-primary" onclick="doModify(this);return false;">確定</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<!-- 功能使用的js，建議放置在html最尾 -->
+<script type="text/javascript"></script>
+</html>

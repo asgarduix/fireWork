@@ -1,0 +1,65 @@
+.tabulator-row.table-editable {
+	background-color: #aaa;
+}
+
+.cell-editable {
+	border: 2px solid #000;
+	background-color: #eee;
+}
+
+.cell-editable.table-error, .tabulator-row .tabulator-cell.tabulator-validation-fail{
+	border: 2px solid #FF3333;
+	background-color: #FF8888;
+}
+
+.btn-hide {
+	display: none;
+}
+
+.table-select {
+	position: relative;
+}
+
+.table-select::after {
+	content: "";
+	position: absolute;
+	right: 0;
+	top: 25%;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 8px 8px 0 8px;
+	border-color: #111 transparent transparent transparent;
+}
+
+.table-message{
+	min-height: 1.5rem;
+	visibility: hidden;
+}
+
+.table-message.table-message-success{
+	/* visibility: visible; */
+	color: #00DD00;
+}
+.table-message.table-message-success::before{
+	content: "[SUCCESS]";
+	font-weight: bold;
+}
+
+.table-message.table-message-error{
+	visibility: visible;
+	color: #FF3333;
+}
+.table-message.table-message-error::before{
+	content: "[ALERT]";
+	font-weight: bold;
+}
+
+.table-placeholder{
+	text-align: left;
+	color: #888;
+}
+
+.table-error .table-placeholder{
+	color: #eee;
+}

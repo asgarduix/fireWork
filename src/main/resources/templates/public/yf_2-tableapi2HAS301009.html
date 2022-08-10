@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" lang="zh-Hant-TW">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="icon" type="image/png" href="../../shigen/images/general/favicon.ico">
+<title>華南產物保險-火險作業系統</title>
+<!-- jQuery -->
+<script src="../../shigen/plugin/jquery.min.js"></script>
+<!-- jQuery UI -->
+<link href="../../shigen/plugin/jquery_ui/jquery-ui.min.css" rel="stylesheet">
+<script src="../../shigen/plugin/jquery_ui/jquery-ui.min.js"></script>
+<!-- 日期選擇器_民國年或西元年：支援 jQuery UI -->
+<script src="../../shigen/plugin/datepicker_globe_tw.js"></script>
+<!-- bootstrap -->
+<script src="../../shigen/plugin/bootstrap/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../../shigen/plugin/bootstrap/bootstrap.css">
+<link rel="stylesheet" href="../../shigen/plugin/bootstrap/bootstrap-grid-customizing.css">
+<!-- table tabulator -->
+<script type="text/javascript" src="../../shigen/plugin/tabulator.min.js"></script>
+<!-- fontawsome -->
+<script defer src="../../shigen/fonts/js/all.min.js"></script>
+<link href="../../shigen/fonts/css/all.css" rel="stylesheet">
+<!--load all styles -->
+<!-- Plug CSS樣式 -->
+<link rel="stylesheet" href="../../shigen/css/type_plug.css">
+<!-- 共用樣式 -->
+<link rel="stylesheet" href="../../shigen/css/type.css">
+<!-- 主題顏色切換 糖果世代 -->
+<!-- <link rel="stylesheet" href="../../shigen/css/type-candy.css"> -->
+<!-- 主題顏色切換 海神寶藍 -->
+<!-- <link rel="stylesheet" href="../../shigen/css/type-sapphire.css"> -->
+<!-- 主題顏色切換 法拉利紅 -->
+<!-- <link rel="stylesheet" href="../../shigen/css/type-red.css"> -->
+<!-- 主題顏色切換 繽紛馬卡 -->
+<link rel="stylesheet" id="active-stylesheet" href="../../shigen/css/type-colorful.css">
+<!-- 主題顏色切換 煙花季節 -->
+<!-- <link rel="stylesheet" href="../../shigen/css/type-fireworks.css"> -->
+<!-- 主題顏色切換 冬雪初現 -->
+<!-- <link rel="stylesheet" href="../../shigen/css/type-snow.css"> -->
+<!-- tabulator css -->
+<link href="../../shigen/css/colorful-tabulator.css" rel="stylesheet">
+<link href="../../shigen/css/tabulator.css" rel="stylesheet">
+
+<!-- 自訂JS樣式 -->
+<script src="../../shigen/js/type.js"></script>
+<script src="../../shigen/js/common.js"></script>
+<script src="../../shigen/js/sys/glob4UiAuth.js"></script>
+<script src="../../shigen/js/appglobal.js"></script>
+<script type="text/javascript" src="../../shigen/js/uiapis4app/ddls.js"></script>
+<!-- <script type="text/javascript" src="../../shigen/js/uiapis4app/createTable.js"></script> -->
+<!-- <script type="text/javascript" src="../../shigen/js/yf/createTableWithDdlRef.js"></script> -->
+<script type="text/javascript" src="../../shigen/js/yf/createTableWithDdlRef.js"></script>
+<!-- <script type="text/javascript" src="../../shigen/js/yf/createTableWithDdlRef_refactor_test2.js"></script> -->
+<!-- <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.7.2/dist/js/tabulator.min.js"></script> -->
+<!--  -->
+</head>
+
+<body>
+	<div class="ajax-aside-nav"></div>
+	<section>
+		<input type="hidden" id="fromPage" name="fromPage" value="301009">
+		<div class="ajax-section-main"></div>
+		<div class="container-fluid">
+			<div class="content">
+				<div class="bread-crumbs">
+					<a href="">承保受理作業</a>
+				</div>
+				<div class="big_title title s1">HAS301009-健康傷害險新增主約作業</div>
+				<div class="row-group">
+					<div class="row">
+						<div class="col-12 text-left content_function_bar">
+							<button class="btn btn-oneBig" onclick="add(); return false;">新增</button>
+							<button class="btn btn-oneBig">刪除</button>
+							<button class="btn btn-oneBig">清除</button>
+							<button class="btn btn-oneBig" onclick="leavePage();return false;">離開</button>
+						</div>
+					</div>
+				</div>
+
+
+
+				<table>
+					<h3 style="color: #ed4c6c;">自訂方案主約設定</h3>
+				</table>
+
+				<table class="tblDataArea" cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<td class="tdDataCaption">方案代號</td>
+							<td class="tdDataField">
+								<input name="txtIplan" type="text" value="" maxlength="15" id="txtIplan" onkeypress="">
+							</td>
+							<td class="tdDataCaption">方案名稱</td>
+							<td class="tdDataField">
+								<input name="txtNplan" type="text" value="" maxlength="15" id="txtNplan" onkeypress="">
+							</td>
+							<td class="tdDataCaption">列印名稱</td>
+							<td class="tdDataField">
+								<input name="txtNprtCont" type="text" value="" maxlength="15" id="txtNprtCont" onkeypress="">
+							</td>
+						</tr>
+						<tr>
+							<td class="tdDataCaption">保費分攤指示</td>
+							<td class="tdDataField">
+								<select name="ddlfshared" onchange="__doPostBack('ddlfshared','')" language="javascript" id="ddlfshared" style="width: 150px;">
+									<option value=""></option>
+									<option value="GH0">0:依短期費率</option>
+									<option value="GM0">1:按日數計算</option>
+									<option value="GD0">2:按月數計算</option>
+									<option value="GC0">5:按年計算</option>
+								</select>
+							</td>
+							<td class="tdDataCaption">分攤定額/比例</td>
+							<td class="tdDataField" colspan="3">
+								<input name="txtqshared" type="text" value="" maxlength="" id="txtqshared" onkeypress="">
+							</td>
+						</tr>
+						<tr>
+							<td class="tdDataCaption">備註</td>
+							<td class="tdDataField" colspan="5">
+								<textarea class="textarea" name="txtFlowNote" rows="20" readonly="readonly" id="txtMemo" style="margin: 0px; height: 50px;">
+                            
+                            </textarea>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<div style="height: 30px;"></div>
+
+				<table class="tblDataArea" cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<td class="tdDataField">
+								<h3 style="color: #ed4c6c;">險種設定</h3>
+								<input type="button" onclick="reGenTable1();return false;" value="重新查詢(測試)">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<!--                 <button class="btn btn-secondary" id="addInsType">新增險種資料</button> -->
+				<button id="insTypeTable-addToDb">匯出資料</button>
+				<button id="insTypeTable-reactivityAdd">新增險種資料</button>
+				<div id="insTypeTable-pagination"></div>
+				<div id="insTypeTable"></div>
+
+				<div style="height: 30px;"></div>
+
+				<table class="tblDataArea" cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<td class="tdDataField" style="width: 150px;">
+								<h3 style="color: #ed4c6c;">承保條件設定</h3>
+							</td>
+							<td>
+								<button id="btnDefault" class="btn btn-secondary">新增預設</button>
+								保費
+								<input id="txtDefaultMprem" type="text" value="0">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div>
+					<!-- 		        <button id="addToDb" class="btn btn-success btn-lg" style="margin-top: 1rem; font-size: 1rem;" >Confirm</button> -->
+					<div>
+						<!-- 		            <button id="reactivity-add" class="btn btn-info btn-sm" style="margin-top: 0.5rem; margin-bottom: 0.5rem; font-size: 1rem;">Add New Row</button> -->
+						<!-- 		            <button class="btn btn-secondary" id="reactivity-add">新增條件資料</button> -->
+					</div>
+				</div>
+				<button id="conditionTable-addToDb">匯出資料</button>
+				<button id="conditionTable-reactivityAdd">測試一號</button>
+				<div id="conditionTable-pagination"></div>
+				<div id="conditionTable"></div>
+
+			</div>
+			<!-- content end  -->
+		</div>
+	</section>
+	<!-- dialog -->
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">Title</h5>
+					<button id="_close_dialog" type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="foo">
+					<div id="example-table"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-primary" onclick="doModify(this);return false;">確定</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<!-- 功能使用的js，建議放置在html最尾 -->
+<script type="text/javascript" src="../../shigen/js/yf/yf_2-tableapi2HAS301009.js"></script>
+</html>

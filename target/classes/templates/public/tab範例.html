@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" lang="zh-Hant-TW">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="icon" type="image/png" href="../../shigen/images/general/favicon.ico">
+<title>華南產物保險-火險作業系統</title>
+<!-- jQuery -->
+<script src="../../shigen/plugin/jquery.min.js"></script>
+<!-- jQuery UI -->
+<link href="../../shigen/plugin/jquery_ui/jquery-ui.min.css" rel="stylesheet">
+<script src="../../shigen/plugin/jquery_ui/jquery-ui.min.js"></script>
+<!-- 日期選擇器_民國年或西元年：支援 jQuery UI -->
+<script src="../../shigen/plugin/datepicker_globe_tw.js"></script>
+<!-- bootstrap -->
+<script src="../../shigen/plugin/bootstrap/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../../shigen/plugin/bootstrap/bootstrap.css">
+<link rel="stylesheet" href="../../shigen/plugin/bootstrap/bootstrap-grid-customizing.css">
+<!-- table tabulator -->
+<!-- <script type="text/javascript" src="../../shigen/plugin/tabulator.min.js"></script> -->
+<!-- fontawsome -->
+<script defer src="../../shigen/fonts/js/all.min.js"></script>
+<link href="../../shigen/fonts/css/all.css" rel="stylesheet">
+<!--load all styles -->
+<!-- Plug CSS樣式 -->
+<link rel="stylesheet" href="../../shigen/css/type_plug.css">
+<!-- 共用樣式 -->
+<link rel="stylesheet" href="../../shigen/css/type.css">
+<!-- 主題顏色切換 糖果世代 -->
+<!-- <link rel="stylesheet" href="../../shigen/css/type-candy.css"> -->
+<!-- 主題顏色切換 海神寶藍 -->
+<!-- <link rel="stylesheet" href="../../shigen/css/type-sapphire.css"> -->
+<!-- 主題顏色切換 法拉利紅 -->
+<!-- <link rel="stylesheet" href="../../shigen/css/type-red.css"> -->
+<!-- 主題顏色切換 繽紛馬卡 -->
+<link rel="stylesheet" id="active-stylesheet" href="../../shigen/css/type-colorful.css">
+<!-- 主題顏色切換 煙花季節 -->
+<!-- <link rel="stylesheet" href="../../shigen/css/type-fireworks.css"> -->
+<!-- 主題顏色切換 冬雪初現 -->
+<!-- <link rel="stylesheet" href="../../shigen/css/type-snow.css"> -->
+<!-- <link href="../../shigen/css/colorful-tabulator.css" rel="stylesheet"> -->
+
+<!-- 自訂JS樣式 -->
+<script src="../../shigen/js/type.js"></script>
+<script src="../../shigen/js/common.js"></script>
+<script src="../../shigen/js/sys/glob4UiAuth.js"></script>
+<script src="../../shigen/js/appglobal.js"></script>
+<!--  -->
+</head>
+
+<body>
+	<div class="ajax-aside-nav"></div>
+	<section>
+		<div class="ajax-section-main"></div>
+		<div class="container-fluid content">
+			<div class="bread-crumbs">
+				<a href="">承保受理作業</a>
+			</div>
+			<div class="big_title title s1">HAS301001 健康傷害險承保受理作業</div>
+			<div class="row-group">
+				<div class="row">
+					<div class="col-12 text-center content_function_bar">
+						<button class="btn btn-secondary">新增</button>
+						<button class="btn btn-secondary">清除</button>
+						<button class="btn btn-secondary">查詢</button>
+						<button class="btn btn-secondary">核保不過名單</button>
+						<button class="btn btn-secondary">暫存資料</button>
+						<button class="btn btn-secondary">復原資料</button>
+						<button class="btn btn-secondary">離開</button>
+					</div>
+				</div>
+			</div>
+			<table class="tblDataArea" cellSpacing="0" cellPadding="0">
+				<tr>
+					<td class="tdDataCaption">保單類別</td>
+					<td class="tdDataField">
+						<select name="ddlIinsKind" onchange="__doPostBack('ddlIinsKind','')" language="javascript" id="ddlIinsKind" style="width: 150px;">
+							<option value=""></option>
+							<option value="GH0">GH0&#160;日額甲型</option>
+							<option value="GM0">GM0&#160;個人組合</option>
+							<option value="GD0">GD0&#160;重大疾病</option>
+							<option value="GC0">GC0&#160;初次罹癌</option>
+							<option value="GI0">GI0&#160;癌症住院</option>
+							<option value="MH0">MH0&#160;團體健康</option>
+							<option selected="selected" value="MM0">MM0&#160;團體組合</option>
+							<option value="MH1">MH1&#160;團體健康(甲型)</option>
+							<option value="MM1">MM1&#160;團體組合(甲型)</option>
+							<option value="DH0">DH0&#160;重大傷病</option>
+							<option value="MR0">MR0&#160;團體住院醫療(實支實付型)</option>
+							<option value="GC1">GC1&#160;團體癌症</option>
+							<option value="GC2">GC2&#160;團體癌症身故</option>
+							<option value="MH2">MH2&#160;住院日額醫療</option>
+						</select>
+					</td>
+					<td class="tdDataCaption">出單公司</td>
+					<td class="tdDataField">
+						<input name="txtIissBrch" type="text" value="00" id="txtIissBrch" disabled="disabled" onKeyPress="_ToUpper(this);" style="width: 30px;" />
+					</td>
+					<td class="tdDataCaption">大保單號</td>
+					<td class="tdDataField">
+						<input name="txtI1relply" type="text" maxlength="15" id="txtI1relply" onKeyPress="_ToUpper(this);" style="width: 120px;" />
+					</td>
+					<td class="tdDataCaption">保單號碼</td>
+					<td class="tdDataField">
+						<input name="txtIpolicy" type="text" value=" " maxlength="15" id="txtIpolicy" onKeyPress="_ToUpper(this);" style="width: 120px;" />
+					</td>
+					<td class="tdDataCaption">要保號碼</td>
+					<td class="tdDataField">
+						<input name="txtIreq" type="text" value="0008MM0X000018" maxlength="15" id="txtIreq" onKeyPress="_ToUpper(this);" style="width: 120px;" />
+					</td>
+					<!-- <td><span id="lblMsg" style="color:#FF3300;"></span></td> -->
+				</tr>
+			</table>
+			<div class="row-group">
+				<ul class="row nav nav-pills" id="pills-tab" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link active" id="pills-1-tab" data-toggle="pill" href="#pills-1" role="tab" aria-controls="pills-1" aria-selected="true">1:要保人</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="pills-2-tab" data-toggle="pill" href="#pills-2" role="tab" aria-controls="pills-2" aria-selected="false">2:被保險人</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="pills-3-tab" data-toggle="pill" href="#pills-3" role="tab" aria-controls="pills-3" aria-selected="false">3:保險內容</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="pills-4-tab" data-toggle="pill" href="#pills-4" role="tab" aria-controls="pills-4" aria-selected="false">4:洽攬人</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="pills-5-tab" data-toggle="pill" href="#pills-5" role="tab" aria-controls="pills-5" aria-selected="false">5:條款/共保</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="pills-6-tab" data-toggle="pill" href="#pills-6" role="tab" aria-controls="pills-6" aria-selected="false">6:收據明細</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="pills-7-tab" data-toggle="pill" href="#pills-7" role="tab" aria-controls="pills-7" aria-selected="false">7:附加檔案</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="pills-8-tab" data-toggle="pill" href="#pills-8" role="tab" aria-controls="pills-8" aria-selected="false">8:核保照會</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="pills-9-tab" data-toggle="pill" href="#pills-9" role="tab" aria-controls="pills-9" aria-selected="false">9:審核意見</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="pills-10-tab" data-toggle="pill" href="#pills-10" role="tab" aria-controls="pills-10" aria-selected="false">10:共同行銷</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="pills-11-tab" data-toggle="pill" href="#pills-11" role="tab" aria-controls="pills-11" aria-selected="false">11:董監事名冊</a>
+					</li>
+				</ul>
+			</div>
+			<div class="tab-content" id="pills-tabContent">
+				<div class="row-group tab-pane fade show active" id="pills-1" role="tabpanel" aria-labelledby="pills-1-tab">1</div>
+				<!-- pills-1 end -->
+				<div class="row-group tab-pane fade" id="pills-2" role="tabpanel" aria-labelledby="pills-2-tab">2</div>
+				<!-- pills-2 end -->
+				<div class="row-group tab-pane fade" id="pills-3" role="tabpanel" aria-labelledby="pills-3-tab">3</div>
+				<!-- pills-3 end -->
+				<!-- pills-4 -->
+				<div class="row-group tab-pane fade" id="pills-4" role="tabpanel" aria-labelledby="pills-4-tab">4</div>
+				<!-- pills-4 end -->
+				<!-- pills-5 -->
+				<div class="row-group tab-pane fade" id="pills-5" role="tabpanel" aria-labelledby="pills-5-tab">5</div>
+				<!-- pills-5 end -->
+				<!-- pills-6 -->
+				<div class="row-group tab-pane fade" id="pills-6" role="tabpanel" aria-labelledby="pills-6-tab">6</div>
+				<!-- pills-6 end -->
+				<!-- pills-7 -->
+				<div class="row-group tab-pane fade" id="pills-7" role="tabpanel" aria-labelledby="pills-7-tab">7</div>
+				<!-- pills-7 end -->
+				<div class="row-group tab-pane fade" id="pills-8" role="tabpanel" aria-labelledby="pills-8-tab">8</div>
+				<!-- pills-8 end -->
+				<div class="row-group tab-pane fade" id="pills-9" role="tabpanel" aria-labelledby="pills-9-tab">9</div>
+				<!-- pills-9 end -->
+				<!-- pills-10 -->
+				<div class="row-group tab-pane fade" id="pills-10" role="tabpanel" aria-labelledby="pills-10-tab">10</div>
+				<!-- pills-10 end -->
+				<!-- pills-11 -->
+				<div class="row-group tab-pane fade" id="pills-11" role="tabpanel" aria-labelledby="pills-11-tab">11</div>
+				<!-- pills-11 end -->
+			</div>
+			<!-- tab-content end  -->
+		</div>
+		<!-- content end  -->
+	</section>
+
+
+</body>
+<!-- 功能使用的js，建議放置在html最尾 -->
+<script type="text/javascript"></script>
+
+</html>

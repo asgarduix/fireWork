@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HAS703000HasPrtPAPolicy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.9487171000000285"/>
+	<property name="ireport.x" value="28"/>
+	<property name="ireport.y" value="286"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1"/>
+	<field name="iins" class="java.lang.String">
+		<fieldDescription><![CDATA[iins]]></fieldDescription>
+	</field>
+	<field name="ains" class="java.lang.String"/>
+	<field name="nins" class="java.lang.String"/>
+	<field name="ireq" class="java.lang.String"/>
+	<field name="ikeysubj" class="java.lang.String"/>
+	<field name="ires" class="java.lang.String"/>
+	<field name="nissu" class="java.lang.String"/>
+	<field name="iofficer" class="java.lang.String"/>
+	<field name="srccod" class="java.lang.String"/>
+	<field name="notedate" class="java.util.Date"/>
+	<field name="replyterm" class="java.util.Date"/>
+	<field name="iagent" class="java.lang.String"/>
+	<field name="imanager" class="java.lang.String"/>
+	<field name="notegist" class="java.lang.String"/>
+	<field name="iproject" class="java.lang.String"/>
+	<field name="iinsZip" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="802" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="199" width="527" height="592"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="38" y="82" width="151" height="20"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="全字庫正楷體" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[*重要文件 請立即拆閱]]></text>
+			</staticText>
+			<line>
+				<reportElement x="10" y="146" width="527" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="38" y="30" width="151" height="20"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ains}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="38" y="50" width="151" height="20"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nins}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="246" y="50" width="100" height="20"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[鈞啟]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="189" y="163" width="114" height="20"/>
+				<textElement textAlignment="Center" rotation="None">
+					<font fontName="全字庫正楷體"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[核保照會單]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="38" y="10" width="151" height="20"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{iinsZip}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="199" width="86" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[要保號碼]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="222" width="86" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[要保人]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="245" width="86" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[單位別]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="268" width="86" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[保源代號]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="96" y="199" width="287" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ireq}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="383" y="199" width="100" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[照會日期	]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="483" y="199" width="54" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{notedate}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="96" y="222" width="107" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nins}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="96" y="245" width="107" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ikeysubj}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="96" y="268" width="107" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ires}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="203" y="222" width="100" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[被保險人]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="203" y="245" width="100" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[經手人]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="203" y="268" width="100" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[實註代碼]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="303" y="222" width="80" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nissu}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="303" y="245" width="80" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{iofficer}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="303" y="268" width="80" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{srccod}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="383" y="222" width="100" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[回覆期限]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="383" y="245" width="100" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[照會人員]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="383" y="268" width="100" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[業務人員]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="97" y="325" width="440" height="34"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[前回覆，若未能如期回覆辦理完成，恕本公司將取消本保險契約之申請，   ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="10" y="325" width="87" height="34"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{replyterm}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="359" width="336" height="34"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[謝謝您的見諒與合作]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="393" width="336" height="34"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[照會事項]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="64" y="427" width="336" height="18"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[1.要保人身分證號告知不詳活塗改，請補充說明]]></text>
+			</staticText>
+			<line>
+				<reportElement x="10" y="724" width="516" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="25" y="738" width="100" height="20"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[回覆欄:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="483" y="222" width="54" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{replyterm}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="483" y="245" width="54" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{iagent}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="64" y="445" width="336" height="207"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{notegist}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="305" width="87" height="20"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[台瑞申請投保 [                 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="163" y="305" width="363" height="20"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[ ] 專業，因下列照會事項，尚未完成核保，請協助於]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="96" y="305" width="67" height="20"/>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{iproject}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="483" y="268" width="54" height="23"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{imanager}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="448" y="738" width="78" height="23"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{imanager}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="346" y="738" width="100" height="23"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="全字庫正楷體"/>
+				</textElement>
+				<text><![CDATA[業務人員:]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,528 @@
+/* 全局設定 */
+html {
+  height: 100%;
+  min-height: 100%;
+}
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  height: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  -webkit-text-size-adjust: 100%;
+}
+img {
+  width: 100%;
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+a:hover {
+  text-decoration: none;
+  color: red;
+  transition: 0.095s linear;
+}
+.content_box.h100per {
+  height: 100%;
+}
+.space_top_box {
+  width: 100%;
+  height: 100px;
+}
+.space_height_box {
+  width: 100%;
+  height: 10px;
+}
+.off {
+  display: none;
+}
+.on {
+  display: block;
+}
+.text_l {
+  text-align: left;
+}
+.text_c {
+  text-align: center;
+}
+.text_r {
+  text-align: right;
+}
+form {
+  // float: left;
+  width: 100%;
+}
+@media (max-width:700px) {
+  .space_height_box {
+    height: 5px;
+  }
+}
+/*全螢幕置中 Flexbox引用 ie 10 + */
+.flexbox {
+  display: flex;
+}
+.flexbox.fjc {
+  justify-content: center;
+}
+.flexbox.fac {
+  align-items: center;
+}
+/********************************************************************/
+/*
+RWD自定義字體樣式
+html{font-size:calc(最小字級 + (最大字級-最小字級) * (100vw - 視窗最小寬度) / (視窗最大寬度-視窗最小寬度));}
+*/
+html {
+  font-size: 16.5px;
+  font-size: calc(16.5px + (16.5 - 16.5) * (100vw - 1921px) / (4000 - 1921));
+  line-height: 18px;
+}
+@media (max-width:1900px) {
+  html {
+    font-size: 16px;
+    font-size: calc(16px + (16.5 - 16) * (100vw - 1301px) / (1920 - 1601));
+    line-height: 16px;
+  }
+}
+@media (max-width:1600px) {
+  html {
+    font-size: 15.7px;
+    font-size: calc(15.7px + (16 - 15.7) * (100vw - 1301px) / (1600 - 1301));
+    line-height: 14px;
+  }
+}
+@media (max-width:1300px) {
+  html {
+    font-size: 12px;
+    font-size: calc(12px + (15.7 - 12) * (100vw - 1001px) / (1300 - 1001));
+    line-height: 12px;
+  }
+}
+@media (max-width:1000px) {
+  html {
+    font-size: 12px;
+    font-size: calc(12px + (12 - 12) * (100vw - 701px) / (1000 - 701));
+    line-height: 12px;
+  }
+}
+@media (max-width:700px) {
+  html {
+    font-size: 12px;
+    font-size: calc(12px + (12 - 12) * (100vw - 320px) / (700 - 320));
+    line-height: 12px;
+  }
+}
+p, pre {
+  font-size: 0.8rem;
+  line-height: 1rem;
+  white-space: inherit;
+  word-wrap: break-word;
+  margin: 3px 0;
+}
+h1 {
+  font-size: 2rem;
+  line-height: 2.2rem;
+  font-weight: bold;
+}
+h2 {
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  font-weight: bold;
+}
+h3 {
+  font-size: 1rem;
+  line-height: 1.4rem;
+}
+h4 {
+  font-size: 0.85rem;
+  line-height: 1.2rem;
+}
+h5 {
+  font-size: 0.8rem;
+  line-height: 1.1rem;
+}
+h6 {
+  font-size: 0.75rem;
+  line-height: 1.1rem;
+}
+.text {
+  font-size: 0.8rem;
+  line-height: 1.5rem;
+}
+.text.s1 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.text.s2 {
+  font-size: 0.9rem;
+  line-height: 1.5rem;
+  font-weight: bold;
+}
+.text.s3 {
+  font-size: 0.9rem;
+  line-height: 1.5rem;
+}
+.text.s4 {
+  font-size: 0.8rem;
+  line-height: 1.4rem;
+}
+.text.lh, .text.s1.lh, .text.s2.lh, .text.s3.lh, .text.s4.lh {
+  line-height: 1.9rem;
+}
+.title {
+  font-size: 1rem;
+  line-height: 1.3rem;
+}
+.title.s1 {
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+}
+.title.s2 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.title.s3 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+.title.s4 {
+  font-size: 1.25rem;
+  line-height: 1.7rem;
+}
+.title.s5 {
+  font-size: 1.25rem;
+  line-height: 1.7rem;
+}
+.title.lh {
+  line-height: 2rem;
+}
+.title.s1.lh {
+  line-height: 3.9rem;
+}
+.title.s2.lh {
+  line-height: 2.8rem;
+}
+.title.s3.lh {
+  line-height: 2.3rem;
+}
+.title.s4.lh {
+  line-height: 2rem;
+}
+.fwl {
+  font-weight: lighter;
+}
+.fwn {
+  font-weight: normal;
+}
+.fwb {
+  font-weight: bold;
+}
+.fwbr {
+  font-weight: bolder;
+}
+.fw100 {
+  font-weight: 100;
+}
+.fw200 {
+  font-weight: 200;
+}
+.fw300 {
+  font-weight: 300;
+}
+.fw400 {
+  font-weight: 400;
+}
+.fw500 {
+  font-weight: 500;
+}
+.fw600 {
+  font-weight: 600;
+}
+.fw700 {
+  font-weight: 700;
+}
+.fw800 {
+  font-weight: 800;
+}
+.fw900 {
+  font-weight: 900;
+}
+/********************************************************************/
+/* 全局設定 字體：跨系統英中復合字體 - 可於本機端瀏覽 */
+body {
+  font-family: 'helvetica', 'arial', 'Microsoft JhengHei', 'Heiti TC', 'sans-serif';
+  font-weight: bold;
+  color: #333;
+}
+/* 全局輸入框：預設字體集與移除瀏覽器預設樣式 */
+input, select, option, label, textarea, button, placeholder, span, .placeholder {
+  font-family: 'helvetica', 'arial', 'Microsoft JhengHei', 'Heiti TC', 'sans-serif';
+  border: 0;
+  outline: none;
+  margin: 0;
+  border-width: 0;
+}
+input:invalid {
+  box-shadow: none;
+}
+input:-moz-submit-invalid {
+  box-shadow: none;
+}
+input:-moz-ui-invalid {
+  box-shadow: none;
+}
+button:focus {
+  outline: 0;
+}
+/* 全局輸入框：預設框架 */
+.input_border {
+  position: relative;
+  top: 0;
+  left: 0;
+  border: 1px solid #757575;
+  background: #eee;
+  box-sizing: border-box;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.input_padding {
+  padding: 0 0;
+}
+input {
+  width: 100%;
+  padding: 5px 6px;
+  background: transparent;
+  height: 28px;
+}
+textarea {
+  overflow-y: hidden;
+  width: 90%;
+  width: -moz-calc(100% - (10px) * 2);
+  width: -webkit-calc(100% - (10px) * 2);
+  width: calc(100% - (10px) * 2);
+  height: 100px;
+  min-height: 40px;
+  padding: 10px 0;
+  border: 0;
+  background-color: transparent;
+  line-height: 1.5rem;
+}
+/* 全局輸入框：select 預設框架(含解ie) */
+.select_box {
+  position: relative;
+  width: 100%;
+}
+select {
+  /* width:100%; */
+  height: 20px;
+  margin: 0;
+  padding: 0 25px 0 10px;
+  cursor: pointer;
+  border: 0;
+  background: url('../images/general/input_icon_select.svg') no-repeat scroll transparent;
+  background-color: transparent;
+  background-position: 100% 50%;
+  background-size: 28px 28px;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+select::-ms-expand {
+  display: none;
+}
+/* 全局輸入框：核取選項 預設框架(含解ie) */
+.checkbox_box {
+  position: relative;
+  z-index: 1;
+  // float: left;
+  padding: 0 0 0 0;
+  margin-top: 3px;
+  margin-right: 10px;
+}
+.checkbox_box input {
+  // float: left;
+  width: auto;
+  background: transparent;
+}
+/* 全局輸入框：核取選項 共通樣式 */
+.checkbox_box input[type=checkbox]:not(old), .checkbox_box input[type=radio]:not(old) {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0;
+}
+.checkbox_box input[type=checkbox]:not(old) + label, .checkbox_box input[type=radio]:not(old) + label {
+  display: inline-block;
+  padding-left: 20px;
+  height: 21px;
+  cursor: pointer;
+  background: url('../images/general/input_icon_checks.svg') no-repeat;
+  background-size: 21px 84px;
+  word-break: break-all;
+  font-size: 12px;
+}
+/* 全局輸入框：核取選項 checkbox 核取方塊 */
+.checkbox_box input[type=checkbox]:not(old) + label {
+  line-height: 22px;
+  background-position: -4px -42px;
+}
+.checkbox_box input[type=checkbox]:not(old):checked + label {
+  background-position: -4px -63px;
+}
+/* 全局輸入框：核取選項 radio 選項按鈕 */
+.checkbox_box input[type=radio]:not(old) + label {
+  line-height: 22px;
+  background-position: -4px -1px;
+}
+.checkbox_box input[type=radio]:not(old):checked + label {
+  background-position: -4px -22px;
+}
+/* 全局輸入框：日期選擇器 預設框架 */
+.input_group .data_time {
+  cursor: pointer;
+  background-image: url(../images/general/input_icon_date.svg);
+  background-repeat: no-repeat;
+  background-position: 100% 0%;
+  padding-right: 25px;
+  background-size: 20px 20px;
+}
+@media (min-width: 1001px){
+  .checkbox_box input[type=checkbox]:not(old) + label, .checkbox_box input[type=radio]:not(old) + label {
+    padding-left: 15px;
+  }
+}
+/* 全局輸入框：預設文字顏色 */
+.placeholder {
+  color: #999;
+}
+::-webkit-input-placeholder {
+  color: #999;
+}
+::-moz-placeholder {
+  color: #999;
+}
+:-moz-placeholder {
+  color: #999;
+}
+select {
+  color: #999;
+}
+.data_time {
+  color: #333;
+}
+/* 全局輸入框：動作事件顏色 */
+input, textarea {
+  color: #333;
+}
+select.color_change {
+  color: #333;
+}
+.data_time.color_change {
+  color: #333;
+}
+.date_interval.color_change {
+  color: #333;
+}
+
+/********************************************************************/
+/* 全局 button 預設值 */
+button {
+  height: 30px;
+  border-radius: 5px;
+  background-color: #000;
+  box-shadow: 0px 2px 0px rgba(187, 187, 187, 1);
+}
+.button, div.button {
+  height: 30px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
+  border: 1px solid #333;
+  -webkit-appearance: none;
+}
+.button {
+  padding: 6.5px 15px;
+}
+div.button {
+  padding: 10px;
+}
+.td_input .button {
+  height: 30px;
+  padding: 2px 5px;
+  font-size: 16px;
+}
+.button:active, div.button:active {
+  position: relative;
+  z-index: 99;
+  top: 1px;
+  left: 0;
+}
+a.button {
+  padding: 6px 0;
+}
+a.button:hover {
+  color: #fff;
+}
+.button:hover {
+  background-color: red;
+  color: #fff;
+  transition: 0.095s linear;
+}
+
+.btn-disable{
+  background-color: #ccc;
+  color: #ddd;
+  border-color: #ccc;
+  &:hover{
+    background-color: #ccc;
+    color: #ddd;
+  }
+}
+
+
+/* 全局 button 配色 */
+.bt_color_off, div.bt_color_off {
+  color: #666;
+  border-color: #757575;
+  background-color: #eee;
+}
+.bt_color_off:hover {
+  background-color: red;
+  color: #fff;
+  transition: 0.095s linear;
+}
+@media (max-width:1000px) {
+  .button, div.button {
+    margin: 10px 0;
+  }
+}
+.btn-secondary{
+  border: 1px solid #999999;
+  background-color: #F9F9F9;
+  color: #999;
+  &:hover{
+    background-color: #F9F9F9;
+    color: #999;
+  }
+}
+
+// clearfix
+.clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
